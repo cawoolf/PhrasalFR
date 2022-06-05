@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.phrasalfr.database.PhraseDatabase
 import com.example.phrasalfr.databinding.FragmentHomeBinding
+import kotlinx.coroutines.launch
 
 
 class HomeFragment : Fragment() {
@@ -36,8 +37,8 @@ class HomeFragment : Fragment() {
 //        homeViewModel.text.observe(viewLifecycleOwner) {
 //            textView.text = it
 //        }
-        val dao = activity?.let { PhraseDatabase.getDatabase(it.applicationContext, lifecycleScope).phraseDao }
-        Log.i("mTAG", dao.toString())
+
+
 
         return root
     }

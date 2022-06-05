@@ -9,8 +9,8 @@ import androidx.room.Query
 interface PhraseDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    suspend fun insertVerb(phrase: Phrase)
+    suspend fun insertPhrase(phrase: Phrase)
 
-//    @Query("SELECT * FROM phrase_table ORDER BY phraseEnglish ASC")
-//    suspend fun getAllPhrases(): List<Phrase>
+    @Query("SELECT * FROM phrase_table ORDER BY listName ASC")
+    suspend fun getAllPhrases(): List<Phrase>
 }

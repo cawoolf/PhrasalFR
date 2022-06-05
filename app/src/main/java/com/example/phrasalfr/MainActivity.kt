@@ -1,6 +1,7 @@
 package com.example.phrasalfr
 
 import android.os.Bundle
+import android.util.Log
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -10,6 +11,7 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.phrasalfr.database.PhraseDatabase
 import com.example.phrasalfr.databinding.ActivityMainBinding
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -33,6 +35,13 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        val dao = PhraseDatabase.getDatabase(this, lifecycleScope).phraseDao
+        lifecycleScope.launch {
+            val phrases = dao.getAllPhrases()
+            Log.i("mTAG", phrases[0].phraseFrench)
+        }
+
 
     }
 }
