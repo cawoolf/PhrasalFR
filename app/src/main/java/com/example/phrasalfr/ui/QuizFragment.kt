@@ -22,8 +22,8 @@ class QuizFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val quizViewModel =
-            ViewModelProvider(this).get(MainViewModel::class.java)
+//        val quizViewModel =
+//            ViewModelProvider(this).get(MainViewModel::class.java)
 
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         val root: View = binding.root
