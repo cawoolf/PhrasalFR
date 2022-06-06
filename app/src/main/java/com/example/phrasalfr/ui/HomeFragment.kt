@@ -54,7 +54,12 @@ class HomeFragment : Fragment() {
 
         lifecycleScope.launch {
 
-            textView.text =  mMainViewModel.getAllPhrases()[0].phraseFrench
+            try {
+                textView.text = mMainViewModel.getAllPhrases()[0].phraseFrench
+            }
+            catch (e: Exception) {
+
+            }
         }
     }
 
