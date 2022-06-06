@@ -12,10 +12,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
+import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentPhrasesBinding
 import com.example.phrasalfr.util.PhrasalUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.mlkit.nl.translate.Translator
+import kotlin.properties.Delegates
 
 class PhrasesFragment : Fragment() {
 
@@ -25,6 +27,7 @@ class PhrasesFragment : Fragment() {
     private lateinit var mFrenchTextView: TextView
     private lateinit var mPhrasesFAB: FloatingActionButton
     private lateinit var mButton: Button
+    private var mTranslateSuccess by Delegates.notNull<Boolean>()
 
     private lateinit var mPhrasalUtil : PhrasalUtil
     private lateinit var mTextToSpeech: TextToSpeech
@@ -55,6 +58,7 @@ class PhrasesFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
+        setOnClicks()
 
         return root
     }
@@ -72,11 +76,16 @@ class PhrasesFragment : Fragment() {
         mPhrasesFAB = binding.phrasesAddFab
         mButton = binding.phrasesTranslateButton
 
+    }
+
+    private fun setOnClicks() {
         mButton.setOnClickListener {
             translateEnglishToFrench()
         }
 
-
+        mPhrasesFAB.setOnClickListener {
+            addPhraseToDB()
+        }
     }
 
     private fun translateEnglishToFrench() {
@@ -92,12 +101,29 @@ class PhrasesFragment : Fragment() {
                 mTextToSpeech.speak(mFrenchTextView.text.toString(),
                 TextToSpeech.QUEUE_ADD,
                 null)
+
+                mTranslateSuccess = true
             }
             .addOnFailureListener {
                 it.printStackTrace()
                 Log.i("mTAG", it.printStackTrace().toString())
+
+                mTranslateSuccess = false
             }
 
+    }
+
+    private fun addPhraseToDB() {
+
+        if (mTranslateSuccess) {
+            val englishText = mEnglishEditText.text.toString()
+            val frenchText = mFrenchTextView.text.toString()
+
+            val phrase = Phrase(0,"mList",englishText, frenchText)
+
+            mMainViewModel.insert(phrase)
+
+        }
     }
 
     override fun onDestroyView() {

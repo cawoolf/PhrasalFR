@@ -5,6 +5,7 @@ import com.example.phrasalfr.MainActivity
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseDatabase
 import com.example.phrasalfr.database.Repository
+import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
@@ -18,6 +19,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     suspend fun getAllPhrases() : List<Phrase> {
         val allPhrases = repository.getAllPhrases()
         return allPhrases
+    }
+
+    fun insert(phrase: Phrase) = viewModelScope.launch {
+        repository.insert(phrase)
     }
 
 

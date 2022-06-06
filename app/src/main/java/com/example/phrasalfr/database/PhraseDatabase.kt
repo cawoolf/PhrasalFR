@@ -62,8 +62,11 @@ abstract class PhraseDatabase : RoomDatabase() {
 
         suspend fun populateDatabase(phraseDao: PhraseDao) {
 
-            var phrase1 = Phrase("Greetings","Hello","Salut")
+            var phrase1 = Phrase(0,"Greetings","Hello","Salut")
             phraseDao.insertPhrase(phrase1)
+
+            var phrase2 = Phrase(0,"Greetings","I go","Je vais")
+            phraseDao.insertPhrase(phrase2)
 
         }
 
