@@ -10,6 +10,7 @@
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_phrases.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.19635416666666666" />
+        <entry key="app/src/main/res/layout/fragment_quiz_settings.xml" value="0.2953125" />
       </map>
     </option>
   </component>

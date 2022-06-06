@@ -9,13 +9,18 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private val _text = MutableLiveData<String>().apply {
-        value = "This is home Fragment"
+    private var quizSettings: HashMap<String,String> = HashMap<String, String>()
+
+    //Quiz Settings
+    fun setQuizSettings(settings: HashMap<String,String>) {
+        quizSettings = settings
     }
 
-    val text: LiveData<String> = _text
+    fun getQuizSettings() : HashMap<String,String> {
+        return quizSettings
+    }
 
-
+    // Database functions
     suspend fun getAllPhrases() : List<Phrase> {
         val allPhrases = repository.getAllPhrases()
         return allPhrases
@@ -26,6 +31,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
 
+    // View Model factory used for creating the shared view model across fragments
     @Suppress("UNCHECKED_CAST")
     class MainViewModelFactory constructor(private val repository: Repository): ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>)

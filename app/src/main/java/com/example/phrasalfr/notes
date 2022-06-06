@@ -1,7 +1,15 @@
 
 ToDo:
-Implement add Phrases
-    > Google translate ML Kit
+Set up quiz!
+> Create queries that get all phrases by list/category
+> Migrate settings from CustomFrenchVerb
+> Create quiz settings in View Model for each type.
+
+6/6/22
+Maybe use SharedPreferences to save the titles of the lists. Seems a lot easier then
+doing a weird DB query.
 
 6/5/22
 Set up DB and basic navigation
+Implement add Phrases
+    > Google translate ML Kit
