@@ -7,7 +7,7 @@ import com.example.phrasalfr.database.Repository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 
-class PhrasalApplication : Application() {
+class PhrasalFRApplication : Application() {
 
     // No need to cancel this scope as it'll be torn down with the process
     private val applicationScope = CoroutineScope(SupervisorJob())
@@ -18,7 +18,7 @@ class PhrasalApplication : Application() {
         super.onCreate()
         database = PhraseDatabase.getDatabase(this, applicationScope)
         repository = Repository(database.phraseDao)
-        Log.i("dbTAG", "Database started in CustomVerbApplication: $database")
+        Log.i("dbTAG", "Database started in PhrasalFRApplication: $database")
     }
 
 }

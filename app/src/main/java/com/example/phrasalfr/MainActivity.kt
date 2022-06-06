@@ -40,12 +40,6 @@ class MainActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
 
-//        val dao = PhraseDatabase.getDatabase(this, lifecycleScope).phraseDao
-//        lifecycleScope.launch {
-//            val phrases = dao.getAllPhrases()
-//            Log.i("mTAG", phrases[0].phraseFrench)
-//        }
-
 
     }
 }
