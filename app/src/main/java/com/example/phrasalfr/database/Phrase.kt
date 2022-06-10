@@ -5,8 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity (tableName = "phrase_table")
 data class Phrase(
-    @PrimaryKey(autoGenerate = true) val id : Int,
     val category: String,
-    val phraseEnglish: String,
+    @PrimaryKey() val phraseEnglish: String,
     val phraseFrench: String,
 )

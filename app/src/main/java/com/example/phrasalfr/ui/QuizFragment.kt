@@ -41,6 +41,15 @@ class QuizFragment : Fragment() {
 
 
     private lateinit var mAllPhrases : List<Phrase>
+    private lateinit var mQuestionPhrase: Phrase
+    private lateinit var mEnglishText: String
+    private lateinit var mFrenchText: String
+    private lateinit var mPhraseCategory: String
+
+    private lateinit var mAnswerPhraseA : Phrase
+    private lateinit var mAnswerPhraseB : Phrase
+    private lateinit var mAnswerPhraseC: Phrase
+    private lateinit var mAnswerPhraseD: Phrase
 
     private lateinit var mMainViewModel : MainViewModel
 
@@ -56,30 +65,38 @@ class QuizFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-//        val quizViewModel =
-//            ViewModelProvider(this).get(MainViewModel::class.java)
 
         _binding = FragmentQuizBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
-
         linkViews()
-        checkSettings()
 
         lifecycleScope.launch {
+
             mAllPhrases = mMainViewModel.getAllPhrases()
+
+            val sharedPref = activity?.getSharedPreferences(
+                getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
+
+            val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
+            val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
+
+
             setPhrases()
-            Log.i("qTAG", mAllPhrases[1].phraseFrench.toString())
+            buildQuiz(questionSetting.toString(), answerSetting.toString())
+            formatQuizUI(questionSetting.toString(), answerSetting.toString())
+
+
         }
 
 
         return root
     }
 
-    override fun onResume() {
-        super.onResume()
-        checkSettings()
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        checkSettings()
+//    }
 
     private fun linkViews() {
 
@@ -88,28 +105,65 @@ class QuizFragment : Fragment() {
 
     }
 
-    private fun checkSettings() {
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
+    private fun buildQuiz(questionSetting: String, answerSetting: String) {
 
-        val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
-        val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
+        val randIndex = (mAllPhrases.indices).random()
+        val randomPhrase = mAllPhrases[randIndex]
+        mQuestionPhrase = randomPhrase
+
+        mEnglishText = randomPhrase.phraseEnglish
+        mFrenchText = randomPhrase.phraseFrench
+        mPhraseCategory = randomPhrase.category
+
+
+        if(questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
+            mQuestionTextView.text = mEnglishText
+        }
+
+        if(questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
+            mQuestionTextView.text = mFrenchText
+        }
+
+        generateAnswerPhrases()
+
+
+
+    }
+
+    private fun generateAnswerPhrases() {
+
+     
+
+
+    }
+
+    private fun formatQuizUI(questionSetting: String, answerSetting: String) {
+
+
+        Log.i("qTAG", questionSetting.toString())
 
         // Controls the visibility of the Question as Text or the Audio image button depending on the User settings
-        when(questionSetting) {
-            getString(R.string.question_format_value_english_text) -> mQuestionTextView.visibility= View.VISIBLE
-            getString(R.string.question_format_value_english_text) -> mQuestionImageButton.visibility = View.GONE
-
-            getString(R.string.question_format_value_french_text) -> mQuestionTextView.visibility= View.VISIBLE
-            getString(R.string.question_format_value_french_text) -> mQuestionImageButton.visibility = View.GONE
-
-            getString(R.string.question_format_value_french_audio) -> mQuestionTextView.visibility = View.GONE
-            getString(R.string.question_format_value_french_audio) -> mQuestionImageButton.visibility = View.VISIBLE
+        // When statement wasn't working for some reason.
+        if(questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
+            mQuestionTextView.visibility = View.VISIBLE
+            mQuestionImageButton.visibility = View.GONE
         }
+
+        if(questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
+            mQuestionTextView.visibility = View.VISIBLE
+            mQuestionImageButton.visibility = View.GONE
+        }
+        if(questionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+            mQuestionTextView.visibility = View.INVISIBLE
+            mQuestionImageButton.visibility = View.VISIBLE
+        }
+
     }
 
     private fun setPhrases() {
         mQuestionTextView.text = mAllPhrases[1].phraseFrench
+
+
     }
 
     private fun setUpViewModel() {

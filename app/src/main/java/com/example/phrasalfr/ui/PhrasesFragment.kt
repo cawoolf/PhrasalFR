@@ -119,7 +119,7 @@ class PhrasesFragment : Fragment() {
             val englishText = mEnglishEditText.text.toString()
             val frenchText = mFrenchTextView.text.toString()
 
-            val phrase = Phrase(0,"mList",englishText, frenchText)
+            val phrase = Phrase("User Phrase",englishText, frenchText)
 
             mMainViewModel.insert(phrase)
 
