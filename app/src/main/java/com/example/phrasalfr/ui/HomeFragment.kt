@@ -36,7 +36,6 @@ class HomeFragment : Fragment() {
     private lateinit var mSaveSettingsButton: Button
 
     private lateinit var mMainViewModel : MainViewModel
-    private lateinit var mQuizSettingsHashMap: HashMap<String,String>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,9 +54,15 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
+        checkSettings()
         setOnClicks()
 
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        checkSettings()
     }
 
     private fun setUpViewModel() {
@@ -78,6 +83,27 @@ class HomeFragment : Fragment() {
         mAnswerFrenchAudio = binding.settingsAnswerFrenchAudioRadioButton
 
         mSaveSettingsButton = binding.settingSaveQuizButton
+
+    }
+
+    private fun checkSettings() {
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
+
+        val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
+        val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
+
+        when (questionSetting){
+            getString(R.string.question_format_value_english_text) -> mQuestionEnglishText.isChecked = true
+            getString(R.string.question_format_value_french_text) -> mQuestionFrenchText.isChecked = true
+            getString(R.string.question_format_value_french_audio) -> mQuestionFrenchAudio.isChecked = true
+        }
+
+        when (answerSetting) {
+            getString(R.string.answer_format_value_english_text) -> mAnswerEnglishText.isChecked = true
+            getString(R.string.answer_format_value_french_text) -> mAnswerFrenchText.isChecked = true
+            getString(R.string.answer_format_value_french_audio) -> mAnswerFrenchAudio.isChecked = true
+        }
 
     }
 
@@ -111,7 +137,7 @@ class HomeFragment : Fragment() {
         }
 
         mAnswerFrenchAudio.setOnClickListener {
-            editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_french_text))
+            editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_french_audio))
         }
 
         mSaveSettingsButton.setOnClickListener {

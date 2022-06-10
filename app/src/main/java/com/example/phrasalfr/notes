@@ -2,12 +2,23 @@
 ToDo:
 Set up quiz!
 > Create queries that get all phrases by list/category
-> Migrate settings from CustomFrenchVerb
-> Create quiz settings in View Model for each type.
+
+Bugs:
+Fix git log credentials.. -_-
+Still crashing on fresh install?
+Setting visibility with text View and ImageButton not working programmatically?
+
+
+6/9/22
+Add sharedPrefs for quiz settings!
 
 6/6/22
 Maybe use SharedPreferences to save the titles of the lists. Seems a lot easier then
 doing a weird DB query.
+ > Actually a db querry for all categories, and then passing that to programmatically create chips is probly the most
+ correct way
+ > Or maybe not?.. Just add a set of strings to the sharedPrefs that contains the categories, and then use that set
+  amd String to query the db for all Phrases with the same String?
 
 6/5/22
 Set up DB and basic navigation

@@ -19,6 +19,7 @@ class PhrasalFRApplication : Application() {
         database = PhraseDatabase.getDatabase(this, applicationScope)
         repository = Repository(database.phraseDao)
         Log.i("dbTAG", "Database started in PhrasalFRApplication: $database")
+
     }
 
 }
