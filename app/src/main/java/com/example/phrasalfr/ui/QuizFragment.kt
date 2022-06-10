@@ -127,7 +127,7 @@ class QuizFragment : Fragment() {
             mQuestionTextView.text = mFrenchText
         }
 
-//        generateAnswerPhrases()
+        generateAnswerPhrases()
 
 
     }
@@ -138,8 +138,8 @@ class QuizFragment : Fragment() {
         answerSet.add(mQuestionPhrase)
 
         // Trying to generate a unique set of Phrase to be assinged to the Answer
-        // Using a Set
-        repeat(4) {
+        // Using a Set. This works well enough unless the DB is smaller that 4.. Then we're trapped in a infite loop
+        while (answerSet.size < 4){
             val randIndex = (mAllPhrases.indices).random()
             val randomPhrase = mAllPhrases[randIndex]
             answerSet.add(randomPhrase)
@@ -150,28 +150,6 @@ class QuizFragment : Fragment() {
         Log.i("qTAG", answerSet.elementAt(1).phraseEnglish)
         Log.i("qTAG", answerSet.elementAt(2).phraseEnglish)
         Log.i("qTAG", answerSet.elementAt(3).phraseEnglish)
-//        Log.i("qTAG", answerSet.elementAt(4).phraseEnglish)
-
-//        var randIndex = (1..4).random()
-//     mAnswerPhraseA = answerSet.elementAt(randIndex)
-//     answerSet.remove(mAnswerPhraseA)
-//
-//        randIndex = (1..3).random()
-//        mAnswerPhraseB = answerSet.elementAt(randIndex)
-//        answerSet.remove(mAnswerPhraseB)
-//
-//      randIndex = (1..2).random()
-//        mAnswerPhraseC = answerSet.elementAt(randIndex)
-//        answerSet.remove(mAnswerPhraseC)
-//
-//        randIndex = 1
-//        mAnswerPhraseD = answerSet.elementAt(randIndex)
-//        answerSet.remove(mAnswerPhraseD)
-
-//    Log.i("qTAG", "A = " + mAnswerPhraseA.phraseEnglish)
-//        Log.i("qTAG", "B = " + mAnswerPhraseB.phraseEnglish)
-//        Log.i("qTAG", "C = " + mAnswerPhraseC.phraseEnglish)
-//        Log.i("qTAG", "D = " + mAnswerPhraseD.phraseEnglish)
 
 
     }
