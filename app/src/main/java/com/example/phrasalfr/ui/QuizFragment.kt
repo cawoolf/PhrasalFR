@@ -137,19 +137,20 @@ class QuizFragment : Fragment() {
         val answerSet = mutableSetOf<Phrase>()
         answerSet.add(mQuestionPhrase)
 
-        // Trying to generate a unique set of Phrase to be assinged to the Answer
-        // Using a Set. This works well enough unless the DB is smaller that 4.. Then we're trapped in a infite loop
-        while (answerSet.size < 4){
+        // Trying to generate a unique set of Phrase to be assigned to the Answer
+        // Using a Set. This works well enough unless the DB is smaller that 4.. Then we're trapped in a infinite loop
+        while (answerSet.size < 5){
             val randIndex = (mAllPhrases.indices).random()
             val randomPhrase = mAllPhrases[randIndex]
             answerSet.add(randomPhrase)
 
         }
 
-        Log.i("qTAG", answerSet.elementAt(0).phraseEnglish)
+        Log.i("qTAG", answerSet.elementAt(0).phraseEnglish) // Index 0 will always be the question itself
         Log.i("qTAG", answerSet.elementAt(1).phraseEnglish)
         Log.i("qTAG", answerSet.elementAt(2).phraseEnglish)
         Log.i("qTAG", answerSet.elementAt(3).phraseEnglish)
+        Log.i("qTAG", answerSet.elementAt(4).phraseEnglish)
 
 
     }
