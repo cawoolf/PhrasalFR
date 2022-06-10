@@ -9,17 +9,6 @@ import kotlinx.coroutines.launch
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
-    private var quizSettings: HashMap<String,String> = HashMap<String, String>()
-
-    //Quiz Settings
-    fun setQuizSettings(settings: HashMap<String,String>) {
-        quizSettings = settings
-    }
-
-    fun getQuizSettings() : HashMap<String,String> {
-        return quizSettings
-    }
-
     // Database functions
     suspend fun getAllPhrases() : List<Phrase> {
         val allPhrases = repository.getAllPhrases()

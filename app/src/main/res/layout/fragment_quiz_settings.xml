@@ -222,7 +222,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Question Format"
+                android:text="@string/select_question_format"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
             <RadioGroup
@@ -231,17 +231,20 @@
                 android:orientation="horizontal"
                 >
                 <RadioButton
+                    android:id="@+id/settings_question_english_text_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="English Text"/>
+                    android:text="@string/question_format_value_english_text"/>
                 <RadioButton
+                    android:id="@+id/settings_question_french_text_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="French Text"/>
+                    android:text="@string/question_format_value_french_text"/>
                 <RadioButton
+                    android:id="@+id/settings_question_french_audio_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="French Audio"/>
+                    android:text="@string/question_format_value_french_audio"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -270,7 +273,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Select Answer Format"
+                android:text="@string/select_answer_format"
                 android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
 
             <RadioGroup
@@ -278,17 +281,20 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <RadioButton
+                    android:id="@+id/settings_answer_english_text_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="English Text"/>
+                    android:text="@string/answer_format_value_english_text"/>
                 <RadioButton
+                    android:id="@+id/settings_answer_french_text_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="French Text"/>
+                    android:text="@string/answer_format_value_french_text"/>
                 <RadioButton
+                    android:id="@+id/settings_answer_french_audio_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="French Audio"/>
+                    android:text="@string/answer_format_value_french_audio"/>
             </RadioGroup>
         </LinearLayout>
 
@@ -297,7 +303,7 @@
 
 
     <Button
-        android:id="@+id/setting_start_quiz_Button"
+        android:id="@+id/setting_save_quiz_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Save Quiz Settings"

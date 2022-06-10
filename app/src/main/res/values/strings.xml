@@ -3,6 +3,7 @@
     <string name="title_home">Home</string>
     <string name="title_quiz">Quiz</string>
     <string name="title_phrases">Phrases</string>
+    <string name="quiz_settings_sharedPrefs">Quiz Settings SharedPreferences</string>
 
     <!-- Keys for Quiz Settings HashMap -->
     <string name="verb_tense_key">Verb Tense</string>
@@ -22,5 +23,9 @@
     <string name="answer_format_value_english_text">English Text</string>
     <string name="answer_format_value_french_text">French Text</string>
     <string name="answer_format_value_french_audio">French Audio</string>
-    
+
+    <!-- UI Strings -->
+    <string name="select_question_format">Select Question Format</string>
+    <string name="select_answer_format">Select Answer Format</string>
+
 </resources>

@@ -1,25 +1,43 @@
 package com.example.phrasalfr.ui
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
+import com.example.phrasalfr.R
 import com.example.phrasalfr.databinding.FragmentQuizSettingsBinding
 
 
 class HomeFragment : Fragment() {
 
-
     private var _binding: FragmentQuizSettingsBinding? = null
+    private val binding get() = _binding!!     // This property is only valid between onCreateView and onDestroyView
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    // Chips for selecting Category of phrases
+    // How to do that exactly? If it's dynamically generated from the db
+
+    // Radio Buttons for formatting quiz Question
+    private lateinit var mQuestionEnglishText: RadioButton
+    private lateinit var mQuestionFrenchText: RadioButton
+    private lateinit var mQuestionFrenchAudio: RadioButton
+
+    // Radio Buttons for formatting quiz Answer
+    private lateinit var mAnswerEnglishText: RadioButton
+    private lateinit var mAnswerFrenchText: RadioButton
+    private lateinit var mAnswerFrenchAudio: RadioButton
+
+    private lateinit var mSaveSettingsButton: Button
 
     private lateinit var mMainViewModel : MainViewModel
+    private lateinit var mQuizSettingsHashMap: HashMap<String,String>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,12 +55,9 @@ class HomeFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
+        setOnClicks()
 
         return root
-    }
-
-    private fun linkViews() {
-
     }
 
     private fun setUpViewModel() {
@@ -51,6 +66,61 @@ class HomeFragment : Fragment() {
             MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository))
             .get(MainViewModel::class.java)
     }
+
+    private fun linkViews() {
+
+        mQuestionEnglishText = binding.settingsQuestionEnglishTextRadioButton
+        mQuestionFrenchText = binding.settingsQuestionFrenchTextRadioButton
+        mQuestionFrenchAudio = binding.settingsQuestionFrenchAudioRadioButton
+
+        mAnswerEnglishText = binding.settingsAnswerEnglishTextRadioButton
+        mAnswerFrenchText = binding.settingsAnswerFrenchTextRadioButton
+        mAnswerFrenchAudio = binding.settingsAnswerFrenchAudioRadioButton
+
+        mSaveSettingsButton = binding.settingSaveQuizButton
+
+    }
+
+    private fun setOnClicks() {
+
+        // Sets the Quiz Settings to sharedPrefs by handling click events on the settings UI
+
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
+
+        val editor: SharedPreferences.Editor? = sharedPref?.edit()
+
+        mQuestionEnglishText.setOnClickListener{
+            editor?.putString(getString(R.string.question_format_key), getString(R.string.question_format_value_english_text))
+        }
+
+        mQuestionFrenchText.setOnClickListener {
+            editor?.putString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_text))
+        }
+
+        mQuestionFrenchAudio.setOnClickListener {
+            editor?.putString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_audio))
+        }
+
+        mAnswerEnglishText.setOnClickListener {
+            editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_english_text))
+        }
+
+        mAnswerFrenchText.setOnClickListener {
+            editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_french_text))
+        }
+
+        mAnswerFrenchAudio.setOnClickListener {
+            editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_french_text))
+        }
+
+        mSaveSettingsButton.setOnClickListener {
+            editor?.apply()
+        }
+
+
+    }
+
 
 
 
