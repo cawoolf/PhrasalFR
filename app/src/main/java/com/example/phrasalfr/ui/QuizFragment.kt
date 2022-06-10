@@ -40,18 +40,18 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerImageButtonD: ImageButton
 
 
-    private lateinit var mAllPhrases : List<Phrase>
+    private lateinit var mAllPhrases: List<Phrase>
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mEnglishText: String
     private lateinit var mFrenchText: String
     private lateinit var mPhraseCategory: String
 
-    private lateinit var mAnswerPhraseA : Phrase
-    private lateinit var mAnswerPhraseB : Phrase
+    private lateinit var mAnswerPhraseA: Phrase
+    private lateinit var mAnswerPhraseB: Phrase
     private lateinit var mAnswerPhraseC: Phrase
     private lateinit var mAnswerPhraseD: Phrase
 
-    private lateinit var mMainViewModel : MainViewModel
+    private lateinit var mMainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -76,10 +76,13 @@ class QuizFragment : Fragment() {
             mAllPhrases = mMainViewModel.getAllPhrases()
 
             val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
+                getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
+            )
 
-            val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
-            val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
+            val questionSetting =
+                sharedPref?.getString(getString(R.string.question_format_key), "default")
+            val answerSetting =
+                sharedPref?.getString(getString(R.string.answer_format_key), "default")
 
 
             setPhrases()
@@ -116,23 +119,59 @@ class QuizFragment : Fragment() {
         mPhraseCategory = randomPhrase.category
 
 
-        if(questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
+        if (questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
             mQuestionTextView.text = mEnglishText
         }
 
-        if(questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
+        if (questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
             mQuestionTextView.text = mFrenchText
         }
 
-        generateAnswerPhrases()
-
+//        generateAnswerPhrases()
 
 
     }
 
     private fun generateAnswerPhrases() {
 
-     
+        val answerSet = mutableSetOf<Phrase>()
+        answerSet.add(mQuestionPhrase)
+
+        // Trying to generate a unique set of Phrase to be assinged to the Answer
+        // Using a Set
+        repeat(4) {
+            val randIndex = (mAllPhrases.indices).random()
+            val randomPhrase = mAllPhrases[randIndex]
+            answerSet.add(randomPhrase)
+
+        }
+
+        Log.i("qTAG", answerSet.elementAt(0).phraseEnglish)
+        Log.i("qTAG", answerSet.elementAt(1).phraseEnglish)
+        Log.i("qTAG", answerSet.elementAt(2).phraseEnglish)
+        Log.i("qTAG", answerSet.elementAt(3).phraseEnglish)
+//        Log.i("qTAG", answerSet.elementAt(4).phraseEnglish)
+
+//        var randIndex = (1..4).random()
+//     mAnswerPhraseA = answerSet.elementAt(randIndex)
+//     answerSet.remove(mAnswerPhraseA)
+//
+//        randIndex = (1..3).random()
+//        mAnswerPhraseB = answerSet.elementAt(randIndex)
+//        answerSet.remove(mAnswerPhraseB)
+//
+//      randIndex = (1..2).random()
+//        mAnswerPhraseC = answerSet.elementAt(randIndex)
+//        answerSet.remove(mAnswerPhraseC)
+//
+//        randIndex = 1
+//        mAnswerPhraseD = answerSet.elementAt(randIndex)
+//        answerSet.remove(mAnswerPhraseD)
+
+//    Log.i("qTAG", "A = " + mAnswerPhraseA.phraseEnglish)
+//        Log.i("qTAG", "B = " + mAnswerPhraseB.phraseEnglish)
+//        Log.i("qTAG", "C = " + mAnswerPhraseC.phraseEnglish)
+//        Log.i("qTAG", "D = " + mAnswerPhraseD.phraseEnglish)
 
 
     }
@@ -144,16 +183,16 @@ class QuizFragment : Fragment() {
 
         // Controls the visibility of the Question as Text or the Audio image button depending on the User settings
         // When statement wasn't working for some reason.
-        if(questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
+        if (questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
         }
 
-        if(questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
+        if (questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
         }
-        if(questionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+        if (questionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
             mQuestionTextView.visibility = View.INVISIBLE
             mQuestionImageButton.visibility = View.VISIBLE
         }
@@ -168,8 +207,10 @@ class QuizFragment : Fragment() {
 
     private fun setUpViewModel() {
 
-        mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository))
+        mMainViewModel = ViewModelProvider(
+            this,
+            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository)
+        )
             .get(MainViewModel::class.java)
     }
 
