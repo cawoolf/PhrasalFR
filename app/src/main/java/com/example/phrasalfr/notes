@@ -1,13 +1,27 @@
 
+PhrasalFR Notes!
+
+
 ToDo:
-Set up quiz!
+> Set up quiz!
+    > Start adding on clicks for audio and answer selection
+    > Correct or wrong pop up
+    > Submit button? Would kind of be needed for the audio function so you can hear the phrases
+    before submitting
 > Create queries that get all phrases by list/category
 
+************************************************************************************************************
 Bugs:
 Fix git log credentials.. -_-
 Still crashing on fresh install?
+
+Fixed:
 Setting visibility with text View and ImageButton not working programmatically?
 
+************************************************************************************************************
+***Work Log***
+6/12/22
+Started adding answer functionality for the quiz. Answers load english and french text.;
 
 6/9/22
 Add sharedPrefs for quiz settings!
