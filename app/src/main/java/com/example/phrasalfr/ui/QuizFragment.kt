@@ -42,9 +42,13 @@ class QuizFragment : Fragment() {
 
     private lateinit var mAllPhrases: List<Phrase>
     private lateinit var mQuestionPhrase: Phrase
+    private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
+    private lateinit var mAnswerPhrasesIndexArray: IntArray
+
     private lateinit var mEnglishText: String
     private lateinit var mFrenchText: String
     private lateinit var mPhraseCategory: String
+
 
     private lateinit var mAnswerPhraseA: Phrase
     private lateinit var mAnswerPhraseB: Phrase
@@ -84,9 +88,8 @@ class QuizFragment : Fragment() {
             val answerSetting =
                 sharedPref?.getString(getString(R.string.answer_format_key), "default")
 
-
-            setPhrases()
-            buildQuiz(questionSetting.toString(), answerSetting.toString())
+            buildQuestion(questionSetting.toString())
+            generateAnswerPhrases()
             formatQuizUI(questionSetting.toString(), answerSetting.toString())
 
 
@@ -96,19 +99,20 @@ class QuizFragment : Fragment() {
         return root
     }
 
-//    override fun onResume() {
-//        super.onResume()
-//        checkSettings()
-//    }
 
     private fun linkViews() {
 
         mQuestionTextView = binding.quizQuestionTextView
         mQuestionImageButton = binding.quizQuestionImageButton
 
+        mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
+        mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
+        mAnswerTextViewC = binding.quizAnswerCLinearLayoutTextView
+        mAnswerTextViewD = binding.quizAnswerDLinearLayoutTextView
+
     }
 
-    private fun buildQuiz(questionSetting: String, answerSetting: String) {
+    private fun buildQuestion(questionSetting: String) {
 
         val randIndex = (mAllPhrases.indices).random()
         val randomPhrase = mAllPhrases[randIndex]
@@ -127,30 +131,37 @@ class QuizFragment : Fragment() {
             mQuestionTextView.text = mFrenchText
         }
 
-        generateAnswerPhrases()
-
-
     }
 
     private fun generateAnswerPhrases() {
 
-        val answerSet = mutableSetOf<Phrase>()
-        answerSet.add(mQuestionPhrase)
+        mAnswerPhrasesSet = mutableSetOf()
+        mAnswerPhrasesSet.add(mQuestionPhrase)
 
         // Trying to generate a unique set of Phrase to be assigned to the Answer
         // Using a Set. This works well enough unless the DB is smaller that 4.. Then we're trapped in a infinite loop
-        while (answerSet.size < 5){
+        while (mAnswerPhrasesSet.size < 4){
             val randIndex = (mAllPhrases.indices).random()
             val randomPhrase = mAllPhrases[randIndex]
-            answerSet.add(randomPhrase)
+            mAnswerPhrasesSet.add(randomPhrase)
 
         }
 
-        Log.i("qTAG", answerSet.elementAt(0).phraseEnglish) // Index 0 will always be the question itself
-        Log.i("qTAG", answerSet.elementAt(1).phraseEnglish)
-        Log.i("qTAG", answerSet.elementAt(2).phraseEnglish)
-        Log.i("qTAG", answerSet.elementAt(3).phraseEnglish)
-        Log.i("qTAG", answerSet.elementAt(4).phraseEnglish)
+        // Creates an array of Indexes that can be shuffled to randomize the answers
+        mAnswerPhrasesIndexArray = intArrayOf(0,1,2,3)
+
+//        Log.i("qTAG", mAnswerPhrasesIndexArray.contentToString())
+
+        mAnswerPhrasesIndexArray.shuffle()
+
+        Log.i("qTAG", "Answer is always index[0]")
+        Log.i("qTAG", mAnswerPhrasesIndexArray.contentToString())
+        Log.i("qTAG", "Question: " + mQuestionTextView.text)
+        Log.i("qTAG", "A: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish) // Index 0 will always be the question itself
+        Log.i("qTAG", "B: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish)
+        Log.i("qTAG", "C: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish)
+        Log.i("qTAG", "D: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish)
+
 
 
     }
@@ -176,13 +187,22 @@ class QuizFragment : Fragment() {
             mQuestionImageButton.visibility = View.VISIBLE
         }
 
+        if(answerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
+            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish
+            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish
+            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish
+            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish
+        }
+
+        if(answerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
+            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
+            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
+            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
+        }
+
     }
 
-    private fun setPhrases() {
-        mQuestionTextView.text = mAllPhrases[1].phraseFrench
-
-
-    }
 
     private fun setUpViewModel() {
 

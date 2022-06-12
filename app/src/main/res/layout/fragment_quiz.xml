@@ -52,6 +52,7 @@
             android:layout_gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/quiz_answer_A_linearLayout_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -68,6 +69,7 @@
             android:layout_gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/quiz_answer_B_linearLayout_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -84,6 +86,7 @@
             android:layout_gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/quiz_answer_C_linearLayout_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -98,6 +101,7 @@
             android:layout_gravity="center"
             android:orientation="vertical">
             <TextView
+                android:id="@+id/quiz_answer_D_linearLayout_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
