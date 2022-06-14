@@ -9,10 +9,13 @@ ToDo:
     > Submit button? Would kind of be needed for the audio function so you can hear the phrases
     before submitting
 > Create queries that get all phrases by list/category
+> Fix git log credentials.. -_-
 
 ************************************************************************************************************
 Bugs:
-Fix git log credentials.. -_-
+App appears to crash if you switch screens and the translator is not done downloading
+Also looks like it crashes when go to quiz without selecting settings.
+
 Still crashing on fresh install?
 
 Fixed:

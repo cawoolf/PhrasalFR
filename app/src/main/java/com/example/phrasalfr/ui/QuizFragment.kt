@@ -88,9 +88,14 @@ class QuizFragment : Fragment() {
             val answerSetting =
                 sharedPref?.getString(getString(R.string.answer_format_key), "default")
 
-            buildQuestion(questionSetting.toString())
-            generateAnswerPhrases()
-            formatQuizUI(questionSetting.toString(), answerSetting.toString())
+            try {
+                buildQuestion(questionSetting.toString())
+//            generateAnswerPhrases()
+                formatQuizUI(questionSetting.toString(), answerSetting.toString())
+            }
+            catch (e: Exception) {
+                Log.i("mTAG", e.toString())
+            }
 
 
         }
@@ -187,19 +192,19 @@ class QuizFragment : Fragment() {
             mQuestionImageButton.visibility = View.VISIBLE
         }
 
-        if(answerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
-            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish
-            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish
-            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish
-            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish
-        }
-
-        if(answerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
-            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
-            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
-            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
-            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
-        }
+//        if(answerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
+//            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish
+//            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish
+//            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish
+//            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish
+//        }
+//
+//        if(answerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+//            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
+//            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
+//            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
+//            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
+//        }
 
     }
 
