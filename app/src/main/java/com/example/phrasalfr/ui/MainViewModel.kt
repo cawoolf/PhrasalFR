@@ -1,11 +1,14 @@
 package com.example.phrasalfr.ui
 
+import android.content.Context
 import androidx.lifecycle.*
 import com.example.phrasalfr.MainActivity
+import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseDatabase
 import com.example.phrasalfr.database.Repository
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
@@ -17,6 +20,8 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun insert(phrase: Phrase) = viewModelScope.launch {
         repository.insert(phrase)
+
+
     }
 
 

@@ -64,6 +64,7 @@ class QuizFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setUpViewModel()
 
+        // Move to ViewModel
         runBlocking {
             val allPhrases = async { mAllPhrases = mMainViewModel.getAllPhrases() }
             allPhrases.join()
@@ -84,6 +85,7 @@ class QuizFragment : Fragment() {
 
         linkViews()
 
+
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
         )
@@ -93,6 +95,7 @@ class QuizFragment : Fragment() {
         val answerSetting =
             sharedPref?.getString(getString(R.string.answer_format_key), "default")
 
+        // Move all of this to the ViewModel
         try {
             buildQuestion(questionSetting.toString())
             generateAnswerPhrases()
@@ -118,6 +121,8 @@ class QuizFragment : Fragment() {
         mAnswerTextViewD = binding.quizAnswerDLinearLayoutTextView
 
     }
+
+   // All of this logic can be moved to the ViewModel!
 
     private fun buildQuestion(questionSetting: String) {
 
