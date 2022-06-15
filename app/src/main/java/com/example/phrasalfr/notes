@@ -3,15 +3,23 @@ PhrasalFR Notes!
 
 
 ToDo:
+> Maybe with French text, also play the audio when clicked
+> Also play audio automatically when French audio is selected.
 
 > Create queries that get all phrases by list/category
 > Fix git log credentials.. -_-
 
 ************************************************************************************************************
 Bugs:
+On fresh install, default sharedPrefs for question and answer not formatting quiz correctly
+User should be able to click right on to quiz on first install without making quiz settings
+
+
+Fixed:
 Small bug where if you don't click the answer, it will be wrong even if it's right
     > You have to click to actualy select the answer, even if it is shown as selected.
 
+Setting visibility with text View and ImageButton not working programmatically?
 
 App appears to crash if you switch screens and the translator is not done downloading
 Also looks like it crashes when go to quiz without selecting settings.
@@ -20,9 +28,7 @@ Still crashing on fresh install?
     > DB isn't "primed".. If you add an entry to it, then all the other data shows up
     > But until you make that first request, you can't getAllPhrases. Always returns null
     on the first try, but works after that..
-
-Fixed:
-Setting visibility with text View and ImageButton not working programmatically?
+    > DB is primed in PhrasalFRApplication.. So now it works on Fresh install, but that's pretty weird.
 
 ************************************************************************************************************
 ***Work Log***
