@@ -3,16 +3,16 @@ PhrasalFR Notes!
 
 
 ToDo:
-> Set up quiz!
-    > Start adding on clicks for audio and answer selection
-    > Correct or wrong pop up
-    > Submit button? Would kind of be needed for the audio function so you can hear the phrases
-    before submitting
+
 > Create queries that get all phrases by list/category
 > Fix git log credentials.. -_-
 
 ************************************************************************************************************
 Bugs:
+Small bug where if you don't click the answer, it will be wrong even if it's right
+    > You have to click to actualy select the answer, even if it is shown as selected.
+
+
 App appears to crash if you switch screens and the translator is not done downloading
 Also looks like it crashes when go to quiz without selecting settings.
 
@@ -26,6 +26,13 @@ Setting visibility with text View and ImageButton not working programmatically?
 
 ************************************************************************************************************
 ***Work Log***
+6/15/22
+> Set up quiz!
+    > Start adding on clicks for audio and answer selection
+    > Correct or wrong pop up
+    > Submit button? Would kind of be needed for the audio function so you can hear the phrases
+    before submitting
+
 6/12/22
 Started adding answer functionality for the quiz. Answers load english and french text.;
 

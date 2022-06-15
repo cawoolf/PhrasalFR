@@ -10,8 +10,10 @@ import android.widget.Button
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
+import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentQuizSettingsBinding
 import com.google.mlkit.nl.translate.Translator
 

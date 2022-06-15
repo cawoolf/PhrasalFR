@@ -7,10 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageButton
-import android.widget.LinearLayout
-import android.widget.TextView
+import android.widget.*
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -48,24 +45,14 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerLinearLayoutC: LinearLayout
     private lateinit var mAnswerLinearLayoutD: LinearLayout
 
-    private lateinit var mAnswerImageButtonA: ImageButton
-    private lateinit var mAnswerImageButtonB: ImageButton
-    private lateinit var mAnswerImageButtonC: ImageButton
-    private lateinit var mAnswerImageButtonD: ImageButton
 
     private lateinit var mSubmitButton: Button
 
+    private lateinit var mPhraseCategory: String
     private lateinit var mAllPhrases: List<Phrase>
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
-
-    private lateinit var mPhraseCategory: String
-
-    private lateinit var mAnswerPhraseA: Phrase
-    private lateinit var mAnswerPhraseB: Phrase
-    private lateinit var mAnswerPhraseC: Phrase
-    private lateinit var mAnswerPhraseD: Phrase
 
     private lateinit var mMainViewModel: MainViewModel
     private lateinit var mPhrasalUtil: PhrasalUtil
@@ -94,9 +81,7 @@ class QuizFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
-        setupQuiz() // This logic should be in the View Model
-        setOnClicks()
-
+        setupQuiz() // This logic is in the ViewModel
 
         return root
     }
@@ -123,13 +108,14 @@ class QuizFragment : Fragment() {
 
     private fun setupQuiz() {
 
-        try{
+        try {
             mMainViewModel.buildQuestion()
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
             mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
             mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
             formatQuizUI()
+            setOnClicks()
         } catch (e: Exception) {
             Log.i("mTAG", e.toString())
         }
@@ -137,69 +123,121 @@ class QuizFragment : Fragment() {
 
     }
 
-    private fun setOnClicks(){
+    private fun setOnClicks() {
 
+        // Empty initialization just to make Kotlin happy. Used to check for correct answer
+        var answerPhrase = Phrase("default", "default", "default")
+
+        // Plays French audio of the question if user has made that selection
         mQuestionImageButton.setOnClickListener {
             val frenchText = mQuestionPhrase.phraseFrench.toString()
             mPhrasalUtil.useTextToSpeech(frenchText)
 
         }
 
-        // If setting is French Text, Also play the audio!
+        // Resets the UI so all answers look unselected on a loading a new question
+        mAnswerLinearLayoutA.background =
+            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+        mAnswerLinearLayoutB.background =
+            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+        mAnswerLinearLayoutC.background =
+            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+        mAnswerLinearLayoutD.background =
+            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
 
+
+        // Handles click events on the answers, changing the background color when selected
+        // And playing French audio when needed.
         mAnswerLinearLayoutA.setOnClickListener {
-            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
-            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutA.background =
+                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutB.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutC.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutD.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
 
-            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
-                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
+            answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0])
+
+            if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
+
+
         }
 
         mAnswerLinearLayoutB.setOnClickListener {
-            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
-            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutA.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutB.background =
+                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutC.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutD.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
 
-            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
-                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
+            answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1])
+
+            if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
+
         }
 
         mAnswerLinearLayoutC.setOnClickListener {
-            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
-            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutA.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutB.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutC.background =
+                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutD.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
 
-            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
-                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
+            answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2])
+
+            if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
+
         }
 
         mAnswerLinearLayoutD.setOnClickListener {
-            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
-            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutA.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutB.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutC.background =
+                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutD.background =
+                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
 
-            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
-                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
+            answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3])
+
+            if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
+
         }
 
-        mSubmitButton.setOnClickListener{
-            setupQuiz()
+        // Checks for the correct answer, and loads a new question if user is correct.
+        mSubmitButton.setOnClickListener {
+
+            if (mQuestionPhrase.phraseEnglish == answerPhrase.phraseEnglish) {
+                Toast.makeText(context, "Correct!", Toast.LENGTH_SHORT).show()
+                setupQuiz()
+            } else {
+                Toast.makeText(context, "Incorrect.. Try Again", Toast.LENGTH_SHORT).show()
+            }
+
+
         }
     }
-
 
 
     private fun formatQuizUI() {
@@ -207,7 +245,6 @@ class QuizFragment : Fragment() {
         Log.i("qTAG", mQuestionSetting.toString())
 
         // Controls the visibility of the Question as Text or the Audio image button depending on the User settings
-        // When statement wasn't working for some reason.
         if (mQuestionSetting.toString() == getString(R.string.question_format_value_english_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
@@ -224,63 +261,84 @@ class QuizFragment : Fragment() {
             mQuestionImageButton.visibility = View.VISIBLE
         }
 
-        if(mAnswerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
-            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish
-            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish
-            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish
-            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish
+        // Controls the visibility of the Answers as Text or the Audio image button depending on the User settings
+        if (mAnswerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
+            mAnswerTextViewA.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish
+            mAnswerTextViewB.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish
+            mAnswerTextViewC.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish
+            mAnswerTextViewD.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish
         }
 
-        if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
-            mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
-            mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
-            mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
-            mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
+        if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+            mAnswerTextViewA.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
+            mAnswerTextViewB.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
+            mAnswerTextViewC.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
+            mAnswerTextViewD.text =
+                mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
         }
 
-        if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+        if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
             mAnswerTextViewA.text = ""
             mAnswerTextViewB.text = ""
             mAnswerTextViewC.text = ""
             mAnswerTextViewD.text = ""
 
-            mAnswerTextViewA.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
-            mAnswerTextViewB.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
-            mAnswerTextViewC.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
-            mAnswerTextViewD.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewA.background =
+                resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewB.background =
+                resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewC.background =
+                resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewD.background =
+                resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
         }
 
     }
 
 
-
+    // Basic sharedPrefs used to format the Question and Answers based on the user choice from the
+    // home Fragment
     private fun getSharedPrefs() {
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
         )
 
-        mQuestionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
-        mAnswerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
+        mQuestionSetting =
+            sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
+        mAnswerSetting =
+            sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
 
     }
 
 
+    // Sets up the view model by getting a repository instance from the custom Application
+    // Uses the sharedPref settings to..
     private fun setUpViewModel() {
 
         mMainViewModel = ViewModelProvider(
             this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository,
+            MainViewModel.MainViewModelFactory(
+                (activity?.application as PhrasalFRApplication).repository,
                 mQuestionSetting,
-                mAnswerSetting ))
+                mAnswerSetting
+            )
+        )
             .get(MainViewModel::class.java)
     }
 
+    // Builds the Utils for translating and TextToSpeech
     private fun setUpUtils() {
         mPhrasalUtil = PhrasalUtil(context)
         mTranslator = mPhrasalUtil.getTranslator()
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
     }
-
 
 
     override fun onDestroyView() {

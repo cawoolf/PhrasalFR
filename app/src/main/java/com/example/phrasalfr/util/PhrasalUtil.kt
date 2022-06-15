@@ -17,10 +17,6 @@ class PhrasalUtil(val context: Context?) {
     private lateinit var mTranslator: Translator
 
 
-    fun sayHello() {
-        Log.i("uTAG", "Hello")
-    }
-
     private fun MLKitTranslate() {
         // Create an English-French Translator
         val options = TranslatorOptions.Builder()
@@ -87,16 +83,4 @@ class PhrasalUtil(val context: Context?) {
         return mTranslator
     }
 
-
-
-//    fun testTransltor() {
-//        mTranslator.translate("Hello")
-//            .addOnSuccessListener {
-//                Log.i("mTAG", it.toString())
-//            }
-//            .addOnFailureListener {
-//                it.printStackTrace()
-//                Log.i("mTAG", it.printStackTrace().toString())
-//            }
-//    }
 }
