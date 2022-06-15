@@ -3,6 +3,11 @@ PhrasalFR Notes!
 
 
 ToDo:
+> Time to write some test cases!!!
+    > Unit tests for the database
+    > UI Tests for the fragments
+    > GO!
+
 > Maybe with French text, also play the audio when clicked
 > Also play audio automatically when French audio is selected.
 
