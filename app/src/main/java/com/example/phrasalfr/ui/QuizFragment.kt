@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -39,6 +40,11 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerTextViewB: TextView
     private lateinit var mAnswerTextViewC: TextView
     private lateinit var mAnswerTextViewD: TextView
+
+    private lateinit var mAnswerLinearLayoutA: LinearLayout
+    private lateinit var mAnswerLinearLayoutB: LinearLayout
+    private lateinit var mAnswerLinearLayoutC: LinearLayout
+    private lateinit var mAnswerLinearLayoutD: LinearLayout
 
     private lateinit var mAnswerImageButtonA: ImageButton
     private lateinit var mAnswerImageButtonB: ImageButton
@@ -113,6 +119,11 @@ class QuizFragment : Fragment() {
         mAnswerTextViewC = binding.quizAnswerCLinearLayoutTextView
         mAnswerTextViewD = binding.quizAnswerDLinearLayoutTextView
 
+        mAnswerLinearLayoutA = binding.quizAnswerALinearLayout
+        mAnswerLinearLayoutB = binding.quizAnswerBLinearLayout
+        mAnswerLinearLayoutC = binding.quizAnswerCLinearLayout
+        mAnswerLinearLayoutD = binding.quizAnswerDLinearLayout
+
     }
 
     private fun setupQuiz() {
@@ -146,6 +157,36 @@ class QuizFragment : Fragment() {
             mTextToSpeech.speak(frenchText,
                 TextToSpeech.QUEUE_ADD,
             null)
+        }
+
+        // If setting is French Text, Also play the audio!
+
+        mAnswerLinearLayoutA.setOnClickListener {
+            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+        }
+
+        mAnswerLinearLayoutB.setOnClickListener {
+            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+        }
+
+        mAnswerLinearLayoutC.setOnClickListener {
+            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+        }
+
+        mAnswerLinearLayoutD.setOnClickListener {
+            mAnswerLinearLayoutA.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
         }
     }
 
