@@ -17,6 +17,9 @@ App appears to crash if you switch screens and the translator is not done downlo
 Also looks like it crashes when go to quiz without selecting settings.
 
 Still crashing on fresh install?
+    > DB isn't "primed".. If you add an entry to it, then all the other data shows up
+    > But until you make that first request, you can't getAllPhrases. Always returns null
+    on the first try, but works after that..
 
 Fixed:
 Setting visibility with text View and ImageButton not working programmatically?

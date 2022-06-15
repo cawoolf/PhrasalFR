@@ -16,7 +16,10 @@ import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentQuizBinding
+import kotlinx.coroutines.async
+import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 class QuizFragment : Fragment() {
 
@@ -61,6 +64,12 @@ class QuizFragment : Fragment() {
         super.onCreate(savedInstanceState)
         setUpViewModel()
 
+        runBlocking {
+            val allPhrases = async { mAllPhrases = mMainViewModel.getAllPhrases() }
+            allPhrases.join()
+            Log.i("mTAG", "Phrases = " + mAllPhrases[0])
+        }
+
     }
 
 
@@ -75,35 +84,28 @@ class QuizFragment : Fragment() {
 
         linkViews()
 
-        lifecycleScope.launch {
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
+        )
 
-            mAllPhrases = mMainViewModel.getAllPhrases()
+        val questionSetting =
+            sharedPref?.getString(getString(R.string.question_format_key), "default")
+        val answerSetting =
+            sharedPref?.getString(getString(R.string.answer_format_key), "default")
 
-            val sharedPref = activity?.getSharedPreferences(
-                getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
-            )
-
-            val questionSetting =
-                sharedPref?.getString(getString(R.string.question_format_key), "default")
-            val answerSetting =
-                sharedPref?.getString(getString(R.string.answer_format_key), "default")
-
-            try {
-                buildQuestion(questionSetting.toString())
-                generateAnswerPhrases()
-                formatQuizUI(questionSetting.toString(), answerSetting.toString())
-            }
-            catch (e: Exception) {
-                Log.i("mTAG", e.toString())
-            }
-
-
+        try {
+            buildQuestion(questionSetting.toString())
+            generateAnswerPhrases()
+            formatQuizUI(questionSetting.toString(), answerSetting.toString())
         }
+        catch (e: Exception) {
+            Log.i("mTAG", e.toString())
+        }
+
 
 
         return root
     }
-
 
     private fun linkViews() {
 
