@@ -30,8 +30,11 @@ class PhrasalFRApplication : Application() {
 
     }
 
-    // This test function causes the DB to initialize correctly and immediately on first application launch
-    // Without this you have to perform some kind of db function to get things moving. Pretty weird.
+    /* This test function causes the DB to initialize correctly and immediately on first application launch
+     Without this you have to perform some kind of db function to get things moving. Otherwise when you make
+     a request to build a quiz, you get a index out of bounds error. And the quiz just loads with defaults text values.
+     Just the first time only, and after the db will work correctly.
+     */
     private fun testDB() {
 
         applicationScope.launch {
