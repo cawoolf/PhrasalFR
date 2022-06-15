@@ -24,6 +24,7 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import java.lang.Exception
 
 class QuizFragment : Fragment() {
 
@@ -57,10 +58,7 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
 
-    private lateinit var mEnglishText: String
-    private lateinit var mFrenchText: String
     private lateinit var mPhraseCategory: String
-
 
     private lateinit var mAnswerPhraseA: Phrase
     private lateinit var mAnswerPhraseB: Phrase
@@ -78,26 +76,9 @@ class QuizFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
-        )
-
-        mQuestionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
-        mAnswerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
-
-
+        getSharedPrefs()
         setUpViewModel()
-        mPhrasalUtil = PhrasalUtil(context)
-        mTranslator = mPhrasalUtil.getTranslator()
-        mTextToSpeech = mPhrasalUtil.getTextToSpeech()
-
-        // Move to ViewModel
-        runBlocking {
-            val allPhrases = async { mAllPhrases = mMainViewModel.getAllPhrases() }
-            allPhrases.join()
-            Log.i("mTAG", "Phrases = " + mAllPhrases[0])
-        }
-
+        setUpUtils()
 
     }
 
@@ -118,6 +99,7 @@ class QuizFragment : Fragment() {
         return root
     }
 
+
     private fun linkViews() {
 
         mQuestionTextView = binding.quizQuestionTextView
@@ -137,15 +119,17 @@ class QuizFragment : Fragment() {
 
     private fun setupQuiz() {
 
-        // Move all of this to the ViewModel
-        try {
-            buildQuestion(mQuestionSetting.toString())
-            generateAnswerPhrases()
+        try{
+            mMainViewModel.buildQuestion()
+            mMainViewModel.generateAnswerPhrases()
+            mQuestionPhrase = mMainViewModel.getQuestionPhrase()
+            mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
+            mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
             formatQuizUI(mQuestionSetting.toString(), mAnswerSetting.toString())
-        }
-        catch (e: Exception) {
+        } catch (e: Exception) {
             Log.i("mTAG", e.toString())
         }
+
 
     }
 
@@ -191,64 +175,9 @@ class QuizFragment : Fragment() {
         }
     }
 
-   // All of this logic can be moved to the ViewModel!
 
-    private fun buildQuestion(questionSetting: String) {
-
-        val randIndex = (mAllPhrases.indices).random()
-        val randomPhrase = mAllPhrases[randIndex]
-        mQuestionPhrase = randomPhrase
-
-        mEnglishText = randomPhrase.phraseEnglish
-        mFrenchText = randomPhrase.phraseFrench
-        mPhraseCategory = randomPhrase.category
-
-
-        if (questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
-            mQuestionTextView.text = mEnglishText
-        }
-
-        if (questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
-            mQuestionTextView.text = mFrenchText
-        }
-
-    }
-
-    private fun generateAnswerPhrases() {
-
-        mAnswerPhrasesSet = mutableSetOf()
-        mAnswerPhrasesSet.add(mQuestionPhrase)
-
-        // Trying to generate a unique set of Phrase to be assigned to the Answer
-        // Using a Set. This works well enough unless the DB is smaller that 4.. Then we're trapped in a infinite loop
-        while (mAnswerPhrasesSet.size < 4){
-            val randIndex = (mAllPhrases.indices).random()
-            val randomPhrase = mAllPhrases[randIndex]
-            mAnswerPhrasesSet.add(randomPhrase)
-
-        }
-
-        // Creates an array of Indexes that can be shuffled to randomize the answers
-        mAnswerPhrasesIndexArray = intArrayOf(0,1,2,3)
-
-//        Log.i("qTAG", mAnswerPhrasesIndexArray.contentToString())
-
-        mAnswerPhrasesIndexArray.shuffle()
-
-        Log.i("qTAG", "Answer is always index[0]")
-        Log.i("qTAG", mAnswerPhrasesIndexArray.contentToString())
-        Log.i("qTAG", "Question: " + mQuestionTextView.text)
-        Log.i("qTAG", "A: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish) // Index 0 will always be the question itself
-        Log.i("qTAG", "B: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish)
-        Log.i("qTAG", "C: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish)
-        Log.i("qTAG", "D: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish)
-
-
-
-    }
 
     private fun formatQuizUI(questionSetting: String, answerSetting: String) {
-
 
         Log.i("qTAG", questionSetting.toString())
 
@@ -257,11 +186,13 @@ class QuizFragment : Fragment() {
         if (questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
+            mQuestionTextView.text = mQuestionPhrase.phraseEnglish
         }
 
         if (questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
+            mQuestionTextView.text = mQuestionPhrase.phraseFrench
         }
         if (questionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
             mQuestionTextView.visibility = View.INVISIBLE
@@ -285,6 +216,18 @@ class QuizFragment : Fragment() {
     }
 
 
+
+    private fun getSharedPrefs() {
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
+        )
+
+        mQuestionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
+        mAnswerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
+
+    }
+
+
     private fun setUpViewModel() {
 
         mMainViewModel = ViewModelProvider(
@@ -293,6 +236,12 @@ class QuizFragment : Fragment() {
                 mQuestionSetting,
                 mAnswerSetting ))
             .get(MainViewModel::class.java)
+    }
+
+    private fun setUpUtils() {
+        mPhrasalUtil = PhrasalUtil(context)
+        mTranslator = mPhrasalUtil.getTranslator()
+        mTextToSpeech = mPhrasalUtil.getTextToSpeech()
     }
 
     override fun onDestroyView() {
