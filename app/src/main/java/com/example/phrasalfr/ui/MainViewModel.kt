@@ -31,11 +31,12 @@ class MainViewModel(private val repository: Repository,
     fun buildQuestion() {
 
         // Move to ViewModel
-        runBlocking {
-            val allPhrases = async { mAllPhrases = getAllPhrases() }
-            allPhrases.join()
-            Log.i("mTAG", "Phrases = " + mAllPhrases[0])
-        }
+            runBlocking {
+                val allPhrases = async { mAllPhrases = getAllPhrases() }
+                allPhrases.join()
+                Log.i("mTAG", "Phrases = " + mAllPhrases[0])
+            }
+
 
         val randIndex = (mAllPhrases.indices).random()
         val randomPhrase = mAllPhrases[randIndex]

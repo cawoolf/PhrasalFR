@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
@@ -52,6 +53,7 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerImageButtonC: ImageButton
     private lateinit var mAnswerImageButtonD: ImageButton
 
+    private lateinit var mSubmitButton: Button
 
     private lateinit var mAllPhrases: List<Phrase>
     private lateinit var mQuestionPhrase: Phrase
@@ -104,6 +106,8 @@ class QuizFragment : Fragment() {
 
         mQuestionTextView = binding.quizQuestionTextView
         mQuestionImageButton = binding.quizQuestionImageButton
+
+        mSubmitButton = binding.quizSubmitButton
 
         mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
         mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
@@ -172,6 +176,10 @@ class QuizFragment : Fragment() {
             mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+        }
+
+        mSubmitButton.setOnClickListener{
+            setupQuiz()
         }
     }
 

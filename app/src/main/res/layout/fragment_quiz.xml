@@ -33,6 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"/>
 
     <GridLayout
+        android:id="@+id/quiz_answer_gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/quiz_questionTextView"
@@ -120,6 +121,17 @@
         </LinearLayout>
 
     </GridLayout>
+
+    <Button
+        android:id="@+id/quiz_submit_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Submit!"
+
+        app:layout_constraintTop_toBottomOf="@id/quiz_answer_gridLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
