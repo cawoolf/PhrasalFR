@@ -70,6 +70,13 @@ class PhrasalUtil(val context: Context?) {
 
     }
 
+    fun useTextToSpeech(frenchText: String) {
+        mTextToSpeech.setSpeechRate(0.75F)
+        mTextToSpeech.speak(frenchText,
+            TextToSpeech.QUEUE_ADD,
+            null)
+    }
+
     fun getTextToSpeech(): TextToSpeech {
         setUpTTS()
         return mTextToSpeech

@@ -129,7 +129,7 @@ class QuizFragment : Fragment() {
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
             mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
             mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
-            formatQuizUI(mQuestionSetting.toString(), mAnswerSetting.toString())
+            formatQuizUI()
         } catch (e: Exception) {
             Log.i("mTAG", e.toString())
         }
@@ -141,11 +141,8 @@ class QuizFragment : Fragment() {
 
         mQuestionImageButton.setOnClickListener {
             val frenchText = mQuestionPhrase.phraseFrench.toString()
+            mPhrasalUtil.useTextToSpeech(frenchText)
 
-           mTextToSpeech.setSpeechRate(0.75F)
-            mTextToSpeech.speak(frenchText,
-                TextToSpeech.QUEUE_ADD,
-            null)
         }
 
         // If setting is French Text, Also play the audio!
@@ -155,6 +152,11 @@ class QuizFragment : Fragment() {
             mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+
+            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
+                mPhrasalUtil.useTextToSpeech(frenchText)
+            }
         }
 
         mAnswerLinearLayoutB.setOnClickListener {
@@ -162,6 +164,11 @@ class QuizFragment : Fragment() {
             mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
             mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+
+            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
+                mPhrasalUtil.useTextToSpeech(frenchText)
+            }
         }
 
         mAnswerLinearLayoutC.setOnClickListener {
@@ -169,6 +176,11 @@ class QuizFragment : Fragment() {
             mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
             mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+
+            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
+                mPhrasalUtil.useTextToSpeech(frenchText)
+            }
         }
 
         mAnswerLinearLayoutD.setOnClickListener {
@@ -176,6 +188,11 @@ class QuizFragment : Fragment() {
             mAnswerLinearLayoutB.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutC.background = resources.getDrawable(R.drawable.rounded_corner, context?.theme)
             mAnswerLinearLayoutD.background = resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+
+            if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+                val frenchText = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
+                mPhrasalUtil.useTextToSpeech(frenchText)
+            }
         }
 
         mSubmitButton.setOnClickListener{
@@ -185,40 +202,52 @@ class QuizFragment : Fragment() {
 
 
 
-    private fun formatQuizUI(questionSetting: String, answerSetting: String) {
+    private fun formatQuizUI() {
 
-        Log.i("qTAG", questionSetting.toString())
+        Log.i("qTAG", mQuestionSetting.toString())
 
         // Controls the visibility of the Question as Text or the Audio image button depending on the User settings
         // When statement wasn't working for some reason.
-        if (questionSetting.toString() == getString(R.string.question_format_value_english_text)) {
+        if (mQuestionSetting.toString() == getString(R.string.question_format_value_english_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
             mQuestionTextView.text = mQuestionPhrase.phraseEnglish
         }
 
-        if (questionSetting.toString() == getString(R.string.question_format_value_french_text)) {
+        if (mQuestionSetting.toString() == getString(R.string.question_format_value_french_text)) {
             mQuestionTextView.visibility = View.VISIBLE
             mQuestionImageButton.visibility = View.GONE
             mQuestionTextView.text = mQuestionPhrase.phraseFrench
         }
-        if (questionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+        if (mQuestionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
             mQuestionTextView.visibility = View.INVISIBLE
             mQuestionImageButton.visibility = View.VISIBLE
         }
 
-        if(answerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
+        if(mAnswerSetting.toString() == getString(R.string.answer_format_value_english_text)) {
             mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseEnglish
             mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseEnglish
             mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish
             mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish
         }
 
-        if(answerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+        if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
             mAnswerTextViewA.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0]).phraseFrench
             mAnswerTextViewB.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1]).phraseFrench
             mAnswerTextViewC.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseFrench
             mAnswerTextViewD.text = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseFrench
+        }
+
+        if(mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
+            mAnswerTextViewA.text = ""
+            mAnswerTextViewB.text = ""
+            mAnswerTextViewC.text = ""
+            mAnswerTextViewD.text = ""
+
+            mAnswerTextViewA.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewB.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewC.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
+            mAnswerTextViewD.background = resources.getDrawable(R.drawable.ic_baseline_volume_up_24, context?.theme)
         }
 
     }
@@ -251,6 +280,8 @@ class QuizFragment : Fragment() {
         mTranslator = mPhrasalUtil.getTranslator()
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
     }
+
+
 
     override fun onDestroyView() {
         super.onDestroyView()
