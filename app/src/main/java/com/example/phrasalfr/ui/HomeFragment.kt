@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.databinding.FragmentQuizSettingsBinding
+import com.google.mlkit.nl.translate.Translator
 
 
 class HomeFragment : Fragment() {

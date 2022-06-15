@@ -7,10 +7,13 @@ import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseDatabase
 import com.example.phrasalfr.database.Repository
+import com.google.mlkit.nl.translate.Translator
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
+
+
 
     // Database functions
     suspend fun getAllPhrases() : List<Phrase> {
@@ -20,7 +23,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun insert(phrase: Phrase) = viewModelScope.launch {
         repository.insert(phrase)
-
 
     }
 

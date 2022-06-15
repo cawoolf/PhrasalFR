@@ -2,6 +2,7 @@ package com.example.phrasalfr.ui
 
 import android.content.Context
 import android.os.Bundle
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,8 @@ import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentQuizBinding
+import com.example.phrasalfr.util.PhrasalUtil
+import com.google.mlkit.nl.translate.Translator
 import kotlinx.coroutines.async
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -59,10 +62,18 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerPhraseD: Phrase
 
     private lateinit var mMainViewModel: MainViewModel
+    private lateinit var mPhrasalUtil: PhrasalUtil
+    private lateinit var mTranslator: Translator
+    private lateinit var mTextToSpeech: TextToSpeech
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         setUpViewModel()
+        mPhrasalUtil = PhrasalUtil(context)
+        mTranslator = mPhrasalUtil.getTranslator()
+        mTextToSpeech = mPhrasalUtil.getTextToSpeech()
 
         // Move to ViewModel
         runBlocking {
@@ -70,6 +81,7 @@ class QuizFragment : Fragment() {
             allPhrases.join()
             Log.i("mTAG", "Phrases = " + mAllPhrases[0])
         }
+
 
     }
 
@@ -84,8 +96,26 @@ class QuizFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
+        setupQuiz() // This logic should be in the View Model
+        setOnClicks()
 
 
+        return root
+    }
+
+    private fun linkViews() {
+
+        mQuestionTextView = binding.quizQuestionTextView
+        mQuestionImageButton = binding.quizQuestionImageButton
+
+        mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
+        mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
+        mAnswerTextViewC = binding.quizAnswerCLinearLayoutTextView
+        mAnswerTextViewD = binding.quizAnswerDLinearLayoutTextView
+
+    }
+
+    private fun setupQuiz() {
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
         )
@@ -105,21 +135,18 @@ class QuizFragment : Fragment() {
             Log.i("mTAG", e.toString())
         }
 
-
-
-        return root
     }
 
-    private fun linkViews() {
+    private fun setOnClicks(){
 
-        mQuestionTextView = binding.quizQuestionTextView
-        mQuestionImageButton = binding.quizQuestionImageButton
+        mQuestionImageButton.setOnClickListener {
+            val frenchText = mQuestionPhrase.phraseFrench.toString()
 
-        mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
-        mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
-        mAnswerTextViewC = binding.quizAnswerCLinearLayoutTextView
-        mAnswerTextViewD = binding.quizAnswerDLinearLayoutTextView
-
+           mTextToSpeech.setSpeechRate(0.75F)
+            mTextToSpeech.speak(frenchText,
+                TextToSpeech.QUEUE_ADD,
+            null)
+        }
     }
 
    // All of this logic can be moved to the ViewModel!
