@@ -72,8 +72,18 @@ class QuizFragment : Fragment() {
     private lateinit var mTranslator: Translator
     private lateinit var mTextToSpeech: TextToSpeech
 
+    private lateinit var mQuestionSetting: String
+    private lateinit var mAnswerSetting: String
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sharedPref = activity?.getSharedPreferences(
+            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
+        )
+
+        mQuestionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
+        mAnswerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
 
 
         setUpViewModel()
@@ -90,7 +100,6 @@ class QuizFragment : Fragment() {
 
 
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -127,20 +136,12 @@ class QuizFragment : Fragment() {
     }
 
     private fun setupQuiz() {
-        val sharedPref = activity?.getSharedPreferences(
-            getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE
-        )
-
-        val questionSetting =
-            sharedPref?.getString(getString(R.string.question_format_key), "default")
-        val answerSetting =
-            sharedPref?.getString(getString(R.string.answer_format_key), "default")
 
         // Move all of this to the ViewModel
         try {
-            buildQuestion(questionSetting.toString())
+            buildQuestion(mQuestionSetting.toString())
             generateAnswerPhrases()
-            formatQuizUI(questionSetting.toString(), answerSetting.toString())
+            formatQuizUI(mQuestionSetting.toString(), mAnswerSetting.toString())
         }
         catch (e: Exception) {
             Log.i("mTAG", e.toString())
@@ -288,8 +289,9 @@ class QuizFragment : Fragment() {
 
         mMainViewModel = ViewModelProvider(
             this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository)
-        )
+            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository,
+                mQuestionSetting,
+                mAnswerSetting ))
             .get(MainViewModel::class.java)
     }
 

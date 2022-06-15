@@ -69,7 +69,9 @@ class HomeFragment : Fragment() {
     private fun setUpViewModel() {
 
         mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository))
+            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository,
+            "default",
+            "default"))
             .get(MainViewModel::class.java)
     }
 

@@ -11,7 +11,9 @@ import com.google.mlkit.nl.translate.Translator
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
-class MainViewModel(private val repository: Repository) : ViewModel() {
+class MainViewModel(private val repository: Repository,
+                    private val questionSetting: String,
+                    private val answerSetting: String) : ViewModel() {
 
 
 
@@ -29,10 +31,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     // View Model factory used for creating the shared view model across fragments
     @Suppress("UNCHECKED_CAST")
-    class MainViewModelFactory constructor(private val repository: Repository): ViewModelProvider.Factory {
+    class MainViewModelFactory constructor(private val repository: Repository,
+                                           private val questionSetting: String,
+                                           private val answerSetting: String): ViewModelProvider.Factory {
+
         override fun <T : ViewModel> create(modelClass: Class<T>)
-                : T = MainViewModel(repository) as T
+                : T = MainViewModel(repository, questionSetting, answerSetting) as T
     }
+
+
 
 
 }
