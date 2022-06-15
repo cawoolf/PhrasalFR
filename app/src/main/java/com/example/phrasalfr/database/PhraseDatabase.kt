@@ -68,6 +68,12 @@ abstract class PhraseDatabase : RoomDatabase() {
             var phrase2 = Phrase("Verbs","I go","Je vais")
             phraseDao.insertPhrase(phrase2)
 
+            var phrase3 = Phrase("Verbs","I want","Je veux")
+            phraseDao.insertPhrase(phrase3)
+
+            var phrase4 = Phrase("Verbs","You want","Tu veux")
+            phraseDao.insertPhrase(phrase4)
+
         }
 
     }
