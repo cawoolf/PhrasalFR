@@ -8,17 +8,15 @@ ToDo:
     > UI Tests for the fragments
     > GO!
 
-> Maybe with French text, also play the audio when clicked
-> Also play audio automatically when French audio is selected.
 
 > Create queries that get all phrases by list/category
-> Fix git log credentials.. -_-
-    > Testing out the git... again!
-    > Looks like it's at least pushed!
-        > Testing again.
+
 
 ************************************************************************************************************
 Bugs:
+> Also play audio automatically when French audio is selected.
+French audio for French Text quiz setting not playing on first click from quiz
+
 On fresh install, default sharedPrefs for question and answer not formatting quiz correctly
 User should be able to click right on to quiz on first install without making quiz settings
 
@@ -40,12 +38,21 @@ Still crashing on fresh install?
 
 ************************************************************************************************************
 ***Work Log***
+6/16/22
+Added some audio for the french text
+Wrote some basic navigation tests
+
 6/15/22
 > Set up quiz!
     > Start adding on clicks for audio and answer selection
     > Correct or wrong pop up
     > Submit button? Would kind of be needed for the audio function so you can hear the phrases
     before submitting
+
+> Fix git log credentials.. -_-
+    > Testing out the git... again!
+    > Looks like it's at least pushed!
+    > Testing again.
 
 6/12/22
 Started adding answer functionality for the quiz. Answers load english and french text.;

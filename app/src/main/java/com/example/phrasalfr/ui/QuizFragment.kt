@@ -257,8 +257,10 @@ class QuizFragment : Fragment() {
 
         if (mQuestionSetting.toString() == getString(R.string.question_format_value_french_text)) {
             mQuestionTextView.visibility = View.VISIBLE
-            mQuestionImageButton.visibility = View.GONE
+            mQuestionImageButton.visibility = View.VISIBLE
             mQuestionTextView.text = mQuestionPhrase.phraseFrench
+
+            mPhrasalUtil.useTextToSpeech(mQuestionPhrase.phraseFrench)
         }
         if (mQuestionSetting.toString() == getString(R.string.answer_format_value_french_audio)) {
             mQuestionTextView.visibility = View.INVISIBLE

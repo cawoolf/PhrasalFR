@@ -14,13 +14,13 @@ import androidx.lifecycle.lifecycleScope
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
-import com.example.phrasalfr.databinding.FragmentQuizSettingsBinding
+import com.example.phrasalfr.databinding.FragmentHomeBinding
 import com.google.mlkit.nl.translate.Translator
 
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentQuizSettingsBinding? = null
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!     // This property is only valid between onCreateView and onDestroyView
 
     // Chips for selecting Category of phrases
@@ -53,7 +53,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentQuizSettingsBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         linkViews()
