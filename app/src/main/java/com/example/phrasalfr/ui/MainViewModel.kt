@@ -31,13 +31,14 @@ class MainViewModel(private val repository: Repository,
     fun buildQuestion() {
 
         // In a separate thread, Makes a DB query for all phrases
-            runBlocking {
+            runBlocking{
                 val allPhrases = async { mAllPhrases = getAllPhrases() }
 
                 // .join() Should make the main thread wait for the query to finish before continuing
                 allPhrases.join()
                 Log.i("mTAG", "Phrases = " + mAllPhrases[0])
             }
+
 
 
         val randIndex = (mAllPhrases.indices).random()

@@ -4,8 +4,8 @@ import androidx.annotation.WorkerThread
 
 class Repository(private val phraseDao: PhraseDao) {
 
-    @Suppress("RedundantSuspendModifier")
-    @WorkerThread
+//    @Suppress("RedundantSuspendModifier")
+//    @WorkerThread
     suspend fun insert(phrase: Phrase) {
         phraseDao.insertPhrase(phrase)
     }
