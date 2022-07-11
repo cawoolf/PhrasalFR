@@ -31,6 +31,7 @@ class MainViewModel(private val repository: Repository,
     fun buildQuestion() {
 
         // In a separate thread, Makes a DB query for all phrases
+        // Run this blocking thread everytime doesn't seem good.. but it's working since the data is tiny.
             runBlocking{
                 val allPhrases = async { mAllPhrases = getAllPhrases() }
 

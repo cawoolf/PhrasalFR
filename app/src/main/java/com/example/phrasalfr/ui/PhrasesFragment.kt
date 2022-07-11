@@ -1,10 +1,13 @@
 package com.example.phrasalfr.ui
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
+import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -19,6 +22,7 @@ import com.example.phrasalfr.util.PhrasalUtil
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.mlkit.nl.translate.Translator
 import kotlin.properties.Delegates
+
 
 class PhrasesFragment : Fragment() {
 
@@ -81,6 +85,7 @@ class PhrasesFragment : Fragment() {
 
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setOnClicks() {
         mButton.setOnClickListener {
             translateEnglishToFrench()
@@ -89,6 +94,16 @@ class PhrasesFragment : Fragment() {
         mPhrasesFAB.setOnClickListener {
             addPhraseToDB()
         }
+
+        // Clears the EditText on click and sets focus to make easier for the user.
+        mEnglishEditText.setOnTouchListener(OnTouchListener { v, event ->
+            if (event.action == MotionEvent.ACTION_UP) {
+
+               mEnglishEditText.setText("")
+               mEnglishEditText.requestFocus()
+                true
+            } else false
+        })
     }
 
     private fun translateEnglishToFrench() {

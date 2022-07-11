@@ -38,6 +38,9 @@ Still crashing on fresh install?
 
 ************************************************************************************************************
 ***Work Log***
+7/11/22
+Pre populate DB with a db file generated in SQLiteBrowser
+
 6/16/22
 Added some audio for the french text
 Wrote some basic navigation tests
