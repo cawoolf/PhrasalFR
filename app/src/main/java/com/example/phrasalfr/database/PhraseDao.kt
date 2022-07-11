@@ -11,6 +11,6 @@ interface PhraseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertPhrase(phrase: Phrase)
 
-    @Query("SELECT * FROM phrase_table ORDER BY category ASC")
+    @Query("SELECT * FROM phrases_table ORDER BY category ASC")
     suspend fun getAllPhrases(): List<Phrase>
 }

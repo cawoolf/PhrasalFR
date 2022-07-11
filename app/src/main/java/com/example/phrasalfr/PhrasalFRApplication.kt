@@ -21,7 +21,7 @@ class PhrasalFRApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
-        database = PhraseDatabase.getDatabase(this, applicationScope)
+        database = PhraseDatabase.getDatabase(this)
         repository = Repository(database.phraseDao)
         phrasalUtil = PhrasalUtil(this)
         phrasalUtil.getTranslator()

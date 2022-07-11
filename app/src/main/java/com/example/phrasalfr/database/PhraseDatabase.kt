@@ -20,7 +20,7 @@ abstract class PhraseDatabase : RoomDatabase() {
 
         fun getDatabase(
             context: Context,
-            scope: CoroutineScope
+//            scope: CoroutineScope
         ): PhraseDatabase {
             // if the INSTANCE is not null, then return it,
             // if it is, then create the database
@@ -33,7 +33,8 @@ abstract class PhraseDatabase : RoomDatabase() {
                     // Wipes and rebuilds instead of migrating if no Migration object.
                     // Migration is not part of this codelab.
                     .fallbackToDestructiveMigration()
-                    .addCallback(PhraseDatabaseCallBack(scope))
+//                    .addCallback(PhraseDatabaseCallBack(scope))
+                    .createFromAsset("fr_phrases.db")
                     .build()
                 INSTANCE = instance
                 // return instance
@@ -52,29 +53,28 @@ abstract class PhraseDatabase : RoomDatabase() {
                 super.onCreate(db)
                 // If you want to keep the data through app restarts,
                 // comment out the following line.
-                INSTANCE?.let { database ->
+                INSTANCE?.let {
                     scope.launch(Dispatchers.IO) {
-                        populateDatabase(database.phraseDao)
+//                        populateDatabase(database.phraseDao)
                     }
                 }
             }
         }
 
-        suspend fun populateDatabase(phraseDao: PhraseDao) {
-
-            var phrase1 = Phrase("Greetings","Hey","Salut")
-            phraseDao.insertPhrase(phrase1)
-
-            var phrase2 = Phrase("Verbs","I go","Je vais")
-            phraseDao.insertPhrase(phrase2)
-
-            var phrase3 = Phrase("Verbs","I want","Je veux")
-            phraseDao.insertPhrase(phrase3)
-
-            var phrase4 = Phrase("Verbs","You want","Tu veux")
-            phraseDao.insertPhrase(phrase4)
-
-        }
+//        suspend fun populateDatabase(phraseDao: PhraseDao) {
+//
+//            var phrase1 = Phrase("Greetings","Hey","Salut")
+//            phraseDao.insertPhrase(phrase1)
+//
+//            var phrase2 = Phrase("Verbs","I go","Je vais")
+//            phraseDao.insertPhrase(phrase2)
+//
+//            var phrase3 = Phrase("Verbs","I want","Je veux")
+//            phraseDao.insertPhrase(phrase3)
+//
+//            var phrase4 = Phrase("Verbs","You want","Tu veux")
+//            phraseDao.insertPhrase(phrase4)
+//        }
 
     }
 
