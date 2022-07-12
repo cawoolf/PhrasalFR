@@ -95,14 +95,9 @@ class PhrasesFragment : Fragment() {
             addPhraseToDB()
         }
 
-        // Clears the EditText on click and sets focus to make easier for the user.
-        mEnglishEditText.setOnTouchListener(OnTouchListener { v, event ->
-            if (event.action == MotionEvent.ACTION_UP) {
-
-               mEnglishEditText.setText("")
-               mEnglishEditText.requestFocus()
-                true
-            } else false
+        // Clears the EditText on first click
+        mEnglishEditText.setOnFocusChangeListener(View.OnFocusChangeListener { view, b ->
+            mEnglishEditText.setText("")
         })
     }
 

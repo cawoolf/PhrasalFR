@@ -55,7 +55,7 @@ class PhrasalUtil(val context: Context?) {
     private fun setUpTTS() {
         mTextToSpeech = TextToSpeech(context, TextToSpeech.OnInitListener {
             if(it== TextToSpeech.SUCCESS){
-                mTextToSpeech.language = Locale.CANADA_FRENCH
+                mTextToSpeech.language = Locale.FRENCH
                 mTextToSpeech.setSpeechRate(1.0f)
                 Log.i("mTTS", "TTS Success")
             }
@@ -67,7 +67,7 @@ class PhrasalUtil(val context: Context?) {
     }
 
     fun useTextToSpeech(frenchText: String) {
-        mTextToSpeech.setSpeechRate(0.75F)
+        mTextToSpeech.setSpeechRate(1.0F)
         mTextToSpeech.speak(frenchText,
             TextToSpeech.QUEUE_ADD,
             null)
