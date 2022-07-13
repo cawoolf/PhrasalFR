@@ -3,17 +3,19 @@ PhrasalFR Notes!
 
 
 ToDo:
-> Time to write some test cases!!!
-    > Unit tests for the database
-    > UI Tests for the fragments
-    > GO!
+> User Phrase category will crash if there is'nt enough data to build the quiz
+    > Index out of bounds
 
-> Create queries that get all phrases by list/category
-> Pre populate the database
+> Implement a add phrases using french as the input
+    > Translate fr >> en then add that phrase to the db
+    > More accurate phrases probably. Have Lili add some to the app.
 
 
 ************************************************************************************************************
 Bugs:
+> User Phrase category will crash if there isn't enough data to build the quiz
+    > Index out of bounds
+
 > Also play audio automatically when French audio is selected.
 French audio for French Text quiz setting not playing on first click from quiz
 
@@ -38,6 +40,10 @@ Still crashing on fresh install?
 
 ************************************************************************************************************
 ***Work Log***
+7/13/22
+Implemented start of load phrases by category feature.
+Wrote some database tests
+
 7/11/22
 Pre populate DB with a db file generated in SQLiteBrowser
 
