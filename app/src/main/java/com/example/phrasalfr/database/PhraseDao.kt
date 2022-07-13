@@ -13,4 +13,7 @@ interface PhraseDao {
 
     @Query("SELECT * FROM phrases_table ORDER BY category ASC")
     suspend fun getAllPhrases(): List<Phrase>
+
+    @Query("SELECT * FROM phrases_table WHERE category =:user_category")
+    suspend fun getPhrasesByCategory(user_category: String): List<Phrase>
 }

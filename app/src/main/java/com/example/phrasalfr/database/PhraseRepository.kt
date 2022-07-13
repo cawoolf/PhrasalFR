@@ -6,8 +6,11 @@ class PhraseRepository(private val phraseDao: PhraseDao) {
         phraseDao.insertPhrase(phrase)
     }
 
-    suspend fun getAllPhrases() : List<Phrase> {
-        val allPhrases = phraseDao.getAllPhrases()
-        return allPhrases
+    suspend fun getAllPhrases(): List<Phrase> {
+        return phraseDao.getAllPhrases()
+    }
+
+    suspend fun getPhrasesByCategory(userCategory: String): List<Phrase> {
+        return phraseDao.getPhrasesByCategory(userCategory)
     }
 }

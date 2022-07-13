@@ -30,8 +30,7 @@ abstract class PhraseDatabase : RoomDatabase() {
                     PhraseDatabase::class.java,
                     "phrase_database"
                 )
-                    // Wipes and rebuilds instead of migrating if no Migration object.
-                    // Migration is not part of this codelab.
+
                     .fallbackToDestructiveMigration()
 //                    .addCallback(PhraseDatabaseCallBack(scope))
                     .createFromAsset("fr_phrases.db")
@@ -61,20 +60,6 @@ abstract class PhraseDatabase : RoomDatabase() {
             }
         }
 
-//        suspend fun populateDatabase(phraseDao: PhraseDao) {
-//
-//            var phrase1 = Phrase("Greetings","Hey","Salut")
-//            phraseDao.insertPhrase(phrase1)
-//
-//            var phrase2 = Phrase("Verbs","I go","Je vais")
-//            phraseDao.insertPhrase(phrase2)
-//
-//            var phrase3 = Phrase("Verbs","I want","Je veux")
-//            phraseDao.insertPhrase(phrase3)
-//
-//            var phrase4 = Phrase("Verbs","You want","Tu veux")
-//            phraseDao.insertPhrase(phrase4)
-//        }
 
     }
 

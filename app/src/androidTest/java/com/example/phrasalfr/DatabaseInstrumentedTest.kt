@@ -30,6 +30,8 @@ class DatabaseInstrumentedTest {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, PhraseDatabase::class.java).build()
         phraseDao = database.phraseDao
+
+        populateDb()
     }
 
     @After
@@ -56,6 +58,39 @@ class DatabaseInstrumentedTest {
 
             assertEquals(allPhrasesCount2, allPhrasesCount + 1)
 //        assertThat(allPhrasesCount, e)
+        }
+    }
+
+    @Test
+    fun getPhrasesByCategory() {
+
+        runBlocking {
+            val verbCategory = "Verbs"
+            val greetingCategory = "Greetings"
+
+            val verbPhrases = phraseDao.getPhrasesByCategory(verbCategory)
+            val greetingPhrases = phraseDao.getPhrasesByCategory(greetingCategory)
+
+            assertEquals(verbPhrases.size, 3)
+            assertEquals(greetingPhrases.size, 1)
+        }
+
+    }
+
+    private fun populateDb() {
+
+        runBlocking {
+            var phrase1 = Phrase("Greetings", "Hey", "Salut")
+            phraseDao.insertPhrase(phrase1)
+
+            var phrase2 = Phrase("Verbs", "I go", "Je vais")
+            phraseDao.insertPhrase(phrase2)
+
+            var phrase3 = Phrase("Verbs", "I want", "Je veux")
+            phraseDao.insertPhrase(phrase3)
+
+            var phrase4 = Phrase("Verbs", "You want", "Tu veux")
+            phraseDao.insertPhrase(phrase4)
         }
     }
 }
