@@ -55,6 +55,7 @@ class QuizFragment : Fragment() {
 
     private lateinit var mQuestionSetting: String
     private lateinit var mAnswerSetting: String
+    private lateinit var mCategorySetting: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -80,6 +81,12 @@ class QuizFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        setupQuiz()
+        Log.i("qTAG", "On resume called")
+    }
+
 
     private fun linkViews() {
 
@@ -103,7 +110,7 @@ class QuizFragment : Fragment() {
     private fun setupQuiz() {
 
         try {
-            mMainViewModel.buildQuestion()
+            mMainViewModel.buildQuestion(mCategorySetting)
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
             mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
@@ -316,6 +323,8 @@ class QuizFragment : Fragment() {
             sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
         mAnswerSetting =
             sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
+        mCategorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),getString(R.string.all_phrases_category)).toString()
+
 
     }
 
@@ -328,9 +337,7 @@ class QuizFragment : Fragment() {
             this,
             MainViewModel.MainViewModelFactory(
                 (activity?.application as PhrasalFRApplication).phraseRepository,
-                mQuestionSetting,
-                mAnswerSetting
-            )
+                mCategorySetting)
         )
             .get(MainViewModel::class.java)
     }

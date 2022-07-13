@@ -28,4 +28,11 @@
     <string name="select_question_format">Select Question Format</string>
     <string name="select_answer_format">Select Answer Format</string>
 
+    <!-- Categories -->
+    <string name="all_phrases_category">All Phrases</string>
+    <string name="grammar_category">Grammar</string>
+    <string name="greetings_category">Greeting</string>
+    <string name="user_phrases_category">User Phrases</string>
+    <string name="work_category">Work</string>
+
 </resources>

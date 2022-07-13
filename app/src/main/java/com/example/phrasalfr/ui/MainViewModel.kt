@@ -9,8 +9,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class MainViewModel(private val phraseRepository: PhraseRepository,
-                    private val questionSetting: String,
-                    private val answerSetting: String) : ViewModel() {
+                    private val categorySetting: String): ViewModel() {
 
 
     private lateinit var mAllPhrases: List<Phrase>
@@ -18,29 +17,35 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
 
-    private lateinit var mPhraseCategory: String
-
 
     // Quiz Logic
-    fun buildQuestion() {
+    fun buildQuestion(phraseCategory: String) {
 
+        Log.i("mvTAG", phraseCategory)
         // In a separate thread, Makes a DB query for all phrases
         // Run this blocking thread everytime doesn't seem good.. but it's working since the data is tiny.
+        if(phraseCategory == "All Phrases")
             runBlocking{
                 val allPhrases = async { mAllPhrases = getAllPhrases() }
 
                 // .join() Should make the main thread wait for the query to finish before continuing
                 allPhrases.join()
-                Log.i("mTAG", "Phrases = " + mAllPhrases[0])
+                Log.i("mTAG", "All Phrases = " + mAllPhrases[0])
             }
+        else
+            runBlocking {
+                val allPhrases = async { mAllPhrases = getPhrasesByCategory(phraseCategory) }
 
-
+                // .join() Should make the main thread wait for the query to finish before continuing
+                allPhrases.join()
+                Log.i("mTAG", "Category" + mAllPhrases[0])
+            }
 
         val randIndex = (mAllPhrases.indices).random()
         val randomPhrase = mAllPhrases[randIndex]
         mQuestionPhrase = randomPhrase
 
-        mPhraseCategory = randomPhrase.category
+//        mPhraseCategory = randomPhrase.category
 
     }
 
@@ -92,9 +97,12 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     }
 
     // Database functions
-    suspend fun getAllPhrases() : List<Phrase> {
-        val allPhrases = phraseRepository.getAllPhrases()
-        return allPhrases
+    private suspend fun getAllPhrases(): List<Phrase> {
+        return phraseRepository.getAllPhrases()
+    }
+
+    private suspend fun getPhrasesByCategory(phraseCategory: String): List<Phrase> {
+        return phraseRepository.getPhrasesByCategory(phraseCategory)
     }
 
     fun insert(phrase: Phrase) = viewModelScope.launch {
@@ -105,11 +113,10 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     // View Model factory used for creating the shared view model across fragments
     @Suppress("UNCHECKED_CAST")
     class MainViewModelFactory constructor(private val phraseRepository: PhraseRepository,
-                                           private val questionSetting: String,
-                                           private val answerSetting: String): ViewModelProvider.Factory {
+                                           private val categorySetting: String): ViewModelProvider.Factory {
 
         override fun <T : ViewModel> create(modelClass: Class<T>)
-                : T = MainViewModel(phraseRepository, questionSetting, answerSetting) as T
+                : T = MainViewModel(phraseRepository, categorySetting) as T
     }
 
 

@@ -69,7 +69,6 @@ class PhrasesFragment : Fragment() {
     private fun setUpViewModel() {
         mMainViewModel = ViewModelProvider(this,
             MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
-            "default",
             "default"))
             .get(MainViewModel::class.java)
     }

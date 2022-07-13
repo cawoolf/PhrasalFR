@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.databinding.FragmentHomeBinding
+import com.google.android.material.chip.Chip
 
 
 class HomeFragment : Fragment() {
@@ -32,6 +33,12 @@ class HomeFragment : Fragment() {
     private lateinit var mAnswerEnglishText: RadioButton
     private lateinit var mAnswerFrenchText: RadioButton
     private lateinit var mAnswerFrenchAudio: RadioButton
+
+    // Chips for phrase categories
+    private lateinit var mGreetingsChip: Chip
+    private lateinit var mGrammarChip: Chip
+    private lateinit var mAllPhrasesChip: Chip
+    private lateinit var mUserPhrasesChip: Chip
 
     private lateinit var mSaveSettingsButton: Button
 
@@ -69,7 +76,6 @@ class HomeFragment : Fragment() {
 
         mMainViewModel = ViewModelProvider(this,
             MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
-            "default",
             "default"))
             .get(MainViewModel::class.java)
     }
@@ -84,7 +90,12 @@ class HomeFragment : Fragment() {
         mAnswerFrenchText = binding.settingsAnswerFrenchTextRadioButton
         mAnswerFrenchAudio = binding.settingsAnswerFrenchAudioRadioButton
 
-        mSaveSettingsButton = binding.settingSaveQuizButton
+        mGreetingsChip = binding.settingsGreetingsChip
+        mGrammarChip = binding.settingsGrammarChip
+        mAllPhrasesChip = binding.settingsAllPhrasesChip
+        mUserPhrasesChip = binding.settingsUserPhrasesChip
+
+//        mSaveSettingsButton = binding.settingSaveQuizButton
 
     }
 
@@ -94,6 +105,7 @@ class HomeFragment : Fragment() {
 
         val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
         val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
+        val categorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),"default")
 
         when (questionSetting){
             getString(R.string.question_format_value_english_text) -> mQuestionEnglishText.isChecked = true
@@ -107,12 +119,18 @@ class HomeFragment : Fragment() {
             getString(R.string.answer_format_value_french_audio) -> mAnswerFrenchAudio.isChecked = true
         }
 
+        when(categorySetting) {
+            getString(R.string.user_phrases_category) -> mUserPhrasesChip.isChecked = true
+            getString(R.string.grammar_category) -> mGrammarChip.isChecked = true
+            getString(R.string.greetings_category) -> mGreetingsChip.isChecked = true
+            getString(R.string.all_phrases_category) -> mAllPhrasesChip.isChecked = true
+        }
+
     }
 
     private fun setOnClicks() {
 
         // Sets the Quiz Settings to sharedPrefs by handling click events on the settings UI
-
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
 
@@ -120,53 +138,61 @@ class HomeFragment : Fragment() {
 
         mQuestionEnglishText.setOnClickListener{
             editor?.putString(getString(R.string.question_format_key), getString(R.string.question_format_value_english_text))
+            editor?.apply()
         }
 
         mQuestionFrenchText.setOnClickListener {
             editor?.putString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_text))
+            editor?.apply()
         }
 
         mQuestionFrenchAudio.setOnClickListener {
             editor?.putString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_audio))
+            editor?.apply()
         }
 
         mAnswerEnglishText.setOnClickListener {
             editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_english_text))
+            editor?.apply()
         }
 
         mAnswerFrenchText.setOnClickListener {
             editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_french_text))
+            editor?.apply()
         }
 
         mAnswerFrenchAudio.setOnClickListener {
             editor?.putString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_french_audio))
-        }
-
-        mSaveSettingsButton.setOnClickListener {
             editor?.apply()
         }
+
+        mUserPhrasesChip.setOnClickListener {
+            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.user_phrases_category))
+            editor?.apply()
+        }
+
+        mGrammarChip.setOnClickListener {
+            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.grammar_category))
+            editor?.apply()
+        }
+
+        mGreetingsChip.setOnClickListener {
+            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.greetings_category))
+            editor?.apply()
+        }
+
+        mAllPhrasesChip.setOnClickListener {
+            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.all_phrases_category))
+            editor?.apply()
+        }
+
+//        mSaveSettingsButton.setOnClickListener {
+//            editor?.apply()
+//        }
 
 
     }
 
-
-
-
-
-//    private fun testViewModel() {
-//
-//        val textView: TextView = binding.textHome
-//
-//        lifecycleScope.launch {
-//
-//            try {
-//                textView.text = mMainViewModel.getAllPhrases()[0].phraseFrench
-//            }
-//            catch (e: Exception) {
-//                Log.i("vmTAG", e.toString())
-//            }
-//        }
-//    }
 
     override fun onDestroyView() {
         super.onDestroyView()
