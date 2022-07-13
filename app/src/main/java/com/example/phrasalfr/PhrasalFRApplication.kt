@@ -2,10 +2,9 @@ package com.example.phrasalfr
 
 import android.app.Application
 import android.util.Log
-import androidx.lifecycle.lifecycleScope
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseDatabase
-import com.example.phrasalfr.database.Repository
+import com.example.phrasalfr.database.PhraseRepository
 import com.example.phrasalfr.util.PhrasalUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
@@ -16,13 +15,13 @@ class PhrasalFRApplication : Application() {
     // No need to cancel this scope as it'll be torn down with the process
     private val applicationScope = CoroutineScope(SupervisorJob())
     lateinit var database: PhraseDatabase
-    lateinit var repository: Repository
+    lateinit var phraseRepository: PhraseRepository
     lateinit var phrasalUtil: PhrasalUtil
 
     override fun onCreate() {
         super.onCreate()
         database = PhraseDatabase.getDatabase(this)
-        repository = Repository(database.phraseDao)
+        phraseRepository = PhraseRepository(database.phraseDao)
         phrasalUtil = PhrasalUtil(this)
         phrasalUtil.getTranslator()
         Log.i("mTAG", "Database started in PhrasalFRApplication: $database")
@@ -39,7 +38,7 @@ class PhrasalFRApplication : Application() {
 
         applicationScope.launch {
             val testPhrase =  Phrase("Greeting", "Hello", "Bonjour")
-           repository.insert(testPhrase)
+           phraseRepository.insert(testPhrase)
         }
     }
 

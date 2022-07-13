@@ -10,12 +10,9 @@ import android.widget.Button
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
-import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentHomeBinding
-import com.google.mlkit.nl.translate.Translator
 
 
 class HomeFragment : Fragment() {
@@ -71,7 +68,7 @@ class HomeFragment : Fragment() {
     private fun setUpViewModel() {
 
         mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository,
+            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
             "default",
             "default"))
             .get(MainViewModel::class.java)

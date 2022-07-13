@@ -8,20 +8,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentQuizBinding
 import com.example.phrasalfr.util.PhrasalUtil
 import com.google.mlkit.nl.translate.Translator
-import kotlinx.coroutines.async
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 import java.lang.Exception
 
 class QuizFragment : Fragment() {
@@ -333,7 +327,7 @@ class QuizFragment : Fragment() {
         mMainViewModel = ViewModelProvider(
             this,
             MainViewModel.MainViewModelFactory(
-                (activity?.application as PhrasalFRApplication).repository,
+                (activity?.application as PhrasalFRApplication).phraseRepository,
                 mQuestionSetting,
                 mAnswerSetting
             )

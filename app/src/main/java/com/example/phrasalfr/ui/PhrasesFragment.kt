@@ -5,9 +5,7 @@ import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.OnTouchListener
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -70,7 +68,7 @@ class PhrasesFragment : Fragment() {
 
     private fun setUpViewModel() {
         mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).repository,
+            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
             "default",
             "default"))
             .get(MainViewModel::class.java)
@@ -85,7 +83,6 @@ class PhrasesFragment : Fragment() {
 
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     private fun setOnClicks() {
         mButton.setOnClickListener {
             translateEnglishToFrench()
@@ -96,11 +93,12 @@ class PhrasesFragment : Fragment() {
         }
 
         // Clears the EditText on first click
-        mEnglishEditText.setOnFocusChangeListener(View.OnFocusChangeListener { view, b ->
+        mEnglishEditText.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
             mEnglishEditText.setText("")
-        })
+        }
     }
 
+    @Suppress("DEPRECATION")
     private fun translateEnglishToFrench() {
 
         val englishText = mEnglishEditText.text.toString()

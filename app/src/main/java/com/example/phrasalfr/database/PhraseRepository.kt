@@ -1,6 +1,6 @@
 package com.example.phrasalfr.database
 
-class Repository(private val phraseDao: PhraseDao) {
+class PhraseRepository(private val phraseDao: PhraseDao) {
 
     suspend fun insert(phrase: Phrase) {
         phraseDao.insertPhrase(phrase)
