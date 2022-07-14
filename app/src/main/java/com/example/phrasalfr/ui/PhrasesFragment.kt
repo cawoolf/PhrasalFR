@@ -27,14 +27,20 @@ class PhrasesFragment : Fragment() {
     private var _binding: FragmentPhrasesBinding? = null
 
     private lateinit var mEnglishEditText: EditText
+    private lateinit var mFrenchEditText: EditText
     private lateinit var mFrenchTextView: TextView
+    private lateinit var mEnglishTextView: TextView
+
     private lateinit var mPhrasesFAB: FloatingActionButton
     private lateinit var mButton: Button
     private var mTranslateSuccess by Delegates.notNull<Boolean>()
 
     private lateinit var mPhrasalUtil : PhrasalUtil
     private lateinit var mTextToSpeech: TextToSpeech
-    private lateinit var mTranslator: Translator
+
+    private lateinit var mENFRTranslator: Translator
+    private lateinit var mFRENTranslator: Translator
+
     private lateinit var mMainViewModel: MainViewModel
 
     // This property is only valid between onCreateView and
@@ -48,7 +54,10 @@ class PhrasesFragment : Fragment() {
 
         mPhrasalUtil = PhrasalUtil(context)
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
-        mTranslator = mPhrasalUtil.getTranslator()
+
+        mENFRTranslator = mPhrasalUtil.getENFRTranslator()
+        mFRENTranslator = mPhrasalUtil.getFRENTranslator()
+
     }
 
     override fun onCreateView(
@@ -76,7 +85,11 @@ class PhrasesFragment : Fragment() {
     private fun linkViews() {
 
         mEnglishEditText = binding.phrasesEnglishEditText
+        mFrenchEditText = binding.phrasesFrenchEditText
+
         mFrenchTextView = binding.phrasesFrenchTextView
+        mEnglishTextView = binding.phrasesEnglishTextView
+
         mPhrasesFAB = binding.phrasesAddFab
         mButton = binding.phrasesTranslateButton
 
@@ -85,6 +98,7 @@ class PhrasesFragment : Fragment() {
     private fun setOnClicks() {
         mButton.setOnClickListener {
             translateEnglishToFrench()
+            translateFrenchToEnglish()
         }
 
         mPhrasesFAB.setOnClickListener {
@@ -102,7 +116,7 @@ class PhrasesFragment : Fragment() {
 
         val englishText = mEnglishEditText.text.toString()
 
-        mTranslator.translate(englishText)
+        mENFRTranslator.translate(englishText)
             .addOnSuccessListener {
                 Log.i("mTAG", it.toString())
 
@@ -111,6 +125,32 @@ class PhrasesFragment : Fragment() {
                 mTextToSpeech.speak(mFrenchTextView.text.toString(),
                 TextToSpeech.QUEUE_ADD,
                 null)
+
+                mTranslateSuccess = true
+            }
+            .addOnFailureListener {
+                it.printStackTrace()
+                Log.i("mTAG", it.printStackTrace().toString())
+
+                mTranslateSuccess = false
+            }
+
+    }
+
+    @Suppress("DEPRECATION")
+    private fun translateFrenchToEnglish() {
+
+        val frenchText = mFrenchEditText.text.toString()
+
+        mFRENTranslator.translate(frenchText)
+            .addOnSuccessListener {
+                Log.i("mTAG", it.toString())
+
+                mEnglishTextView.text = it.toString()
+
+//                mTextToSpeech.speak(mEnglishTextView.text.toString(),
+//                    TextToSpeech.QUEUE_ADD,
+//                    null)
 
                 mTranslateSuccess = true
             }

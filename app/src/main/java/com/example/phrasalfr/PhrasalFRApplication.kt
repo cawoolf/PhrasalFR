@@ -23,7 +23,8 @@ class PhrasalFRApplication : Application() {
         database = PhraseDatabase.getDatabase(this)
         phraseRepository = PhraseRepository(database.phraseDao)
         phrasalUtil = PhrasalUtil(this)
-        phrasalUtil.getTranslator()
+        phrasalUtil.getFRENTranslator()
+        phrasalUtil.getENFRTranslator()
         Log.i("mTAG", "Database started in PhrasalFRApplication: $database")
         testDB()
 

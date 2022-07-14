@@ -345,7 +345,7 @@ class QuizFragment : Fragment() {
     // Builds the Utils for translating and TextToSpeech
     private fun setUpUtils() {
         mPhrasalUtil = PhrasalUtil(context)
-        mTranslator = mPhrasalUtil.getTranslator()
+        mTranslator = mPhrasalUtil.getFRENTranslator()
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
     }
 

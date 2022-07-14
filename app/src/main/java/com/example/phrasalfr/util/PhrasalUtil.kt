@@ -8,21 +8,22 @@ import com.google.mlkit.nl.translate.TranslateLanguage
 import com.google.mlkit.nl.translate.Translation
 import com.google.mlkit.nl.translate.Translator
 import com.google.mlkit.nl.translate.TranslatorOptions
-import org.json.JSONObject
 import java.util.*
 
 class PhrasalUtil(val context: Context?) {
 
     private lateinit var mTextToSpeech: TextToSpeech
-    private lateinit var mTranslator: Translator
+    private lateinit var mENFRTranslator: Translator
+    private lateinit var mFRENTranslator: Translator
 
 
-    private fun MLKitTranslate() {
+    private fun mlKitTranslate() {
         // Create an English-French Translator
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
             .setTargetLanguage(TranslateLanguage.FRENCH)
             .build()
+
         val englishFrenchTranslator = Translation.getClient(options)
 //
         var conditions = DownloadConditions.Builder()
@@ -47,7 +48,32 @@ class PhrasalUtil(val context: Context?) {
                 Log.i("mTAG", exception.toString())
             }
 
-        mTranslator = englishFrenchTranslator
+        mENFRTranslator = englishFrenchTranslator
+
+        val options2 = TranslatorOptions.Builder()
+            .setSourceLanguage(TranslateLanguage.FRENCH)
+            .setTargetLanguage(TranslateLanguage.ENGLISH)
+            .build()
+
+        val frenchEnglishTranslator = Translation.getClient(options2)
+        frenchEnglishTranslator.downloadModelIfNeeded(conditions)
+            .addOnSuccessListener {
+                // Model downloaded successfully. Okay to start translating.
+                // (Set a flag, unhide the translation UI, etc.)
+                Log.i(
+                    "mTAG",
+                    "Download finished"
+                ) // Only sets the on click if the model has already been downloaded.
+//                testTransltor()
+
+            }
+            .addOnFailureListener { exception ->
+                // Model couldn’t be downloaded or other internal error.
+                Log.i("mTAG", exception.toString())
+            }
+
+        mFRENTranslator = frenchEnglishTranslator
+
     }
 
 
@@ -78,9 +104,14 @@ class PhrasalUtil(val context: Context?) {
         return mTextToSpeech
     }
 
-    fun getTranslator() : Translator {
-        MLKitTranslate()
-        return mTranslator
+    fun getENFRTranslator() : Translator {
+        mlKitTranslate()
+        return mENFRTranslator
+    }
+
+    fun getFRENTranslator() : Translator {
+        mlKitTranslate()
+        return mFRENTranslator
     }
 
 }
