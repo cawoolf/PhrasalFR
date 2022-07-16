@@ -31,7 +31,7 @@ abstract class PhraseDatabase : RoomDatabase() {
                     "phrase_database"
                 )
 
-                    .fallbackToDestructiveMigration()
+//                    .fallbackToDestructiveMigration() // This was rewriting the db everytime.
 //                    .addCallback(PhraseDatabaseCallBack(scope))
                     .createFromAsset("fr_phrases.db")
                     .build()
