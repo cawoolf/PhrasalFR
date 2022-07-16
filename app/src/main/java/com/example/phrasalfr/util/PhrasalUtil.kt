@@ -114,4 +114,8 @@ class PhrasalUtil(val context: Context?) {
         return mFRENTranslator
     }
 
+    fun startTranslatorDownload() {
+        mlKitTranslate()
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.phrasalfr.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
@@ -34,11 +35,24 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
             }
         else
             runBlocking {
-                val allPhrases = async { mAllPhrases = getPhrasesByCategory(phraseCategory) }
+                // More or less a null check for User Phrases
+                // If there are less than 4 user phrases, then just return all phrases to prevent a crash.
+                if(phraseCategory == "User Phrase"){
+                    val allPhrases = async {
+                        mAllPhrases = getPhrasesByCategory(phraseCategory)
+                        if (mAllPhrases.size < 4 || mAllPhrases == null) {
+                            mAllPhrases = getAllPhrases()
+                        }
+                    }
 
-                // .join() Should make the main thread wait for the query to finish before continuing
-                allPhrases.join()
-                Log.i("mTAG", "Category" + mAllPhrases[0])
+                }
+                else {
+                    val allPhrases = async { mAllPhrases = getPhrasesByCategory(phraseCategory) }
+                    // .join() Should make the main thread wait for the query to finish before continuing
+                    allPhrases.join()
+                    Log.i("mTAG", "Category" + mAllPhrases[0])
+                }
+
             }
 
         val randIndex = (mAllPhrases.indices).random()
