@@ -39,7 +39,7 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
                 // If there are less than 4 user phrases, then just return all phrases to prevent a crash.
                 if(phraseCategory == "User Phrase"){
                         mAllPhrases = getPhrasesByCategory(phraseCategory)
-                        if (mAllPhrases.size < 4 || mAllPhrases == null) {
+                        if (mAllPhrases.size < 4) {
                             mAllPhrases = getAllPhrases()
                         }
                 }
