@@ -89,9 +89,7 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         Log.i("qTAG", "D: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish)
 
 
-
     }
-
 
     // Getters
     fun getQuestionPhrase(): Phrase {

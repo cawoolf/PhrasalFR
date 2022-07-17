@@ -10,6 +10,7 @@ import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseDao
 import com.example.phrasalfr.database.PhraseDatabase
 import com.example.phrasalfr.database.PhraseRepository
+import com.example.phrasalfr.ui.MainViewModel
 import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.runBlocking
 import org.junit.After
@@ -24,12 +25,14 @@ class DatabaseInstrumentedTest {
     private lateinit var phraseRepository: PhraseRepository
     private lateinit var phraseDao: PhraseDao
     private lateinit var database: PhraseDatabase
+    private lateinit var mMainViewModel: MainViewModel
 
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
         database = Room.inMemoryDatabaseBuilder(context, PhraseDatabase::class.java).build()
         phraseDao = database.phraseDao
+        phraseRepository = PhraseRepository(phraseDao)
 
         populateDb()
     }
@@ -77,6 +80,12 @@ class DatabaseInstrumentedTest {
 
     }
 
+    @Test
+    fun checkQuizLogic() {
+
+        mMainViewModel = MainViewModel(phraseRepository, "")
+
+    }
     private fun populateDb() {
 
         runBlocking {
