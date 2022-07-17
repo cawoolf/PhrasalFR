@@ -80,10 +80,17 @@ class DatabaseInstrumentedTest {
 
     }
 
-    @Test
+//    @Test
     fun checkQuizLogic() {
 
         mMainViewModel = MainViewModel(phraseRepository, "")
+        mMainViewModel.buildQuestion("All Phrases")
+        mMainViewModel.generateAnswerPhrases()
+        val questionPhrase = mMainViewModel.getQuestionPhrase()
+        val answerPhrases = mMainViewModel.getAnswerPhraseSet()
+        val answersPhrasesIndex = mMainViewModel.getAnswerPhrasesIndexArray()
+
+        assertEquals(questionPhrase.phraseEnglish, answerPhrases.elementAt(answersPhrasesIndex[0]).phraseEnglish)
 
     }
     private fun populateDb() {
