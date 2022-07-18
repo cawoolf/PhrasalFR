@@ -86,16 +86,42 @@ class PhrasesFragment : Fragment() {
 
         mEnglishEditText = binding.phrasesEnglishEditText
         mFrenchEditText = binding.phrasesFrenchEditText
-
-        mFrenchTextView = binding.phrasesFrenchTextView
-        mEnglishTextView = binding.phrasesEnglishTextView
-
+//
+//        mFrenchTextView = binding.phrasesFrenchTextView
+//        mEnglishTextView = binding.phrasesEnglishTextView
+//
         mPhrasesFAB = binding.phrasesAddFab
         mButton = binding.phrasesTranslateButton
 
     }
 
     private fun setOnClicks() {
+
+        mFrenchEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+
+                Log.i("pTAG", "French EditText has focus")
+            } else {
+
+                Log.i("pTAG", "French EditText lost focus")
+            }
+        }
+
+        mEnglishEditText.setOnFocusChangeListener { _, hasFocus ->
+            if (hasFocus) {
+
+                Log.i("pTAG", "English EditText has focus")
+            } else {
+
+                Log.i("pTAG", "English EditText lost focus")
+            }
+        }
+
+        mEnglishEditText.setOnClickListener {
+            Log.i("pTAG", "English EditText clicked")
+        }
+
+
         mButton.setOnClickListener {
             translateEnglishToFrench()
             translateFrenchToEnglish()

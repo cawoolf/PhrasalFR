@@ -35,4 +35,9 @@
     <string name="user_phrases_category">User Phrase</string>
     <string name="work_category">Work</string>
 
+    <!-- Phrases Fragment Strings -->
+    <string name="phrases_french_title">French</string>
+    <string name="phrases_english_title">English</string>
+    <string name="translate_title">Translate</string>
+
 </resources>

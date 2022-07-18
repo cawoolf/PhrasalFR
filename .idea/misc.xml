@@ -14,6 +14,7 @@
         <entry key="app/src/main/res/layout/fragment_home.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_notifications.xml" value="0.2953125" />
         <entry key="app/src/main/res/layout/fragment_phrases.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_phrases_2.xml" value="0.20108695652173914" />
         <entry key="app/src/main/res/layout/fragment_quiz.xml" value="0.19635416666666666" />
         <entry key="app/src/main/res/layout/fragment_quiz_settings.xml" value="0.2953125" />
       </map>
