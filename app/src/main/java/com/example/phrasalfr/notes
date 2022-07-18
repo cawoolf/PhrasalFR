@@ -3,13 +3,14 @@ PhrasalFR Notes!
 
 
 ToDo:
-> User Phrase category will crash if there is'nt enough data to build the quiz
-    > Index out of bounds
+> Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
+    > Weird when the same phrase appears many times in a row
 
-> Implement a add phrases using french as the input
-    > Translate fr >> en then add that phrase to the db
-    > More accurate phrases probably. Have Lili add some to the app.
-
+> Add a streak feature
+> Add a feature where you have to add phrases to the db every day
+> Add a feature where you can create your own category
+    > School, Work, Cooking, ext
+> Add a feature where you chose which category to add phrases to
 
 ************************************************************************************************************
 Bugs:
@@ -22,10 +23,9 @@ French audio for French Text quiz setting not playing on first click from quiz
 On fresh install, default sharedPrefs for question and answer not formatting quiz correctly
 User should be able to click right on to quiz on first install without making quiz settings
 
-
 Fixed:
 Small bug where if you don't click the answer, it will be wrong even if it's right
-    > You have to click to actualy select the answer, even if it is shown as selected.
+    > You have to click to actually select the answer, even if it is shown as selected.
 
 Setting visibility with text View and ImageButton not working programmatically?
 
@@ -40,6 +40,14 @@ Still crashing on fresh install?
 
 ************************************************************************************************************
 ***Work Log***
+7/18/22
+> User Phrase category will crash if there is'nt enough data to build the quiz
+    > Index out of bounds
+
+> Implement a add phrases using french as the input
+    > Translate fr >> en then add that phrase to the db
+    > More accurate phrases probably. Have Lili add some to the app.
+
 7/13/22
 Implemented start of load phrases by category feature.
 Wrote some database tests
