@@ -26,7 +26,7 @@ class DatabaseInstrumentedTest {
     private lateinit var phraseDao: PhraseDao
     private lateinit var database: PhraseDatabase
     private lateinit var mMainViewModel: MainViewModel
-
+    
     @Before
     fun createDb() {
         val context = ApplicationProvider.getApplicationContext<Context>()
