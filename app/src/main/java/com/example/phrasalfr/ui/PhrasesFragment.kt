@@ -28,8 +28,6 @@ class PhrasesFragment : Fragment() {
 
     private lateinit var mEnglishEditText: EditText
     private lateinit var mFrenchEditText: EditText
-    private lateinit var mFrenchTextView: TextView
-    private lateinit var mEnglishTextView: TextView
 
     private lateinit var mPhrasesFAB: FloatingActionButton
     private lateinit var mButton: Button
@@ -40,6 +38,8 @@ class PhrasesFragment : Fragment() {
 
     private lateinit var mENFRTranslator: Translator
     private lateinit var mFRENTranslator: Translator
+
+    private var mEnglishFrenchTranslatorChoice: Boolean = true
 
     private lateinit var mMainViewModel: MainViewModel
 
@@ -98,43 +98,51 @@ class PhrasesFragment : Fragment() {
     private fun setOnClicks() {
 
         mFrenchEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+            mEnglishFrenchTranslatorChoice = if (hasFocus) {
 
-                Log.i("pTAG", "French EditText has focus")
+                Log.i("pTAG", "French EditText has focus: Translate French to English")
+                mEnglishEditText.setText("")
+                mFrenchEditText.setText("")
+                false
             } else {
 
-                Log.i("pTAG", "French EditText lost focus")
+                Log.i("pTAG", "French EditText lost focus: Translate English to French")
+                true
             }
         }
 
         mEnglishEditText.setOnFocusChangeListener { _, hasFocus ->
-            if (hasFocus) {
+            mEnglishFrenchTranslatorChoice = if (hasFocus) {
 
-                Log.i("pTAG", "English EditText has focus")
-            } else {
+                Log.i("pTAG", "English EditText has focus: Translate English to French")
+                mEnglishEditText.setText("")
+                mFrenchEditText.setText("")
+                true
+            }
+            else {
 
-                Log.i("pTAG", "English EditText lost focus")
+                Log.i("pTAG", "English EditText lost focus: Translate French to English")
+                false
             }
         }
 
-        mEnglishEditText.setOnClickListener {
-            Log.i("pTAG", "English EditText clicked")
-        }
-
-
         mButton.setOnClickListener {
-            translateEnglishToFrench()
-            translateFrenchToEnglish()
+            if(mEnglishFrenchTranslatorChoice) {
+                translateEnglishToFrench()
+            }
+            else {
+                translateFrenchToEnglish()
+            }
         }
 
         mPhrasesFAB.setOnClickListener {
             addPhraseToDB()
         }
 
-        // Clears the EditText on first click
-        mEnglishEditText.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
-            mEnglishEditText.setText("")
-        }
+//        // Clears the EditText on first click
+//        mEnglishEditText.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
+//            mEnglishEditText.setText("")
+//        }
     }
 
     @Suppress("DEPRECATION")
@@ -146,9 +154,9 @@ class PhrasesFragment : Fragment() {
             .addOnSuccessListener {
                 Log.i("mTAG", it.toString())
 
-                mFrenchTextView.text = it.toString()
+                mFrenchEditText.setText(it.toString())
 
-                mTextToSpeech.speak(mFrenchTextView.text.toString(),
+                mTextToSpeech.speak(mFrenchEditText.text.toString(),
                 TextToSpeech.QUEUE_ADD,
                 null)
 
@@ -172,11 +180,11 @@ class PhrasesFragment : Fragment() {
             .addOnSuccessListener {
                 Log.i("mTAG", it.toString())
 
-                mEnglishTextView.text = it.toString()
+                mEnglishEditText.setText(it.toString())
 
-//                mTextToSpeech.speak(mEnglishTextView.text.toString(),
-//                    TextToSpeech.QUEUE_ADD,
-//                    null)
+                mTextToSpeech.speak(mFrenchEditText.text.toString(),
+                    TextToSpeech.QUEUE_ADD,
+                    null)
 
                 mTranslateSuccess = true
             }
@@ -193,7 +201,7 @@ class PhrasesFragment : Fragment() {
 
         if (mTranslateSuccess) {
             val englishText = mEnglishEditText.text.toString()
-            val frenchText = mFrenchTextView.text.toString()
+            val frenchText = mFrenchEditText.text.toString()
 
             val phrase = Phrase("User Phrase",englishText, frenchText)
 
