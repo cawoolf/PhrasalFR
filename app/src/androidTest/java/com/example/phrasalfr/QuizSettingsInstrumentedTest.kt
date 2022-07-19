@@ -1,11 +1,13 @@
 package com.example.phrasalfr
 
+import android.content.Context
 import android.util.Log
 import android.view.View
 import android.widget.TextView
 import androidx.fragment.app.testing.launchFragment
 import androidx.fragment.app.testing.launchFragmentInContainer
 import androidx.test.core.app.ActivityScenario
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -18,7 +20,10 @@ import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.example.phrasalfr.database.PhraseDatabase
+import com.example.phrasalfr.database.PhraseRepository
 import com.example.phrasalfr.ui.QuizFragment
+import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matcher
 import org.junit.After
 import org.junit.Before
@@ -33,12 +38,23 @@ class QuizSettingsInstrumentedTest {
     @get:Rule
     val activity = ActivityScenarioRule(MainActivity::class.java)
 
+    // Context for access the active database
+    private val context: Context = ApplicationProvider.getApplicationContext()
+    private lateinit var database: PhraseDatabase
+    private lateinit var repository: PhraseRepository
+
     @Before
     fun defaultQuestionAnswerSettings() {
 
         onView(withId(R.id.settings_question_french_text_radioButton)).perform(ViewActions.click())
         onView(withId(R.id.settings_answer_english_text_radioButton)).perform(ViewActions.click())
 
+    }
+
+    @Before
+    fun accessDatabaseWithContext() {
+        database = PhraseDatabase.getDatabase(context)
+        repository = PhraseRepository(database.phraseDao)
     }
 
     @After
@@ -51,6 +67,8 @@ class QuizSettingsInstrumentedTest {
                 ViewMatchers.isDisplayed()
             )
         )
+
+//        database.close()
     }
 
     @Test
@@ -58,15 +76,18 @@ class QuizSettingsInstrumentedTest {
 
         onView(withId(R.id.settings_greetings_Chip)).perform(ViewActions.click())
         onView(withId(R.id.navigation_quiz)).perform(ViewActions.click())
-        
-        val question = onView(withId(R.id.quiz_questionTextView))
-        Log.i("testTag", getText(question))
 
-//        val scenario = launchFragmentInContainer<QuizFragment>()
+        val question = onView(withId(R.id.quiz_questionTextView))
+        Log.i("testTAG", getText(question))
+
+        runBlocking {
+            val foundPhrase = repository.getTargetPhrase(getText(question))
+            Log.i("testTAG", foundPhrase[0].phraseEnglish)
+        }
 
     }
 
-//    @Test
+    @Test
     fun phraseSettingsGrammar() {
 
         onView(withId(R.id.settings_grammar_Chip)).perform(ViewActions.click())

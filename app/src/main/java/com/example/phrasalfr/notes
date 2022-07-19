@@ -3,6 +3,8 @@ PhrasalFR Notes!
 
 
 ToDo:
+> Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
+
 > Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
     > Weird when the same phrase appears many times in a row
 

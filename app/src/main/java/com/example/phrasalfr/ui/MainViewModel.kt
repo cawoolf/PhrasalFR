@@ -3,6 +3,7 @@ package com.example.phrasalfr.ui
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.*
+import androidx.test.core.app.ApplicationProvider
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
 import kotlinx.coroutines.async
@@ -40,12 +41,14 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
                 // More or less a null check for User Phrases
                 // If there are less than 4 user phrases, then just return all phrases to prevent a crash.
                 if(phraseCategory == "User Phrase"){
-//                        mAllPhrases = getPhrasesByCategory(phraseCategory)
+                        mAllPhrases = getPhrasesByCategory(phraseCategory)
                         if (mAllPhrases.size < 4) {
                             mAllPhrases = getAllPhrases()
+                            Toast.makeText(ApplicationProvider.getApplicationContext(),"Not Enough User Phrases!",
+                                Toast.LENGTH_SHORT).show()
                         }
-                    else{
-                            mAllPhrases = getPhrasesByCategory(phraseCategory)
+                        else{
+//                            mAllPhrases = getPhrasesByCategory(phraseCategory)
                         }
                 }
                 else {

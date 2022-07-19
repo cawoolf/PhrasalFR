@@ -13,4 +13,8 @@ class PhraseRepository(private val phraseDao: PhraseDao) {
     suspend fun getPhrasesByCategory(userCategory: String): List<Phrase> {
         return phraseDao.getPhrasesByCategory(userCategory)
     }
+
+    suspend fun getTargetPhrase(frenchPhrase: String): List<Phrase> {
+        return phraseDao.getTargetPhrase(frenchPhrase)
+    }
 }
