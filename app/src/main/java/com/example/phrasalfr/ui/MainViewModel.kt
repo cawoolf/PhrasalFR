@@ -26,21 +26,26 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         // In a separate thread, Makes a DB query for all phrases
         // Run this blocking thread everytime doesn't seem good.. but it's working since the data is tiny.
         if(phraseCategory == "All Phrases")
-            viewModelScope.launch{
-               mAllPhrases = getAllPhrases()
+//            viewModelScope.launch{
+            runBlocking {
+                mAllPhrases = getAllPhrases()
 
                 // .join() Should make the main thread wait for the query to finish before continuing
-//                allPhrases.join()
+                // allPhrases.join()
                 Log.i("mTAG", "All Phrases = " + mAllPhrases[0])
             }
         else
-            viewModelScope.launch{
+//            viewModelScope.launch{
+            runBlocking {
                 // More or less a null check for User Phrases
                 // If there are less than 4 user phrases, then just return all phrases to prevent a crash.
                 if(phraseCategory == "User Phrase"){
-                        mAllPhrases = getPhrasesByCategory(phraseCategory)
+//                        mAllPhrases = getPhrasesByCategory(phraseCategory)
                         if (mAllPhrases.size < 4) {
                             mAllPhrases = getAllPhrases()
+                        }
+                    else{
+                            mAllPhrases = getPhrasesByCategory(phraseCategory)
                         }
                 }
                 else {

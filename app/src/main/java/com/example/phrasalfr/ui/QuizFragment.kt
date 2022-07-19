@@ -16,6 +16,7 @@ import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentQuizBinding
 import com.example.phrasalfr.util.PhrasalUtil
 import com.google.mlkit.nl.translate.Translator
+import kotlinx.coroutines.runBlocking
 import java.lang.Exception
 
 class QuizFragment : Fragment() {
@@ -41,9 +42,9 @@ class QuizFragment : Fragment() {
 
 
     private lateinit var mSubmitButton: Button
-
-    private lateinit var mPhraseCategory: String
-    private lateinit var mAllPhrases: List<Phrase>
+//
+//    private lateinit var mPhraseCategory: String
+//    private lateinit var mAllPhrases: List<Phrase>
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
@@ -83,8 +84,8 @@ class QuizFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        setupQuiz()
-        Log.i("qTAG", "On resume called")
+//        setupQuiz()
+        Log.i("quizTAG", "On resume called")
     }
 
 
@@ -110,6 +111,8 @@ class QuizFragment : Fragment() {
     private fun setupQuiz() {
 
         try {
+
+
             mMainViewModel.buildQuestion(mCategorySetting)
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
@@ -118,7 +121,7 @@ class QuizFragment : Fragment() {
             formatQuizUI()
             setOnClicks()
         } catch (e: Exception) {
-            Log.i("mTAG", e.toString())
+            Log.i("quizTAG", e.toString())
         }
 
 
@@ -247,7 +250,7 @@ class QuizFragment : Fragment() {
 
     private fun formatQuizUI() {
 
-        Log.i("qTAG", mQuestionSetting.toString())
+        Log.i("quizTAG", "FormatQuiz:" + mQuestionSetting.toString())
 
         // Controls the visibility of the Question as Text or the Audio image button depending on the User settings
         if (mQuestionSetting.toString() == getString(R.string.question_format_value_english_text)) {
@@ -325,7 +328,7 @@ class QuizFragment : Fragment() {
             sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
         mCategorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),getString(R.string.all_phrases_category)).toString()
 
-
+        Log.i("quizTAG", mCategorySetting.toString())
     }
 
 

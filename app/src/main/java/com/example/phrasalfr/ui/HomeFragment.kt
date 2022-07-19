@@ -3,6 +3,7 @@ package com.example.phrasalfr.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -70,6 +71,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         checkSettings()
+
     }
 
     private fun setUpViewModel() {
@@ -174,6 +176,8 @@ class HomeFragment : Fragment() {
         mGrammarChip.setOnClickListener {
             editor?.putString(getString(R.string.phrase_category_key), getString(R.string.grammar_category))
             editor?.apply()
+            Log.i("homeTAG", "Grammar Chip clicked")
+            Log.i("homeTAG", sharedPref?.getString(getString(R.string.phrase_category_key),"default").toString())
         }
 
         mGreetingsChip.setOnClickListener {
