@@ -17,6 +17,7 @@ interface PhraseDao {
     @Query("SELECT * FROM phrases_table WHERE category =:user_category")
     suspend fun getPhrasesByCategory(user_category: String): List<Phrase>
 
+    // Mainly used for testing.
     @Query("SELECT * FROM phrases_table WHERE phraseFrench= :french_phrase")
     suspend fun getTargetPhrase(french_phrase: String): List<Phrase>
 }

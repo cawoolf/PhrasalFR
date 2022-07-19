@@ -14,6 +14,7 @@ class PhraseRepository(private val phraseDao: PhraseDao) {
         return phraseDao.getPhrasesByCategory(userCategory)
     }
 
+    // Mainly used for testing
     suspend fun getTargetPhrase(frenchPhrase: String): List<Phrase> {
         return phraseDao.getTargetPhrase(frenchPhrase)
     }
