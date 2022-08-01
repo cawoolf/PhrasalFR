@@ -40,7 +40,7 @@ Still crashing on fresh install?
     on the first try, but works after that..
     > DB is primed in PhrasalFRApplication.. So now it works on Fresh install, but that's pretty weird.
 
-************************************************************************************************************
+*************************************************************************************************************
 ***Work Log***
 7/18/22
 > User Phrase category will crash if there is'nt enough data to build the quiz
