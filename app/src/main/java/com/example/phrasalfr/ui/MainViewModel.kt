@@ -27,7 +27,10 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         // In a separate thread, Makes a DB query for all phrases
         // Run this blocking thread everytime doesn't seem good.. but it's working since the data is tiny.
         if(phraseCategory == "All Phrases")
-//            viewModelScope.launch{
+
+            // With viewModelScope, the data lags and doesn't update the ui in time (for the first question at least)
+            // LiveData might be the solution for this!
+            // viewModelScope.launch{
             runBlocking {
                 mAllPhrases = getAllPhrases()
 
