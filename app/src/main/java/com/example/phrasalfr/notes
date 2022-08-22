@@ -8,14 +8,26 @@ ToDo:
 > Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
     > Weird when the same phrase appears many times in a row
 
+> Be able to view a list of all phrases and words. Add or remove them from the db.
+
+> Simplify categories into Phrases and vocab
+
+
+****************************************************************************************************
+Feature Ideas:
+
+> Just have two categories.. Phrases and Vocab
 > Add a streak feature
 > Add a feature where you have to add phrases to the db every day
 > Add a feature where you can create your own category
     > School, Work, Cooking, ext
 > Add a feature where you chose which category to add phrases to
 
-************************************************************************************************************
+****************************************************************************************************
 Bugs:
+
+> Fix the runBlocking{} configuration. Not a great practice.
+
 > User Phrase category will crash if there isn't enough data to build the quiz
     > Index out of bounds
 
@@ -42,6 +54,13 @@ Still crashing on fresh install?
 
 *************************************************************************************************************
 ***Work Log***
+8/22/22
+
+Simplifying the question process and database stuff
+Also.. If you build the question first on the Home Page, and then pass it into the Quiz.. You won't
+have to runBlocking.. Or just have some timer that automatically refreshes the Quiz page.
+
+
 7/18/22
 > User Phrase category will crash if there is'nt enough data to build the quiz
     > Index out of bounds

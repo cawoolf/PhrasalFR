@@ -14,12 +14,13 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.databinding.FragmentHomeBinding
+import com.example.phrasalfr.databinding.FragmentHomeSimpleBinding
 import com.google.android.material.chip.Chip
 
 
 class HomeFragment : Fragment() {
 
-    private var _binding: FragmentHomeBinding? = null
+    private var _binding: FragmentHomeSimpleBinding? = null
     private val binding get() = _binding!!     // This property is only valid between onCreateView and onDestroyView
 
     // Chips for selecting Category of phrases
@@ -41,6 +42,9 @@ class HomeFragment : Fragment() {
     private lateinit var mAllPhrasesChip: Chip
     private lateinit var mUserPhrasesChip: Chip
 
+    private lateinit var mPhrasesChip: Chip
+    private lateinit var mVocabularyChip: Chip
+
     private lateinit var mSaveSettingsButton: Button
 
     private lateinit var mMainViewModel : MainViewModel
@@ -58,7 +62,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
 
-        _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        _binding = FragmentHomeSimpleBinding.inflate(inflater, container, false)
         val root: View = binding.root
 
         linkViews()
@@ -92,10 +96,14 @@ class HomeFragment : Fragment() {
         mAnswerFrenchText = binding.settingsAnswerFrenchTextRadioButton
         mAnswerFrenchAudio = binding.settingsAnswerFrenchAudioRadioButton
 
-        mGreetingsChip = binding.settingsGreetingsChip
-        mGrammarChip = binding.settingsGrammarChip
-        mAllPhrasesChip = binding.settingsAllPhrasesChip
-        mUserPhrasesChip = binding.settingsUserPhrasesChip
+
+        mPhrasesChip = binding.settingsPhrasesChip
+        mVocabularyChip = binding.settingsVocabularyChip
+
+//        mGreetingsChip = binding.settingsGreetingsChip
+//        mGrammarChip = binding.settingsGrammarChip
+//        mAllPhrasesChip = binding.settingsAllPhrasesChip
+//        mUserPhrasesChip = binding.settingsUserPhrasesChip
 
 //        mSaveSettingsButton = binding.settingSaveQuizButton
 
@@ -168,27 +176,35 @@ class HomeFragment : Fragment() {
             editor?.apply()
         }
 
-        mUserPhrasesChip.setOnClickListener {
-            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.user_phrases_category))
-            editor?.apply()
+        mPhrasesChip.setOnClickListener {
+            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.phrases_category))
         }
 
-        mGrammarChip.setOnClickListener {
-            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.grammar_category))
-            editor?.apply()
-            Log.i("homeTAG", "Grammar Chip clicked")
-            Log.i("homeTAG", sharedPref?.getString(getString(R.string.phrase_category_key),"default").toString())
+        mVocabularyChip.setOnClickListener {
+            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.vocabulary_category))
         }
 
-        mGreetingsChip.setOnClickListener {
-            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.greetings_category))
-            editor?.apply()
-        }
+//        mUserPhrasesChip.setOnClickListener {
+//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.user_phrases_category))
+//            editor?.apply()
+//        }
 
-        mAllPhrasesChip.setOnClickListener {
-            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.all_phrases_category))
-            editor?.apply()
-        }
+//        mGrammarChip.setOnClickListener {
+//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.grammar_category))
+//            editor?.apply()
+//            Log.i("homeTAG", "Grammar Chip clicked")
+//            Log.i("homeTAG", sharedPref?.getString(getString(R.string.phrase_category_key),"default").toString())
+//        }
+//
+//        mGreetingsChip.setOnClickListener {
+//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.greetings_category))
+//            editor?.apply()
+//        }
+//
+//        mAllPhrasesChip.setOnClickListener {
+//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.all_phrases_category))
+//            editor?.apply()
+//        }
 
 //        mSaveSettingsButton.setOnClickListener {
 //            editor?.apply()

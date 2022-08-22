@@ -30,6 +30,8 @@
 
     <!-- Categories -->
     <string name="all_phrases_category">All Phrases</string>
+    <string name="phrases_category">Phrases</string>
+    <string name="vocabulary_category">Vocabulary</string>
     <string name="grammar_category">Grammar</string>
     <string name="greetings_category">Greeting</string>
     <string name="user_phrases_category">User Phrase</string>

@@ -14,7 +14,7 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
                     private val categorySetting: String): ViewModel() {
 
 
-    private lateinit var mAllPhrases: List<Phrase>
+    private lateinit var mPhraseList: List<Phrase>
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
@@ -23,47 +23,14 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     // Quiz Logic
     fun buildQuestion(phraseCategory: String) {
 
-        Log.i("mvTAG", phraseCategory)
-        // In a separate thread, Makes a DB query for all phrases
-        // Run this blocking thread everytime doesn't seem good.. but it's working since the data is tiny.
-        if(phraseCategory == "All Phrases")
 
-            // With viewModelScope, the data lags and doesn't update the ui in time (for the first question at least)
-            // LiveData might be the solution for this!
-            // viewModelScope.launch{
-            runBlocking {
-                mAllPhrases = getAllPhrases()
+        runBlocking {
 
-                // .join() Should make the main thread wait for the query to finish before continuing
-                // allPhrases.join()
-                Log.i("mTAG", "All Phrases = " + mAllPhrases[0])
-            }
-        else
-//            viewModelScope.launch{
-            runBlocking {
-                // More or less a null check for User Phrases
-                // If there are less than 4 user phrases, then just return all phrases to prevent a crash.
-                if(phraseCategory == "User Phrase"){
-                        mAllPhrases = getPhrasesByCategory(phraseCategory)
-                        if (mAllPhrases.size < 4) {
-                            mAllPhrases = getAllPhrases()
-                            Toast.makeText(ApplicationProvider.getApplicationContext(),"Not Enough User Phrases!",
-                                Toast.LENGTH_SHORT).show()
-                        }
-                        else{
-//                            mAllPhrases = getPhrasesByCategory(phraseCategory)
-                        }
-                }
-                else {
-                    mAllPhrases = getPhrasesByCategory(phraseCategory)
-                    // .join() Should make the main thread wait for the query to finish before continuing
-                    Log.i("mTAG", "Category" + mAllPhrases[0])
-                }
+            mPhraseList = getPhrasesByCategory(phraseCategory)
+        }
 
-            }
-
-        val randIndex = (mAllPhrases.indices).random()
-        val randomPhrase = mAllPhrases[randIndex]
+        val randIndex = (mPhraseList.indices).random()
+        val randomPhrase = mPhraseList[randIndex]
         mQuestionPhrase = randomPhrase
 
 //        mPhraseCategory = randomPhrase.category
@@ -78,8 +45,8 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         // Trying to generate a unique set of Phrase to be assigned to the Answer
         // Using a Set. This works well enough unless the DB is smaller that 4.. Then we're trapped in a infinite loop
         while (mAnswerPhrasesSet.size < 4){
-            val randIndex = (mAllPhrases.indices).random()
-            val randomPhrase = mAllPhrases[randIndex]
+            val randIndex = (mPhraseList.indices).random()
+            val randomPhrase = mPhraseList[randIndex]
             mAnswerPhrasesSet.add(randomPhrase)
 
         }
