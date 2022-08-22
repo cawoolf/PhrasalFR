@@ -178,10 +178,12 @@ class HomeFragment : Fragment() {
 
         mPhrasesChip.setOnClickListener {
             editor?.putString(getString(R.string.phrase_category_key), getString(R.string.phrases_category))
+            editor?.apply()
         }
 
         mVocabularyChip.setOnClickListener {
             editor?.putString(getString(R.string.phrase_category_key), getString(R.string.vocabulary_category))
+            editor?.apply()
         }
 
 //        mUserPhrasesChip.setOnClickListener {

@@ -1,6 +1,7 @@
 package com.example.phrasalfr.ui
 
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -14,9 +15,11 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
+import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentPhrasesBinding
 import com.example.phrasalfr.util.PhrasalUtil
+import com.google.android.material.chip.Chip
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.mlkit.nl.translate.Translator
 import kotlin.properties.Delegates
@@ -199,19 +202,65 @@ class PhrasesFragment : Fragment() {
 
     private fun addPhraseToDB() {
 
-        if (mTranslateSuccess) {
-            val englishText = mEnglishEditText.text.toString()
-            val frenchText = mFrenchEditText.text.toString()
-
-            val phrase = Phrase("User Phrase",englishText, frenchText)
-
-            mMainViewModel.insert(phrase)
-
-            Toast.makeText(context,"Phrase Added!", Toast.LENGTH_SHORT).show()
-
-        }
+        buildPhraseAlertDialog()
     }
 
+    private fun buildPhraseAlertDialog() {
+        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
+            .create()
+        val view = layoutInflater.inflate(R.layout.alert_dialog_add_phrase,null)
+
+        var category = ""
+
+        val vocabularyCategory = view.findViewById<Chip>(R.id.alert_vocabulary_Chip)
+        val phrasesCategory = view.findViewById<Chip>(R.id.alert_phrases_Chip)
+
+        val  dismissButton = view.findViewById<Button>(R.id.dismiss_button)
+        val  approveButton = view.findViewById<Button>(R.id.approve_button)
+
+        builder.setView(view)
+
+        vocabularyCategory.setOnClickListener {
+            category = "Vocabulary"
+        }
+
+        phrasesCategory.setOnClickListener {
+            category = "Phrases"
+        }
+
+        dismissButton.setOnClickListener {
+            builder.dismiss()
+        }
+
+        approveButton.setOnClickListener {
+
+            if (category.equals("") ){
+                Toast.makeText(context,"Select a Category!", Toast.LENGTH_SHORT).show()
+            }
+
+            else {
+
+                if (mTranslateSuccess) {
+                    val englishText = mEnglishEditText.text.toString()
+                    val frenchText = mFrenchEditText.text.toString()
+
+                    val phrase = Phrase(category, englishText, frenchText)
+
+                    mMainViewModel.insert(phrase)
+
+                    Toast.makeText(context, "Phrase Added!", Toast.LENGTH_SHORT).show()
+
+                    builder.dismiss()
+
+                }
+            }
+
+        }
+
+
+        builder.setCanceledOnTouchOutside(false)
+        builder.show()
+    }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

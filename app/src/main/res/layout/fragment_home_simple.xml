@@ -56,7 +56,6 @@
                         />
 
 
-
                     <com.google.android.material.chip.Chip
                     android:id="@+id/settings_phrases_Chip"
                     android:layout_width="wrap_content"
@@ -81,56 +80,6 @@
                         android:layout_marginTop="8dp"
                         />
 
-                    <!--
-                   <com.google.android.material.chip.Chip
-                       android:id="@+id/settings_verbs_top20_Chip"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                       android:text="Sports"
-
-                       android:layout_marginStart="20dp"
-                       android:layout_marginTop="8dp"
-                        />
-
-                   <com.google.android.material.chip.Chip
-                       android:id="@+id/settings_cookingVerbList_Chip"
-                       android:layout_width="wrap_content"
-                       android:layout_height="wrap_content"
-                       style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                       android:text="Music"
-
-                       android:layout_marginStart="20dp"
-                       android:layout_marginTop="8dp"
-                        />
-
-                       <com.google.android.material.chip.Chip
-                           android:id="@+id/settings_workVerbList_Chip"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                           android:text="News"
-
-                           android:layout_marginStart="20dp"
-                           android:layout_marginTop="8dp"
-                           />
-
-
-                       <com.google.android.material.chip.Chip
-                           android:id="@+id/settings_addList_Chip"
-                           android:layout_width="wrap_content"
-                           android:layout_height="wrap_content"
-                           style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                           android:text="+"
-
-                           android:layout_marginStart="20dp"
-                           android:layout_marginTop="8dp"
-                           />
-                           -->
                 </com.google.android.material.chip.ChipGroup>
 
         </LinearLayout>

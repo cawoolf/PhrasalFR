@@ -24,6 +24,8 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     fun buildQuestion(phraseCategory: String) {
 
 
+        Log.i("vmTAG", phraseCategory.toString())
+
         runBlocking {
 
             mPhraseList = getPhrasesByCategory(phraseCategory)

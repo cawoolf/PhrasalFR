@@ -9,6 +9,7 @@
     tools:context=".ui.PhrasesFragment">
 
     <LinearLayout
+        android:id="@+id/translator_linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -57,6 +58,7 @@
             android:textSize="20sp" />
 
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/phrases_french_textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="175dp"

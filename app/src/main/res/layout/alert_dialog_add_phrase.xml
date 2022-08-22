@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    android:layout_gravity="center">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/alert_categories_cardView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+
+        android:layout_marginTop="16dp"
+        android:layout_margin="8dp"
+        >
+
+        <LinearLayout
+            android:id="@+id/alert_categories_linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:padding="8dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Select Category"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                android:gravity="center"/>
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/alert_verbs_chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:singleSelection="true"
+                android:layout_gravity="center">
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/alert_vocabulary_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                    android:text="@string/vocabulary_category"
+
+                    android:layout_margin="8dp"
+                    />
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/alert_phrases_Chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/Widget.MaterialComponents.Chip.Choice"
+
+                    android:text="@string/phrases_category"
+                    android:layout_margin="8dp"
+
+                    />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+
+        android:gravity="center"
+
+
+        app:layout_constraintTop_toBottomOf="@+id/alert_categories_cardView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/dismiss_button"
+            android:text="Dismiss"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="8dp"/>
+
+        <Button
+            android:id="@+id/approve_button"
+
+            android:text="Add"
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_margin="8dp"/>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
