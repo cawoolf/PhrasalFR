@@ -8,89 +8,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".MainActivity">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/settings_categories_cardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        android:layout_marginTop="16dp"
-        android:layout_margin="8dp"
-        >
-
-        <LinearLayout
-            android:id="@+id/settings_categories_linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:padding="8dp">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Select Question Category"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
-
-
-                <com.google.android.material.chip.ChipGroup
-                    android:id="@+id/settings_verbs_chipGroup"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:singleSelection="true">
-
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/settings_vocabulary_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                        android:text="@string/vocabulary_category"
-
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="8dp"
-                        />
-
-
-                    <com.google.android.material.chip.Chip
-                    android:id="@+id/settings_phrases_Chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                    android:text="@string/phrases_category"
-
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="8dp"
-                    />
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/settings_addList_Chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        style="@style/Widget.MaterialComponents.Chip.Choice"
-
-                        android:text="+"
-
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="8dp"
-                        />
-
-                </com.google.android.material.chip.ChipGroup>
-
-        </LinearLayout>
-    </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/settings_question_options_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
-        app:layout_constraintTop_toBottomOf="@id/settings_categories_cardView"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
 
@@ -186,19 +111,19 @@
     </com.google.android.material.card.MaterialCardView>
 
 
- <!--
+
     <Button
-        android:id="@+id/setting_save_quiz_Button"
+        android:id="@+id/setting_start_quiz_Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Save Quiz Settings"
+        android:text="Start Quiz"
 
-        android:layout_marginBottom="8dp"
+        android:layout_margin="16dp"
 
+        app:layout_constraintTop_toBottomOf="@+id/settings_answer_options_cardView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
-        -->
+
 
 
 

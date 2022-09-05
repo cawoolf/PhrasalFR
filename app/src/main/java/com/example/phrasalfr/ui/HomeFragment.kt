@@ -3,7 +3,6 @@ package com.example.phrasalfr.ui
 import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,9 +10,9 @@ import android.widget.Button
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.findNavController
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
-import com.example.phrasalfr.databinding.FragmentHomeBinding
 import com.example.phrasalfr.databinding.FragmentHomeSimpleBinding
 import com.google.android.material.chip.Chip
 
@@ -36,16 +35,7 @@ class HomeFragment : Fragment() {
     private lateinit var mAnswerFrenchText: RadioButton
     private lateinit var mAnswerFrenchAudio: RadioButton
 
-    // Chips for phrase categories
-    private lateinit var mGreetingsChip: Chip
-    private lateinit var mGrammarChip: Chip
-    private lateinit var mAllPhrasesChip: Chip
-    private lateinit var mUserPhrasesChip: Chip
-
-    private lateinit var mPhrasesChip: Chip
-    private lateinit var mVocabularyChip: Chip
-
-    private lateinit var mSaveSettingsButton: Button
+    private lateinit var mStartQuizButton: Button
 
     private lateinit var mMainViewModel : MainViewModel
 
@@ -96,16 +86,7 @@ class HomeFragment : Fragment() {
         mAnswerFrenchText = binding.settingsAnswerFrenchTextRadioButton
         mAnswerFrenchAudio = binding.settingsAnswerFrenchAudioRadioButton
 
-
-        mPhrasesChip = binding.settingsPhrasesChip
-        mVocabularyChip = binding.settingsVocabularyChip
-
-//        mGreetingsChip = binding.settingsGreetingsChip
-//        mGrammarChip = binding.settingsGrammarChip
-//        mAllPhrasesChip = binding.settingsAllPhrasesChip
-//        mUserPhrasesChip = binding.settingsUserPhrasesChip
-
-//        mSaveSettingsButton = binding.settingSaveQuizButton
+        mStartQuizButton = binding.settingStartQuizButton
 
     }
 
@@ -115,7 +96,7 @@ class HomeFragment : Fragment() {
 
         val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
         val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
-        val categorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),"default")
+        val categorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),"Vocabulary")
 
         when (questionSetting){
             getString(R.string.question_format_value_english_text) -> mQuestionEnglishText.isChecked = true
@@ -129,12 +110,6 @@ class HomeFragment : Fragment() {
             getString(R.string.answer_format_value_french_audio) -> mAnswerFrenchAudio.isChecked = true
         }
 
-        when(categorySetting) {
-            getString(R.string.user_phrases_category) -> mUserPhrasesChip.isChecked = true
-            getString(R.string.grammar_category) -> mGrammarChip.isChecked = true
-            getString(R.string.greetings_category) -> mGreetingsChip.isChecked = true
-            getString(R.string.all_phrases_category) -> mAllPhrasesChip.isChecked = true
-        }
 
     }
 
@@ -176,41 +151,9 @@ class HomeFragment : Fragment() {
             editor?.apply()
         }
 
-        mPhrasesChip.setOnClickListener {
-            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.phrases_category))
-            editor?.apply()
+        mStartQuizButton.setOnClickListener {
+//            view?.findNavController()?.navigate(R.id.navigation_quiz)
         }
-
-        mVocabularyChip.setOnClickListener {
-            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.vocabulary_category))
-            editor?.apply()
-        }
-
-//        mUserPhrasesChip.setOnClickListener {
-//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.user_phrases_category))
-//            editor?.apply()
-//        }
-
-//        mGrammarChip.setOnClickListener {
-//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.grammar_category))
-//            editor?.apply()
-//            Log.i("homeTAG", "Grammar Chip clicked")
-//            Log.i("homeTAG", sharedPref?.getString(getString(R.string.phrase_category_key),"default").toString())
-//        }
-//
-//        mGreetingsChip.setOnClickListener {
-//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.greetings_category))
-//            editor?.apply()
-//        }
-//
-//        mAllPhrasesChip.setOnClickListener {
-//            editor?.putString(getString(R.string.phrase_category_key), getString(R.string.all_phrases_category))
-//            editor?.apply()
-//        }
-
-//        mSaveSettingsButton.setOnClickListener {
-//            editor?.apply()
-//        }
 
 
     }

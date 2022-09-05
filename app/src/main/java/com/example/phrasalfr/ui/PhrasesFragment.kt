@@ -32,8 +32,10 @@ class PhrasesFragment : Fragment() {
     private lateinit var mEnglishEditText: EditText
     private lateinit var mFrenchEditText: EditText
 
-    private lateinit var mPhrasesFAB: FloatingActionButton
-    private lateinit var mButton: Button
+    private lateinit var mTranslateButton: Button
+    private lateinit var mAddButton: Button
+    private lateinit var mEditButton: Button
+
     private var mTranslateSuccess by Delegates.notNull<Boolean>()
 
     private lateinit var mPhrasalUtil : PhrasalUtil
@@ -89,12 +91,10 @@ class PhrasesFragment : Fragment() {
 
         mEnglishEditText = binding.phrasesEnglishEditText
         mFrenchEditText = binding.phrasesFrenchEditText
-//
-//        mFrenchTextView = binding.phrasesFrenchTextView
-//        mEnglishTextView = binding.phrasesEnglishTextView
-//
-        mPhrasesFAB = binding.phrasesAddFab
-        mButton = binding.phrasesTranslateButton
+
+        mTranslateButton= binding.phrasesTranslateButton
+        mAddButton = binding.phrasesAddButton
+        mEditButton = binding.phrasesEditButton
 
     }
 
@@ -129,7 +129,7 @@ class PhrasesFragment : Fragment() {
             }
         }
 
-        mButton.setOnClickListener {
+        mTranslateButton.setOnClickListener {
             if(mEnglishFrenchTranslatorChoice) {
                 translateEnglishToFrench()
             }
@@ -138,14 +138,10 @@ class PhrasesFragment : Fragment() {
             }
         }
 
-        mPhrasesFAB.setOnClickListener {
+        mAddButton.setOnClickListener {
             addPhraseToDB()
         }
 
-//        // Clears the EditText on first click
-//        mEnglishEditText.onFocusChangeListener = View.OnFocusChangeListener { _, _ ->
-//            mEnglishEditText.setText("")
-//        }
     }
 
     @Suppress("DEPRECATION")
@@ -202,7 +198,21 @@ class PhrasesFragment : Fragment() {
 
     private fun addPhraseToDB() {
 
-        buildPhraseAlertDialog()
+//        buildPhraseAlertDialog()
+
+        val category = "Vocabulary"
+
+        if (mTranslateSuccess) {
+            val englishText = mEnglishEditText.text.toString()
+            val frenchText = mFrenchEditText.text.toString()
+
+            val phrase = Phrase(category, englishText, frenchText)
+
+            mMainViewModel.insert(phrase)
+
+            Toast.makeText(context, "Phrase Added!", Toast.LENGTH_SHORT).show()
+
+        }
     }
 
     private fun buildPhraseAlertDialog() {
