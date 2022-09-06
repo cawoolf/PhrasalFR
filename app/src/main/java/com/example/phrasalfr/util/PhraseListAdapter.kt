@@ -3,6 +3,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phrasalfr.R
@@ -17,7 +18,7 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>) : RecyclerView.Ada
         var category = view.findViewById<TextView>(R.id.list_item_category)
         val english = view.findViewById<TextView>(R.id.list_item_english)
         val french = view.findViewById<TextView>(R.id.list_item_french)
-        val delete = view.findViewById<Button>(R.id.list_item_delete)
+        val delete = view.findViewById<ImageView>(R.id.list_item_delete)
 
 
     }
@@ -43,6 +44,6 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>) : RecyclerView.Ada
     }
 
     override fun getItemCount(): Int {
-        TODO("Not yet implemented")
+        return phrases.size
     }
 }

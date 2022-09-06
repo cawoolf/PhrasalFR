@@ -85,7 +85,7 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     }
 
     // Database functions
-    private suspend fun getAllPhrases(): List<Phrase> {
+    suspend fun getAllPhrases(): List<Phrase> {
         return phraseRepository.getAllPhrases()
     }
 
