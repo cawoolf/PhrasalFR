@@ -4,13 +4,17 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
+import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.databinding.FragmentHomeSimpleBinding
@@ -153,6 +157,12 @@ class HomeFragment : Fragment() {
 
         mStartQuizButton.setOnClickListener {
 //            view?.findNavController()?.navigate(R.id.navigation_quiz)
+//            activity?.supportFragmentManager?.commit {
+//                replace<QuizFragment>(R.id.nav_host_fragment_activity_main)
+//                setReorderingAllowed(true)
+//                addToBackStack(null)
+//            }
+
         }
 
 

@@ -1,7 +1,7 @@
 package com.example.phrasalfr.ui
 
-import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
 import android.util.Log
@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -20,7 +19,6 @@ import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentPhrasesBinding
 import com.example.phrasalfr.util.PhrasalUtil
 import com.google.android.material.chip.Chip
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.mlkit.nl.translate.Translator
 import kotlin.properties.Delegates
 
@@ -140,6 +138,11 @@ class PhrasesFragment : Fragment() {
 
         mAddButton.setOnClickListener {
             addPhraseToDB()
+        }
+
+        mEditButton.setOnClickListener {
+            val intent = Intent (activity, EditDatabase::class.java)
+            activity?.startActivity(intent)
         }
 
     }
