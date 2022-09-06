@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     tools:context=".ui.EditDatabase">
 
-    <ListView
-        android:id="@+id/edit_db_listView"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/edit_db_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
