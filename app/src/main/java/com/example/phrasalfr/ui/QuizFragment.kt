@@ -85,7 +85,7 @@ class QuizFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 //        setupQuiz()
-        Log.i("quizTAG", "On resume called")
+
     }
 
 
@@ -110,9 +110,9 @@ class QuizFragment : Fragment() {
 
     private fun setupQuiz() {
 
-        try {
-            
-            mMainViewModel.buildQuestion(mCategorySetting)
+//        try {
+
+            mMainViewModel.buildQuestion(getString(R.string.vocabulary_category))
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
             Log.i("quizTag", "setUpQuiz")
@@ -148,11 +148,11 @@ class QuizFragment : Fragment() {
                 else {
                     setupQuiz()
                 }
-            }
+//            }
         }
-        catch (e: Exception) {
-            Log.i("quizTAG", e.toString())
-        }
+//        catch (e: Exception) {
+//            Log.i("quizTAG", e.toString())
+//        }
 
 
     }
