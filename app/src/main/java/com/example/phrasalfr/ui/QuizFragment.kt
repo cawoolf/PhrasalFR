@@ -111,13 +111,13 @@ class QuizFragment : Fragment() {
     private fun setupQuiz() {
 
         try {
-
-
+            
             mMainViewModel.buildQuestion(mCategorySetting)
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
             Log.i("quizTag", "setUpQuiz")
 
+            // Checks to see if the question is unique
             if(mMainViewModel.uniqueQuestion(mQuestionPhrase)) {
                 Log.i("quizTag", "inside If" )
                 mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
@@ -128,10 +128,12 @@ class QuizFragment : Fragment() {
                 Log.i("quizTag", "Question Count: " + mMainViewModel.getAskedQuestionCount().toString() + "\n" +
                         "Total Phrase Count: " + mMainViewModel.getTotalPhraseCount().toString())
             }
+
+            // Re runs setUpQuiz if the Question was not unique for this session
             else{
                 Log.i("quizTag", "inside else")
-                
-                // Re runs setUpQuiz if the Question was not unique for this session
+
+                // If the total asked questions equal or exceed the phrase list size the quiz resets
                 if(mMainViewModel.getAskedQuestionCount() >= mMainViewModel.getTotalPhraseCount())
                 {
                     Toast.makeText(context, "Quiz Finished!... Resetting", Toast.LENGTH_LONG).show()
@@ -141,15 +143,17 @@ class QuizFragment : Fragment() {
 
                 }
 
+                // Else the recursively tries to generate another question until it's unique.
+                // Not the most efficient for sure..
                 else {
                     setupQuiz()
                 }
             }
-        } catch (e: Exception) {
+        }
+        catch (e: Exception) {
             Log.i("quizTAG", e.toString())
         }
 
-        // Need to add a muteableSetOf mQuestionPhrases, that ensure the next question is unqinue
 
     }
 
