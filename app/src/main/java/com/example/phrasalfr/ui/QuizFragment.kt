@@ -44,6 +44,7 @@ class QuizFragment : Fragment() {
     private lateinit var mSubmitButton: Button
 
     private lateinit var mQuestionPhrase: Phrase
+    private lateinit var mAskedQuestions: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
 
@@ -115,16 +116,44 @@ class QuizFragment : Fragment() {
             mMainViewModel.buildQuestion(mCategorySetting)
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
-            mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
-            mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
-            formatQuizUI()
-            setOnClicks()
+            Log.i("quizTag", "setUpQuiz")
+
+            if(mMainViewModel.uniqueQuestion(mQuestionPhrase)) {
+                Log.i("quizTag", "inside If" )
+                mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
+                mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
+                formatQuizUI()
+                setOnClicks()
+
+                Log.i("quizTag", "Question Count: " + mMainViewModel.getAskedQuestionCount().toString() + "\n" +
+                        "Total Phrase Count: " + mMainViewModel.getTotalPhraseCount().toString())
+            }
+            else{
+                Log.i("quizTag", "inside else")
+                
+                // Re runs setUpQuiz if the Question was not unique for this session
+                if(mMainViewModel.getAskedQuestionCount() >= mMainViewModel.getTotalPhraseCount())
+                {
+                    Toast.makeText(context, "Quiz Finished!... Resetting", Toast.LENGTH_LONG).show()
+                    mMainViewModel.resetAskedQuestionSet()
+                    mMainViewModel.resetTotalPhraseCount()
+                    setupQuiz()
+
+                }
+
+                else {
+                    setupQuiz()
+                }
+            }
         } catch (e: Exception) {
             Log.i("quizTAG", e.toString())
         }
 
+        // Need to add a muteableSetOf mQuestionPhrases, that ensure the next question is unqinue
 
     }
+
+
 
     private fun setOnClicks() {
 

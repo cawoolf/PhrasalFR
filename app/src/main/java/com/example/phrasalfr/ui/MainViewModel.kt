@@ -14,22 +14,14 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
 
     private lateinit var mPhraseList: List<Phrase>
+    private var mTotalPhraseCount: Int = 0
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
+    private val mAskedQuestionSet: MutableSet<Phrase> = mutableSetOf()
     private lateinit var mAnswerPhrasesIndexArray: IntArray
-
 
     val navigateToQuiz = MutableLiveData<Boolean>()
 
-    fun userClicksStartQuiz(buttonClicked: Boolean) {
-        navigateToQuiz.value = buttonClicked
-        Log.i("mVM", navigateToQuiz.value.toString())
-
-    }
-
-    fun getNavigateQuizValue() : Boolean? {
-        return navigateToQuiz.value
-    }
 
     // Quiz Logic
     fun buildQuestion(phraseCategory: String) {
@@ -40,6 +32,9 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         runBlocking {
 
             mPhraseList = getPhrasesByCategory(phraseCategory)
+            mTotalPhraseCount = mPhraseList.size
+
+
         }
 
         val randIndex = (mPhraseList.indices).random()
@@ -47,6 +42,28 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         mQuestionPhrase = randomPhrase
 
 //        mPhraseCategory = randomPhrase.category
+
+    }
+
+    fun uniqueQuestion(phrase: Phrase): Boolean {
+
+        // Works but breaks into an infinite loop if it goes through all the db
+
+        Log.i("quizTag", "inside uniqueQuestion")
+        var unique = false
+
+        val questionCount = mAskedQuestionSet.size
+        Log.i("quizTag", questionCount.toString())
+        mAskedQuestionSet.add(phrase)
+
+        if(mAskedQuestionSet.size > questionCount){
+            unique = true
+        }
+
+        Log.i("quizTag", questionCount.toString())
+
+
+        return unique
 
     }
 
@@ -82,9 +99,20 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
     }
 
+    // Navigation for Button on Home page
+    fun userClicksStartQuiz(buttonClicked: Boolean) {
+        navigateToQuiz.value = buttonClicked
+        Log.i("mVM", navigateToQuiz.value.toString())
+
+    }
+
     // Getters
     fun getQuestionPhrase(): Phrase {
         return mQuestionPhrase
+    }
+
+    fun getNavigateQuizValue() : Boolean? {
+        return navigateToQuiz.value
     }
 
     fun getAnswerPhraseSet(): MutableSet<Phrase> {
@@ -93,6 +121,24 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
     fun getAnswerPhrasesIndexArray() : IntArray {
         return mAnswerPhrasesIndexArray
+    }
+
+    fun getAskedQuestionCount() : Int {
+        return mAskedQuestionSet.size
+    }
+
+    fun resetAskedQuestionSet() {
+        mAskedQuestionSet.removeAll(mPhraseList)
+        Log.i("quizTag", mAskedQuestionSet.size.toString())
+
+    }
+
+    fun getTotalPhraseCount() : Int {
+        return mTotalPhraseCount
+    }
+
+    fun resetTotalPhraseCount() {
+        mTotalPhraseCount = 0
     }
 
     // Database functions

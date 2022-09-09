@@ -4,12 +4,10 @@ PhrasalFR Notes!
 
 ToDo:
 
-> MainViewModel is not initialized properly! It's resetting or recreating a viewmodel each time the fragment changes
-
-> Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
-
 > Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
     > Weird when the same phrase appears many times in a row
+    > Add a counter so you know how many entires are left.
+        > How many right or wrong.
 
 > Be able to view a list of all phrases and words. Add or remove them from the db.
 
@@ -19,7 +17,6 @@ ToDo:
 ****************************************************************************************************
 Feature Ideas:
 
-> Just have two categories.. Phrases and Vocab
 > Add a streak feature
 > Add a feature where you have to add phrases to the db every day
 > Add a feature where you can create your own category
@@ -29,20 +26,24 @@ Feature Ideas:
 ****************************************************************************************************
 Bugs:
 
-> MainViewModel is not initialized properly! It's resetting or recreating a viewmodel each time the fragment changes
-
 > Fix the runBlocking{} configuration. Not a great practice.
+> Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
+    > Use other scopes in combination with LiveData to load quiz data in real time with out blocking
+      the main thread
 
 > User Phrase category will crash if there isn't enough data to build the quiz
     > Index out of bounds
-
-> Also play audio automatically when French audio is selected.
-French audio for French Text quiz setting not playing on first click from quiz
 
 On fresh install, default sharedPrefs for question and answer not formatting quiz correctly
 User should be able to click right on to quiz on first install without making quiz settings
 
 Fixed:
+
+> MainViewModel is not initialized properly! It's resetting or recreating a viewmodel each time the fragment changes
+
+> Also play audio automatically when French audio is selected.
+French audio for French Text quiz setting not playing on first click from quiz
+
 Small bug where if you don't click the answer, it will be wrong even if it's right
     > You have to click to actually select the answer, even if it is shown as selected.
 
@@ -59,6 +60,9 @@ Still crashing on fresh install?
 
 *************************************************************************************************************
 ***Work Log***
+9/9/22
+Refactored viewModels
+
 8/22/22
 
 Simplifying the question process and database stuff
