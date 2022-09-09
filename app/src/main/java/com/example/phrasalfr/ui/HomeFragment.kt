@@ -15,6 +15,7 @@ import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import com.example.phrasalfr.MainActivity
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.databinding.FragmentHomeSimpleBinding
@@ -78,6 +79,7 @@ class HomeFragment : Fragment() {
             MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
             "default"))
             .get(MainViewModel::class.java)
+
     }
 
     private fun linkViews() {
@@ -156,12 +158,7 @@ class HomeFragment : Fragment() {
         }
 
         mStartQuizButton.setOnClickListener {
-//            view?.findNavController()?.navigate(R.id.navigation_quiz)
-//            activity?.supportFragmentManager?.commit {
-//                replace<QuizFragment>(R.id.nav_host_fragment_activity_main)
-//                setReorderingAllowed(true)
-//                addToBackStack(null)
-//            }
+                mMainViewModel.userClicksStartQuiz(true)
 
         }
 

@@ -243,6 +243,8 @@ class QuizFragment : Fragment() {
                 Toast.makeText(context, "Incorrect.. Try Again", Toast.LENGTH_SHORT).show()
             }
 
+            Log.i("mVM", mMainViewModel.getNavigateQuizValue().toString())
+
 
         }
     }

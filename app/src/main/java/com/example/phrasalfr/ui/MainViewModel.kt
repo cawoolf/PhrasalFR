@@ -1,12 +1,11 @@
 package com.example.phrasalfr.ui
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
-import androidx.test.core.app.ApplicationProvider
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
-import kotlinx.coroutines.async
+import com.example.phrasalfr.util.CustomEvent
+import com.google.android.datatransport.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -19,6 +18,18 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
 
+
+    val navigateToQuiz = MutableLiveData<Boolean>()
+
+    fun userClicksStartQuiz(buttonClicked: Boolean) {
+        navigateToQuiz.value = buttonClicked
+        Log.i("mVM", navigateToQuiz.value.toString())
+
+    }
+
+    fun getNavigateQuizValue() : Boolean? {
+        return navigateToQuiz.value
+    }
 
     // Quiz Logic
     fun buildQuestion(phraseCategory: String) {
