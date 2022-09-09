@@ -3,6 +3,9 @@ PhrasalFR Notes!
 
 
 ToDo:
+
+> MainViewModel is not initialized properly! It's resetting or recreating a viewmodel each time the fragment changes
+
 > Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
 
 > Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
@@ -25,6 +28,8 @@ Feature Ideas:
 
 ****************************************************************************************************
 Bugs:
+
+> MainViewModel is not initialized properly! It's resetting or recreating a viewmodel each time the fragment changes
 
 > Fix the runBlocking{} configuration. Not a great practice.
 
