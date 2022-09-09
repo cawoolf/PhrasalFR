@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
@@ -44,7 +45,7 @@ class PhrasesFragment : Fragment() {
 
     private var mEnglishFrenchTranslatorChoice: Boolean = true
 
-    private lateinit var mMainViewModel: MainViewModel
+    private val mMainViewModel: MainViewModel by activityViewModels<MainViewModel>()
 
     // This property is only valid between onCreateView and
     // onDestroyView.
@@ -52,8 +53,6 @@ class PhrasesFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        setUpViewModel()
 
         mPhrasalUtil = PhrasalUtil(context)
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
@@ -78,12 +77,6 @@ class PhrasesFragment : Fragment() {
         return root
     }
 
-    private fun setUpViewModel() {
-        mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
-            "default"))
-            .get(MainViewModel::class.java)
-    }
 
     private fun linkViews() {
 

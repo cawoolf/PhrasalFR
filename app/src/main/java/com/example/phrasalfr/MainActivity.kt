@@ -2,9 +2,12 @@ package com.example.phrasalfr
 
 import android.os.Bundle
 import android.util.Log
+import androidx.activity.viewModels
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -18,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mMainViewModel : MainViewModel
+//    private val mMainViewModel: MainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,13 +43,13 @@ class MainActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
 
         setUpViewModel()
-        setUpHomeButtonObserver()
+        setUpQuizButtonObserver()
         Log.i("mMA", "started")
 
 
     }
 
-    private fun setUpHomeButtonObserver() {
+    private fun setUpQuizButtonObserver() {
         mMainViewModel.navigateToQuiz.observe(this, Observer {
 
             binding.navView.selectedItemId = R.id.navigation_quiz

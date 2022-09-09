@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
 import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
@@ -40,16 +41,14 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerLinearLayoutC: LinearLayout
     private lateinit var mAnswerLinearLayoutD: LinearLayout
 
-
     private lateinit var mSubmitButton: Button
-//
-//    private lateinit var mPhraseCategory: String
-//    private lateinit var mAllPhrases: List<Phrase>
+
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesIndexArray: IntArray
 
-    private lateinit var mMainViewModel: MainViewModel
+
+    private val mMainViewModel: MainViewModel by activityViewModels<MainViewModel>()
     private lateinit var mPhrasalUtil: PhrasalUtil
     private lateinit var mTranslator: Translator
     private lateinit var mTextToSpeech: TextToSpeech
@@ -62,7 +61,7 @@ class QuizFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         getSharedPrefs()
-        setUpViewModel()
+
         setUpUtils()
 
     }
@@ -333,19 +332,6 @@ class QuizFragment : Fragment() {
         Log.i("quizTAG", mCategorySetting.toString())
     }
 
-
-    // Sets up the view model by getting a repository instance from the custom Application
-    // Uses the sharedPref settings to..
-    private fun setUpViewModel() {
-
-        mMainViewModel = ViewModelProvider(
-            this,
-            MainViewModel.MainViewModelFactory(
-                (activity?.application as PhrasalFRApplication).phraseRepository,
-                mCategorySetting)
-        )
-            .get(MainViewModel::class.java)
-    }
 
     // Builds the Utils for translating and TextToSpeech
     private fun setUpUtils() {

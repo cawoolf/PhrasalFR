@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
 import androidx.fragment.app.replace
 import androidx.lifecycle.ViewModelProvider
@@ -42,13 +43,12 @@ class HomeFragment : Fragment() {
 
     private lateinit var mStartQuizButton: Button
 
-    private lateinit var mMainViewModel : MainViewModel
+    private val mMainViewModel: MainViewModel by activityViewModels<MainViewModel>()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setUpViewModel()
     }
 
     override fun onCreateView(
@@ -73,14 +73,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun setUpViewModel() {
-
-        mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((activity?.application as PhrasalFRApplication).phraseRepository,
-            "default"))
-            .get(MainViewModel::class.java)
-
-    }
 
     private fun linkViews() {
 
