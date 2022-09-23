@@ -54,6 +54,9 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
         val questionCount = mAskedQuestionSet.size
         Log.i("quizTag", questionCount.toString())
+
+        // Attempts to add the question to a Set, which can only have unique entries
+        // If this fails than the count is not incremented, which means that the question was not unique
         mAskedQuestionSet.add(phrase)
 
         if(mAskedQuestionSet.size > questionCount){
