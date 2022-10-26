@@ -13,8 +13,6 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentPhrasesBinding
@@ -134,7 +132,7 @@ class PhrasesFragment : Fragment() {
         }
 
         mEditButton.setOnClickListener {
-            val intent = Intent (activity, EditDatabase::class.java)
+            val intent = Intent (activity, EditDatabaseActivity::class.java)
             activity?.startActivity(intent)
         }
 

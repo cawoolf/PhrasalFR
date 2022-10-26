@@ -5,15 +5,20 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
+import com.example.phrasalfr.ui.MainViewModel
 
 
-class PhraseListAdapter(private val allPhrases: List<Phrase>) : RecyclerView.Adapter<PhraseListAdapter.PhraseViewHolder>() {
+class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapterDeletePhrase) : RecyclerView.Adapter<PhraseListAdapter.PhraseViewHolder>() {
 
     private val phrases = allPhrases
+    private val mListener = listener;
 
+
+    // The ViewHolder handles all the events on the Cards
     class PhraseViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
         var category = view.findViewById<TextView>(R.id.list_item_category)
         val english = view.findViewById<TextView>(R.id.list_item_english)
@@ -38,12 +43,18 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>) : RecyclerView.Ada
         holder.english.text = item.phraseEnglish
         holder.french.text = item.phraseFrench
         holder.delete.setOnClickListener {
-            //deleteEntry()
+//
+            mListener.deletePhrase(item.phraseEnglish)
+
         }
 
     }
 
     override fun getItemCount(): Int {
         return phrases.size
+    }
+
+    interface IAdapterDeletePhrase {
+        fun deletePhrase(englishPhrase : String)
     }
 }

@@ -158,6 +158,10 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
     }
 
+    fun delete(deletePhrase: String) = viewModelScope.launch {
+        phraseRepository.deletePhrase(deletePhrase)
+    }
+
     // View Model factory used for creating the shared view model across fragments
     @Suppress("UNCHECKED_CAST")
     class MainViewModelFactory constructor(private val phraseRepository: PhraseRepository,

@@ -14,7 +14,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PhrasalFR">
         <activity
-            android:name=".ui.EditDatabase"
+            android:name=".ui.EditDatabaseActivity"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

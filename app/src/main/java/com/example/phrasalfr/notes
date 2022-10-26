@@ -4,12 +4,13 @@ PhrasalFR Notes!
 
 ToDo:
 
+> User Phrase category will crash if there isn't enough data to build the quiz
+    > Index out of bounds
+
 > Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
     > Weird when the same phrase appears many times in a row
     > Add a counter so you know how many entires are left.
         > How many right or wrong.
-
-> Be able to view a list of all phrases and words. Add or remove them from the db.
 
 > Simplify categories into Phrases and vocab
 
@@ -60,6 +61,10 @@ Still crashing on fresh install?
 
 *************************************************************************************************************
 ***Work Log***
+10/26/22
+> Be able to view a list of all phrases and words. Add or remove them from the db.
+
+
 9/9/22
 Refactored viewModels
 

@@ -6,6 +6,10 @@ class PhraseRepository(private val phraseDao: PhraseDao) {
         phraseDao.insertPhrase(phrase)
     }
 
+    suspend fun deletePhrase(englishPhrase: String) {
+        phraseDao.deletePhrase(englishPhrase)
+    }
+
     suspend fun getAllPhrases(): List<Phrase> {
         return phraseDao.getAllPhrases()
     }
