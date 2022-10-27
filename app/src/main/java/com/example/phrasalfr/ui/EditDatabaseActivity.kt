@@ -48,6 +48,8 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
         return phraseList
     }
 
+
+    // Because this a new activity the view model must be reinitialized?
     private fun setUpViewModel() {
 
         mMainViewModel = ViewModelProvider(this,

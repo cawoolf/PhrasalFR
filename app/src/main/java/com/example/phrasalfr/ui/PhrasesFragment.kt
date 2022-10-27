@@ -77,6 +77,15 @@ class PhrasesFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        // Quick fix. The app was crashing when you resumed the Fragment with text already populated
+        // and tried to add it to the DB
+        mEnglishEditText.text.clear()
+        mFrenchEditText.text.clear()
+    }
+
 
     private fun linkViews() {
 
@@ -163,7 +172,16 @@ class PhrasesFragment : Fragment() {
 //        }
 
         mAddButton.setOnClickListener {
-            addPhraseToDB()
+
+            var translationDataValid = checkTranslationData()
+//            translationDataValid = false
+            if(translationDataValid) {
+                addPhraseToDB()
+            }
+            else {
+                Toast.makeText(context, "Translation Text is Empty! \n Or Has an Invalid Character!", Toast.LENGTH_SHORT).show()
+            }
+
         }
 
         mEditButton.setOnClickListener {
@@ -172,6 +190,19 @@ class PhrasesFragment : Fragment() {
         }
 
     }
+
+    private fun checkTranslationData() : Boolean {
+
+        Log.i("dataTAG", mEnglishEditText.text.toString())
+        val symbols = "0123456789}]/:;%&^*()-+$]"
+        val punctuation = ".!?"
+
+        return !(mEnglishEditText.text.toString().any { it in symbols}
+                || mFrenchEditText.text.toString().any {it in symbols}
+                ||mEnglishEditText.text.toString().none {it !in 'A'..'Z' && it !in 'a'..'z' && it !in punctuation}
+                || mFrenchEditText.text.toString().none {it !in 'A'..'Z' && it !in 'a'..'z'&& it !in punctuation})
+    }
+
 
     @Suppress("DEPRECATION")
     private fun translateEnglishToFrench() {
