@@ -43,6 +43,7 @@ class QuizFragment : Fragment() {
 
     private lateinit var mSubmitButton: Button
 
+    private var mEnoughWordsInDB: Boolean = true;
     private lateinit var mQuestionPhrase: Phrase
     private lateinit var mAskedQuestions: MutableSet<Phrase>
     private lateinit var mAnswerPhrasesSet: MutableSet<Phrase>
@@ -77,9 +78,26 @@ class QuizFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
-        setupQuiz() // This logic is in the ViewModel
 
+        mEnoughWordsInDB = dataCheck();
+        if(mEnoughWordsInDB) {
+            setupQuiz() // This logic is in the ViewModel
+        }
+        else {
+            mQuestionTextView.setText("Not enough words in the database! \n" +
+                    "Add more to create the Quiz!")
+        }
         return root
+    }
+
+    private fun dataCheck(): Boolean {
+
+        mMainViewModel.buildQuestion("Vocabulary")
+        if(mMainViewModel.getTotalPhraseCount() < 4) {
+            // The don't run the quiz. It will crash
+            return false;
+        }
+        return true;
     }
 
     override fun onResume() {
@@ -110,9 +128,12 @@ class QuizFragment : Fragment() {
 
     private fun setupQuiz() {
 
-//        try {
+        // Will crash if there are not enough words in the database. Needs to be words >= 4
+        // Or break into an infinite loop..
 
+//        try {
             mMainViewModel.buildQuestion(getString(R.string.vocabulary_category))
+
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
             Log.i("quizTag", "setUpQuiz")

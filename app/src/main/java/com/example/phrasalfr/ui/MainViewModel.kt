@@ -1,6 +1,7 @@
 package com.example.phrasalfr.ui
 
 import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
@@ -37,17 +38,19 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
         }
 
-        val randIndex = (mPhraseList.indices).random()
-        val randomPhrase = mPhraseList[randIndex]
-        mQuestionPhrase = randomPhrase
-
+        if(mPhraseList.size < 4) {
+            // Error. Not enough data to build the quiz.
+        }
+        else {
+            val randIndex = (mPhraseList.indices).random()
+            val randomPhrase = mPhraseList[randIndex]
+            mQuestionPhrase = randomPhrase
+        }
 //        mPhraseCategory = randomPhrase.category
 
     }
 
     fun uniqueQuestion(phrase: Phrase): Boolean {
-
-        // Works but breaks into an infinite loop if it goes through all the db
 
         Log.i("quizTag", "inside uniqueQuestion")
         var unique = false
@@ -81,7 +84,6 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
             val randIndex = (mPhraseList.indices).random()
             val randomPhrase = mPhraseList[randIndex]
             mAnswerPhrasesSet.add(randomPhrase)
-
         }
 
         // Creates an array of Indexes that can be shuffled to randomize the answers
