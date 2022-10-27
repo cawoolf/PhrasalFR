@@ -4,6 +4,8 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import android.speech.tts.TextToSpeech
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -81,7 +83,7 @@ class PhrasesFragment : Fragment() {
         mEnglishEditText = binding.phrasesEnglishEditText
         mFrenchEditText = binding.phrasesFrenchEditText
 
-        mTranslateButton= binding.phrasesTranslateButton
+//        mTranslateButton= binding.phrasesTranslateButton
         mAddButton = binding.phrasesAddButton
         mEditButton = binding.phrasesEditButton
 
@@ -93,8 +95,24 @@ class PhrasesFragment : Fragment() {
             mEnglishFrenchTranslatorChoice = if (hasFocus) {
 
                 Log.i("pTAG", "French EditText has focus: Translate French to English")
-                mEnglishEditText.setText("")
-                mFrenchEditText.setText("")
+
+
+                mFrenchEditText.addTextChangedListener(object : TextWatcher {
+
+                    override fun afterTextChanged(s: Editable) {
+                        translateFrenchToEnglish()
+                    }
+
+                    override fun beforeTextChanged(s: CharSequence, start: Int,
+                                                   count: Int, after: Int) {
+                    }
+
+                    override fun onTextChanged(s: CharSequence, start: Int,
+                                               before: Int, count: Int) {
+
+                    }
+                })
+
                 false
             } else {
 
@@ -107,8 +125,25 @@ class PhrasesFragment : Fragment() {
             mEnglishFrenchTranslatorChoice = if (hasFocus) {
 
                 Log.i("pTAG", "English EditText has focus: Translate English to French")
-                mEnglishEditText.setText("")
-                mFrenchEditText.setText("")
+//                mEnglishEditText.setText("")
+//                mFrenchEditText.setText("")
+
+                mEnglishEditText.addTextChangedListener(object : TextWatcher {
+
+                    override fun afterTextChanged(s: Editable) {
+                        translateEnglishToFrench()
+                    }
+
+                    override fun beforeTextChanged(s: CharSequence, start: Int,
+                                                   count: Int, after: Int) {
+                    }
+
+                    override fun onTextChanged(s: CharSequence, start: Int,
+                                               before: Int, count: Int) {
+
+                    }
+                })
+
                 true
             }
             else {
@@ -118,14 +153,14 @@ class PhrasesFragment : Fragment() {
             }
         }
 
-        mTranslateButton.setOnClickListener {
-            if(mEnglishFrenchTranslatorChoice) {
-                translateEnglishToFrench()
-            }
-            else {
-                translateFrenchToEnglish()
-            }
-        }
+//        mTranslateButton.setOnClickListener {
+//            if(mEnglishFrenchTranslatorChoice) {
+//                translateEnglishToFrench()
+//            }
+//            else {
+//                translateFrenchToEnglish()
+//            }
+//        }
 
         mAddButton.setOnClickListener {
             addPhraseToDB()

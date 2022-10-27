@@ -1,12 +1,9 @@
 package com.example.phrasalfr.ui
 
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.*
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
-import com.example.phrasalfr.util.CustomEvent
-import com.google.android.datatransport.Event
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 

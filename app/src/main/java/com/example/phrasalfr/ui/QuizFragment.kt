@@ -80,13 +80,15 @@ class QuizFragment : Fragment() {
         linkViews()
 
         mEnoughWordsInDB = dataCheck();
+
         if(mEnoughWordsInDB) {
-            setupQuiz() // This logic is in the ViewModel
+            setupQuiz()
         }
         else {
-            mQuestionTextView.setText("Not enough words in the database! \n" +
-                    "Add more to create the Quiz!")
+            mQuestionTextView.text = "Not enough words in the database! \n" +
+                    "Add more to create the Quiz!"
         }
+
         return root
     }
 
@@ -94,16 +96,10 @@ class QuizFragment : Fragment() {
 
         mMainViewModel.buildQuestion("Vocabulary")
         if(mMainViewModel.getTotalPhraseCount() < 4) {
-            // The don't run the quiz. It will crash
+            // Then don't run the quiz. It will crash without atleast 4 entries in the database
             return false;
         }
         return true;
-    }
-
-    override fun onResume() {
-        super.onResume()
-//        setupQuiz()
-
     }
 
 
@@ -131,7 +127,6 @@ class QuizFragment : Fragment() {
         // Will crash if there are not enough words in the database. Needs to be words >= 4
         // Or break into an infinite loop..
 
-//        try {
             mMainViewModel.buildQuestion(getString(R.string.vocabulary_category))
 
             mMainViewModel.generateAnswerPhrases()
@@ -169,12 +164,7 @@ class QuizFragment : Fragment() {
                 else {
                     setupQuiz()
                 }
-//            }
         }
-//        catch (e: Exception) {
-//            Log.i("quizTAG", e.toString())
-//        }
-
 
     }
 
