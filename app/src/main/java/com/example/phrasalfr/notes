@@ -6,13 +6,19 @@ Command + shift + arrow to move code
 ToDo:
 
 
-> Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
-    > Weird when the same phrase appears many times in a row
-    > Add a counter so you know how many entries are left.
-        > How many right or wrong.
+> Research API pricing for ML kit. Limits and so on
+
+
+
+> Add a counter so you know how many entries are left.
+> How many right or wrong.
+    > Screen for when you finished the quiz. Gives a score.
 
 > Simplify categories into Phrases and vocab
 
+> Update the UI!
+
+> Publish
 
 ****************************************************************************************************
 Feature Ideas:
@@ -25,19 +31,20 @@ Feature Ideas:
 
 ****************************************************************************************************
 Bugs:
+If navigating to the quiz repeatedly, can trigger the end of the quiz. Increases the question count.
 
 > Fix the runBlocking{} configuration. Not a great practice.
 > Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
     > Use other scopes in combination with LiveData to load quiz data in real time with out blocking
       the main thread
 
-> User Phrase category will crash if there isn't enough data to build the quiz
-    > Index out of bounds
-
 On fresh install, default sharedPrefs for question and answer not formatting quiz correctly
 User should be able to click right on to quiz on first install without making quiz settings
 
 Fixed:
+
+> User Phrase category will crash if there isn't enough data to build the quiz
+    > Index out of bounds
 
 > MainViewModel is not initialized properly! It's resetting or recreating a viewmodel each time the fragment changes
 
@@ -61,6 +68,7 @@ Still crashing on fresh install?
 *************************************************************************************************************
 ***Work Log***
 10/27/22
+> Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
 > Fixed quiz crash when DB doesn't have enough data
 > Translate on text changed
 > User Phrase category will crash if there isn't enough data to build the quiz
