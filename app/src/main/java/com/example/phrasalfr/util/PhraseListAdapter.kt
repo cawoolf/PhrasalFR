@@ -43,7 +43,8 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapter
         holder.english.text = item.phraseEnglish
         holder.french.text = item.phraseFrench
         holder.delete.setOnClickListener {
-//
+
+            // mListener is an instance of the IAdapterDeletePhrase
             mListener.deletePhrase(item.phraseEnglish)
 
         }
@@ -54,6 +55,10 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapter
         return phrases.size
     }
 
+    /* Basically, through the mListener (which is connected to the EditDatabaseActivity)
+     the interface sends the englishPhrase of whichever card is clicked over to the
+     EditDatabaseActivity, which in turn passes that phrase to the ViewModel to be deleted
+     */
     interface IAdapterDeletePhrase {
         fun deletePhrase(englishPhrase : String)
     }

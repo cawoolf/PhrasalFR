@@ -42,12 +42,10 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
     private fun getAllPhrases() : List<Phrase> {
 
         // get all Phrases here!
-
         val phraseList : List<Phrase> = runBlocking {  mMainViewModel.getAllPhrases() }
 
         return phraseList
     }
-
 
     // Because this a new activity the view model must be reinitialized?
     private fun setUpViewModel() {
@@ -57,8 +55,6 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
                 "default"))
             .get(MainViewModel::class.java)
     }
-
-
 
     override fun deletePhrase(englishPhrase: String) {
        mMainViewModel.delete(englishPhrase)

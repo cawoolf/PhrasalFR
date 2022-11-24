@@ -8,8 +8,6 @@ ToDo:
 
 > Research API pricing for ML kit. Limits and so on
 
-
-
 > Add a counter so you know how many entries are left.
 > How many right or wrong.
     > Screen for when you finished the quiz. Gives a score.
@@ -22,6 +20,9 @@ ToDo:
 
 ****************************************************************************************************
 Feature Ideas:
+
+> You could even like parse a book into the application.. and break each sentence into a question
+item.
 
 > Add a streak feature
 > Add a feature where you have to add phrases to the db every day
