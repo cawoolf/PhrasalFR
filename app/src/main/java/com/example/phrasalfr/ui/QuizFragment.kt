@@ -30,6 +30,7 @@ class QuizFragment : Fragment() {
 
     private lateinit var mQuestionTextView: TextView
     private lateinit var mQuestionImageButton: ImageButton
+    private lateinit var mQuestionCountTextView: TextView
 
     private lateinit var mAnswerTextViewA: TextView
     private lateinit var mAnswerTextViewB: TextView
@@ -78,6 +79,25 @@ class QuizFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
+//
+//        mEnoughWordsInDB = dataCheck();
+//
+//        if(mEnoughWordsInDB) {
+//            setupQuiz()
+//        }
+//        else {
+//            mQuestionTextView.text = "Not enough words in the database! \n" +
+//                    "Add more to create the Quiz!"
+//        }
+
+        return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Restarts the quiz is you navigate away from the quiz screen, and then return.
+        mMainViewModel.resetAskedQuestionSet()
+        mMainViewModel.resetTotalPhraseCount()
 
         mEnoughWordsInDB = dataCheck();
 
@@ -87,9 +107,8 @@ class QuizFragment : Fragment() {
         else {
             mQuestionTextView.text = "Not enough words in the database! \n" +
                     "Add more to create the Quiz!"
+            mQuestionCountTextView.text="0 / 0"
         }
-
-        return root
     }
 
     private fun dataCheck(): Boolean {
@@ -107,6 +126,7 @@ class QuizFragment : Fragment() {
 
         mQuestionTextView = binding.quizQuestionTextView
         mQuestionImageButton = binding.quizQuestionImageButton
+        mQuestionCountTextView = binding.quizQuestionCountTextView
 
         mSubmitButton = binding.quizSubmitButton
 
@@ -143,6 +163,9 @@ class QuizFragment : Fragment() {
 
                 Log.i("quizTag", "Question Count: " + mMainViewModel.getAskedQuestionCount().toString() + "\n" +
                         "Total Phrase Count: " + mMainViewModel.getTotalPhraseCount().toString())
+
+                mQuestionCountTextView.text =
+                    "${mMainViewModel.getAskedQuestionCount().toString()} / ${mMainViewModel.getTotalPhraseCount().toString()}"
             }
 
             // Re runs setUpQuiz if the Question was not unique for this session

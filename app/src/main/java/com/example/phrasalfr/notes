@@ -8,13 +8,15 @@ ToDo:
 
 > Research API pricing for ML kit. Limits and so on
 
-> Add a counter so you know how many entries are left.
 > How many right or wrong.
     > Screen for when you finished the quiz. Gives a score.
 
 > Simplify categories into Phrases and vocab
 
 > Update the UI!
+
+> On Fresh install, no default quiz settings, and no way to know if MLKit has finished
+downloading or not. Quiz will not work with out it. Can you ship MLkit with the app?
 
 > Publish
 
@@ -32,7 +34,7 @@ item.
 
 ****************************************************************************************************
 Bugs:
-If navigating to the quiz repeatedly, can trigger the end of the quiz. Increases the question count.
+
 
 > Fix the runBlocking{} configuration. Not a great practice.
 > Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
@@ -43,6 +45,9 @@ On fresh install, default sharedPrefs for question and answer not formatting qui
 User should be able to click right on to quiz on first install without making quiz settings
 
 Fixed:
+If navigating to the quiz repeatedly, can trigger the end of the quiz. Increases the question count.
+    > Reset the question count on each load of the quiz.
+
 
 > User Phrase category will crash if there isn't enough data to build the quiz
     > Index out of bounds
@@ -68,6 +73,9 @@ Still crashing on fresh install?
 
 *************************************************************************************************************
 ***Work Log***
+
+> Add a counter so you know how many entries are left.
+
 10/27/22
 > Make it so that the quiz feature does not repeat phrases, or just loops through every phrase.
 > Fixed quiz crash when DB doesn't have enough data

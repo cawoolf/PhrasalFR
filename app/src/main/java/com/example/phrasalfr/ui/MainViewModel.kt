@@ -130,7 +130,10 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     }
 
     fun resetAskedQuestionSet() {
-        mAskedQuestionSet.removeAll(mPhraseList)
+
+        if(::mPhraseList.isInitialized) {
+            mAskedQuestionSet.removeAll(mPhraseList)
+        }
         Log.i("quizTag", mAskedQuestionSet.size.toString())
 
     }
