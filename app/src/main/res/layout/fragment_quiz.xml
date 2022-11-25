@@ -6,15 +6,29 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.QuizFragment"
-    android:paddingTop="75dp">
+    tools:context=".ui.QuizFragment">
+    <!--android:paddingTop="75dp"-->
+
+    <TextView
+        android:id="@+id/quiz_question_count_TextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:text="10/10"
+        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:textAlignment="center"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
 
     <TextView
         android:id="@+id/quiz_questionTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="75dp"
         android:layout_marginEnd="8dp"
         android:textAlignment="center"
         android:text="Quiz"
@@ -40,7 +54,7 @@
         android:id="@+id/quiz_answer_gridLayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/quiz_questionTextView"
+        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -132,7 +146,8 @@
         android:layout_height="wrap_content"
         android:text="Submit!"
 
-        app:layout_constraintTop_toBottomOf="@id/quiz_answer_gridLayout"
+        android:layout_marginBottom="40dp"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
