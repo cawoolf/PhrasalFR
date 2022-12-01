@@ -7,6 +7,11 @@ ToDo:
 
 
 > Research API pricing for ML kit. Limits and so on
+    > It should be free with MLKit?
+    > Have an tutorial orientation screen that allows you to choice a language on fresh install
+      the downloads MLKit and shows a progress bar.
+    > Allow option for user to switch languages
+    > Categories option for sure..
 
 > How many right or wrong.
     > Screen for when you finished the quiz. Gives a score.
