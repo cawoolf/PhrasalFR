@@ -57,8 +57,8 @@ class PhrasesFragment : Fragment() {
         mPhrasalUtil = PhrasalUtil(context)
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
 
-        mENFRTranslator = mPhrasalUtil.getENFRTranslator()
-        mFRENTranslator = mPhrasalUtil.getFRENTranslator()
+//        mENFRTranslator = mPhrasalUtil.getENFRTranslator()
+//        mFRENTranslator = mPhrasalUtil.getFRENTranslator()
 
     }
 
@@ -101,6 +101,7 @@ class PhrasesFragment : Fragment() {
     private fun setOnClicks() {
 
         mFrenchEditText.setOnFocusChangeListener { _, hasFocus ->
+            mFRENTranslator = mPhrasalUtil.getFRENTranslator()
             mEnglishFrenchTranslatorChoice = if (hasFocus) {
 
                 Log.i("pTAG", "French EditText has focus: Translate French to English")
@@ -131,6 +132,7 @@ class PhrasesFragment : Fragment() {
         }
 
         mEnglishEditText.setOnFocusChangeListener { _, hasFocus ->
+            mENFRTranslator = mPhrasalUtil.getENFRTranslator()
             mEnglishFrenchTranslatorChoice = if (hasFocus) {
 
                 Log.i("pTAG", "English EditText has focus: Translate English to French")

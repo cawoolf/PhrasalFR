@@ -15,12 +15,14 @@ import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.phrasalfr.databinding.ActivityMainBinding
 import com.example.phrasalfr.ui.MainViewModel
+import com.example.phrasalfr.util.PhrasalUtil
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var mMainViewModel : MainViewModel
+    private lateinit var mPhrasalUtil: PhrasalUtil
 //    private val mMainViewModel: MainViewModel by viewModels<MainViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,6 +58,11 @@ class MainActivity : AppCompatActivity() {
             Log.i("mMA", it.toString())
 
         })
+    }
+
+    private fun downloadFrenchMLKitModel(){
+        mPhrasalUtil = PhrasalUtil(this)
+        mPhrasalUtil.startTranslatorDownload()
     }
 
     private fun setUpViewModel() {

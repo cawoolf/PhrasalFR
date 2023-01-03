@@ -4,10 +4,8 @@ import android.content.Context
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import com.google.mlkit.common.model.DownloadConditions
-import com.google.mlkit.nl.translate.TranslateLanguage
-import com.google.mlkit.nl.translate.Translation
-import com.google.mlkit.nl.translate.Translator
-import com.google.mlkit.nl.translate.TranslatorOptions
+import com.google.mlkit.common.model.RemoteModelManager
+import com.google.mlkit.nl.translate.*
 import java.util.*
 
 class PhrasalUtil(val context: Context?) {
@@ -16,8 +14,32 @@ class PhrasalUtil(val context: Context?) {
     private lateinit var mENFRTranslator: Translator
     private lateinit var mFRENTranslator: Translator
 
+    private fun downloadFrenchMLKitModel() {
+        val modelManager = RemoteModelManager.getInstance()
 
-    private fun mlKitTranslate() {
+// Get translation models stored on the device.
+        modelManager.getDownloadedModels(TranslateRemoteModel::class.java)
+            .addOnSuccessListener { models ->
+                // ...
+            }
+            .addOnFailureListener {
+                // Error.
+            }
+// Download the French model.
+        val frenchModel = TranslateRemoteModel.Builder(TranslateLanguage.FRENCH).build()
+        val conditions = DownloadConditions.Builder()
+            .requireWifi()
+            .build()
+        modelManager.download(frenchModel, conditions)
+            .addOnSuccessListener {
+                buildTranslators()
+            }
+            .addOnFailureListener {
+                // Error.
+            }
+    }
+
+    private fun buildTranslators() {
         // Create an English-French Translator
         val options = TranslatorOptions.Builder()
             .setSourceLanguage(TranslateLanguage.ENGLISH)
@@ -105,17 +127,17 @@ class PhrasalUtil(val context: Context?) {
     }
 
     fun getENFRTranslator() : Translator {
-        mlKitTranslate()
+        buildTranslators()
         return mENFRTranslator
     }
 
     fun getFRENTranslator() : Translator {
-        mlKitTranslate()
+        buildTranslators()
         return mFRENTranslator
     }
 
     fun startTranslatorDownload() {
-        mlKitTranslate()
+        downloadFrenchMLKitModel()
     }
 
 }

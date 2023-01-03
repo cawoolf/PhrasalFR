@@ -23,6 +23,8 @@ ToDo:
 
 > On Fresh install, no default quiz settings, and no way to know if MLKit has finished
 downloading or not. Quiz will not work with out it. Can you ship MLkit with the app?
+    > Looks like you can. Hopefully I'm not downloading two copies of the model.. That would be a
+    big no no..
 
 > Publish
 
