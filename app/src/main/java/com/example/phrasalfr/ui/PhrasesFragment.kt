@@ -21,6 +21,7 @@ import com.example.phrasalfr.databinding.FragmentPhrasesBinding
 import com.example.phrasalfr.util.PhrasalUtil
 import com.google.android.material.chip.Chip
 import com.google.mlkit.nl.translate.Translator
+import java.util.*
 import kotlin.properties.Delegates
 
 
@@ -140,8 +141,22 @@ class PhrasesFragment : Fragment() {
 //                mFrenchEditText.setText("")
 
                 mEnglishEditText.addTextChangedListener(object : TextWatcher {
+                    var timer = Timer()
+                    val DELAY: Long = 500 // M
 
                     override fun afterTextChanged(s: Editable) {
+                        timer.cancel()
+                        timer = Timer()
+                        timer.schedule(
+                            object : TimerTask() {
+                                override fun run() {
+                                    // TODO: Do what you need here (refresh list).
+                                    translateEnglishToFrench()
+                                }
+                            },
+                            DELAY
+                        )
+
                         translateEnglishToFrench()
                     }
 
