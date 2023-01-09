@@ -1,5 +1,6 @@
 package com.example.phrasalfr.ui
 
+import android.annotation.SuppressLint
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -8,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -58,8 +60,8 @@ class PhrasesFragment : Fragment() {
         mPhrasalUtil = PhrasalUtil(context)
         mTextToSpeech = mPhrasalUtil.getTextToSpeech()
 
-//        mENFRTranslator = mPhrasalUtil.getENFRTranslator()
-//        mFRENTranslator = mPhrasalUtil.getFRENTranslator()
+        mENFRTranslator = mPhrasalUtil.getENFRTranslator()
+        mFRENTranslator = mPhrasalUtil.getFRENTranslator()
 
     }
 
@@ -74,6 +76,7 @@ class PhrasesFragment : Fragment() {
 
         linkViews()
         setOnClicks()
+        setUpEditTextTranslators()
 
         return root
     }
@@ -101,93 +104,6 @@ class PhrasesFragment : Fragment() {
 
     private fun setOnClicks() {
 
-        mFrenchEditText.setOnFocusChangeListener { _, hasFocus ->
-            mFRENTranslator = mPhrasalUtil.getFRENTranslator()
-            mEnglishFrenchTranslatorChoice = if (hasFocus) {
-
-                Log.i("pTAG", "French EditText has focus: Translate French to English")
-
-
-                mFrenchEditText.addTextChangedListener(object : TextWatcher {
-
-                    override fun afterTextChanged(s: Editable) {
-                        translateFrenchToEnglish()
-                    }
-
-                    override fun beforeTextChanged(s: CharSequence, start: Int,
-                                                   count: Int, after: Int) {
-                    }
-
-                    override fun onTextChanged(s: CharSequence, start: Int,
-                                               before: Int, count: Int) {
-
-                    }
-                })
-
-                false
-            } else {
-
-                Log.i("pTAG", "French EditText lost focus: Translate English to French")
-                true
-            }
-        }
-
-        mEnglishEditText.setOnFocusChangeListener { _, hasFocus ->
-            mENFRTranslator = mPhrasalUtil.getENFRTranslator()
-            mEnglishFrenchTranslatorChoice = if (hasFocus) {
-
-                Log.i("pTAG", "English EditText has focus: Translate English to French")
-//                mEnglishEditText.setText("")
-//                mFrenchEditText.setText("")
-
-                mEnglishEditText.addTextChangedListener(object : TextWatcher {
-                    var timer = Timer()
-                    val DELAY: Long = 500 // M
-
-                    override fun afterTextChanged(s: Editable) {
-                        timer.cancel()
-                        timer = Timer()
-                        timer.schedule(
-                            object : TimerTask() {
-                                override fun run() {
-                                    // TODO: Do what you need here (refresh list).
-                                    translateEnglishToFrench()
-                                }
-                            },
-                            DELAY
-                        )
-
-                        translateEnglishToFrench()
-                    }
-
-                    override fun beforeTextChanged(s: CharSequence, start: Int,
-                                                   count: Int, after: Int) {
-                    }
-
-                    override fun onTextChanged(s: CharSequence, start: Int,
-                                               before: Int, count: Int) {
-
-                    }
-                })
-
-                true
-            }
-            else {
-
-                Log.i("pTAG", "English EditText lost focus: Translate French to English")
-                false
-            }
-        }
-
-//        mTranslateButton.setOnClickListener {
-//            if(mEnglishFrenchTranslatorChoice) {
-//                translateEnglishToFrench()
-//            }
-//            else {
-//                translateFrenchToEnglish()
-//            }
-//        }
-
         mAddButton.setOnClickListener {
 
             var translationDataValid = checkTranslationData()
@@ -206,6 +122,65 @@ class PhrasesFragment : Fragment() {
             activity?.startActivity(intent)
         }
 
+    }
+
+    @SuppressLint("ClickableViewAccessibility")
+    private fun setUpEditTextTranslators() {
+        val frenchTextWatcher: TextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                translateFrenchToEnglish()
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // your logic here
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                // your logic here
+            }
+        }
+
+        val englishTextWatcher: TextWatcher = object : TextWatcher {
+            override fun afterTextChanged(s: Editable) {
+                translateEnglishToFrench()
+            }
+
+            override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {
+                // your logic here
+            }
+
+            override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {
+                // your logic here
+            }
+        }
+
+        mFrenchEditText.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        mEnglishEditText.removeTextChangedListener(englishTextWatcher)
+                        mFrenchEditText.addTextChangedListener(frenchTextWatcher)
+                        Log.i("mTAG", "French Edit Text touched")}
+
+                }
+
+                return v?.onTouchEvent(event) ?: true
+            }
+        })
+
+
+        mEnglishEditText.setOnTouchListener(object : View.OnTouchListener {
+            override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+                when (event?.action) {
+                    MotionEvent.ACTION_DOWN -> {
+                        mFrenchEditText.removeTextChangedListener(frenchTextWatcher)
+                        mEnglishEditText .addTextChangedListener(englishTextWatcher)
+                        Log.i("mTAG", "English Edit Text touched")}
+                }
+
+                return v?.onTouchEvent(event) ?: true
+            }
+        })
     }
 
     private fun checkTranslationData() : Boolean {
