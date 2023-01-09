@@ -5,10 +5,6 @@ Command + shift + arrow to move code
 
 ToDo:
 
-Fix the edit text infinite loop bug..
-https://stackoverflow.com/questions/16257757/infinite-loop-error-edittext
-
-
 > Add the option for Spanish!
 
 > Research API pricing for ML kit. Limits and so on
@@ -57,6 +53,10 @@ On fresh install, default sharedPrefs for question and answer not formatting qui
 User should be able to click right on to quiz on first install without making quiz settings
 
 Fixed:
+
+Fix the edit text infinite loop bug.. fixed
+https://stackoverflow.com/questions/16257757/infinite-loop-error-edittext
+
 If navigating to the quiz repeatedly, can trigger the end of the quiz. Increases the question count.
     > Reset the question count on each load of the quiz.
 
