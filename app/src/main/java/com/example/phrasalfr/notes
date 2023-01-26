@@ -5,7 +5,17 @@ Command + shift + arrow to move code
 
 ToDo:
 
-> Add the option for Spanish!
+Add the option for Spanish!
+    > Just create a Spanish version
+    > Publish twice on the app store, one for each language
+        > Ads? Free?
+
+MLKit Testing.
+    >Can you ship MLkit with the app?
+    > Looks like you can. Hopefully I'm not downloading two copies of the model.. That would be a
+    big no no..
+    > No way to know if MLKit has finished
+downloading or not. Quiz will not work with out it.
 
 > Research API pricing for ML kit. Limits and so on
     > It should be free with MLKit?
@@ -14,24 +24,21 @@ ToDo:
     > Allow option for user to switch languages
     > Categories option for sure..
 
+> Publish
+
+Real Tasks:
+> On Fresh install, no default quiz settings
+
+> Fix DB initialization and clean up DB
+QuizFragment.setUpQuiz()
+Also the Db initializes with fr_phrases.db inside assets, so clean that up.
+Only one category, Vocabulary
+
 > How many right or wrong.
     > Screen for when you finished the quiz. Gives a score.
 
-> Simplify categories into Phrases and vocab
-
 > Update the UI!
-
-> On Fresh install, no default quiz settings
-
-> No way to know if MLKit has finished
-downloading or not. Quiz will not work with out it.
-
-Can you ship MLkit with the app?
-    > Looks like you can. Hopefully I'm not downloading two copies of the model.. That would be a
-    big no no..
-
-> Publish
-
+Follow Material design, other quiz apps. Duolingo?
 ****************************************************************************************************
 Feature Ideas:
 

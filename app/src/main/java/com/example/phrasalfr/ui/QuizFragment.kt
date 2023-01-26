@@ -147,6 +147,7 @@ class QuizFragment : Fragment() {
         // Will crash if there are not enough words in the database. Needs to be words >= 4
         // Or break into an infinite loop..
 
+        // Vocabulary is the default Phrase category!!
             mMainViewModel.buildQuestion(getString(R.string.vocabulary_category))
 
             mMainViewModel.generateAnswerPhrases()
