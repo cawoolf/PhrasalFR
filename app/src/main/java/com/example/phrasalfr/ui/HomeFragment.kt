@@ -92,8 +92,8 @@ class HomeFragment : Fragment() {
         val sharedPref = activity?.getSharedPreferences(
             getString(R.string.quiz_settings_sharedPrefs), Context.MODE_PRIVATE)
 
-        val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), "default")
-        val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), "default")
+        val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_text))
+        val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_english_text))
         val categorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),"Vocabulary")
 
         when (questionSetting){

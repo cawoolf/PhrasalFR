@@ -21,8 +21,12 @@ ToDo:
 
 > Update the UI!
 
-> On Fresh install, no default quiz settings, and no way to know if MLKit has finished
-downloading or not. Quiz will not work with out it. Can you ship MLkit with the app?
+> On Fresh install, no default quiz settings
+
+> No way to know if MLKit has finished
+downloading or not. Quiz will not work with out it.
+
+Can you ship MLkit with the app?
     > Looks like you can. Hopefully I'm not downloading two copies of the model.. That would be a
     big no no..
 
@@ -42,7 +46,6 @@ item.
 > Feature where you can upload a book to the db, and have the sentences server as phrases for the quiz
 ****************************************************************************************************
 Bugs:
-
 
 > Fix the runBlocking{} configuration. Not a great practice.
 > Read about Coroutines!! runBlocking{} is not the best way. Blocks the main thread
