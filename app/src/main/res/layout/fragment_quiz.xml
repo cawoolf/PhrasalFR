@@ -67,7 +67,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/quiz_button_not_selected"
 
             android:layout_margin="16dp"
             android:layout_gravity="center"
@@ -77,7 +77,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
+                android:layout_marginBottom="5dp"
                 android:text="Answer Choice A"/>
         </LinearLayout>
 
@@ -86,7 +86,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/quiz_button_not_selected"
 
             android:layout_margin="16dp"
             android:layout_gravity="center"
@@ -96,7 +96,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-
+                android:layout_marginBottom="5dp"
                 android:text="Answer Choice B"/>
         </LinearLayout>
 
@@ -105,7 +105,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/quiz_button_not_selected"
 
             android:layout_margin="16dp"
             android:layout_gravity="center"
@@ -114,7 +114,7 @@
                 android:id="@+id/quiz_answer_C_linearLayout_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                android:layout_marginBottom="5dp"
                 android:layout_gravity="center"
 
 
@@ -126,7 +126,7 @@
             android:layout_width="150dp"
             android:layout_height="wrap_content"
 
-            android:background="@drawable/rounded_corner"
+            android:background="@drawable/quiz_button_not_selected"
 
             android:layout_gravity="center"
             android:orientation="vertical">
@@ -135,6 +135,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="5dp"
                 android:text="Answer Choice D"/>
         </LinearLayout>
 

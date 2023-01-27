@@ -10,15 +10,11 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.ViewModelProvider
-import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.FragmentQuizBinding
 import com.example.phrasalfr.util.PhrasalUtil
 import com.google.mlkit.nl.translate.Translator
-import kotlinx.coroutines.runBlocking
-import java.lang.Exception
 
 class QuizFragment : Fragment() {
 
@@ -208,26 +204,26 @@ class QuizFragment : Fragment() {
 
         // Resets the UI so all answers look unselected on a loading a new question
         mAnswerLinearLayoutA.background =
-            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
         mAnswerLinearLayoutB.background =
-            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
         mAnswerLinearLayoutC.background =
-            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
         mAnswerLinearLayoutD.background =
-            resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+            resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
 
 
         // Handles click events on the answers, changing the background color when selected
         // And playing French audio when needed.
         mAnswerLinearLayoutA.setOnClickListener {
             mAnswerLinearLayoutA.background =
-                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_selected, context?.theme)
             mAnswerLinearLayoutB.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutC.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutD.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
 
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0])
 
@@ -242,13 +238,13 @@ class QuizFragment : Fragment() {
 
         mAnswerLinearLayoutB.setOnClickListener {
             mAnswerLinearLayoutA.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutB.background =
-                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_selected, context?.theme)
             mAnswerLinearLayoutC.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutD.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
 
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1])
 
@@ -262,13 +258,13 @@ class QuizFragment : Fragment() {
 
         mAnswerLinearLayoutC.setOnClickListener {
             mAnswerLinearLayoutA.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutB.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutC.background =
-                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_selected, context?.theme)
             mAnswerLinearLayoutD.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
 
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2])
 
@@ -282,13 +278,13 @@ class QuizFragment : Fragment() {
 
         mAnswerLinearLayoutD.setOnClickListener {
             mAnswerLinearLayoutA.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutB.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutC.background =
-                resources.getDrawable(R.drawable.rounded_corner, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_not_selected, context?.theme)
             mAnswerLinearLayoutD.background =
-                resources.getDrawable(R.drawable.rounded_corner_selected, context?.theme)
+                resources.getDrawable(R.drawable.quiz_button_selected, context?.theme)
 
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3])
 

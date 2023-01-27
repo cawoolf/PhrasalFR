@@ -27,7 +27,7 @@ class PhrasalFRApplication : Application() {
 //        phrasalUtil.getENFRTranslator()
         phrasalUtil.startTranslatorDownload()
         Log.i("mTAG", "Database started in PhrasalFRApplication: $database")
-        testDB()
+//        testDB()
 
     }
 

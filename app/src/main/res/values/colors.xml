@@ -7,4 +7,10 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- Colors for the Quiz Buttons -->
+    <color name="quiz_button_not_selected">@color/white</color>
+    <color name ="quiz_button_selected">#C1FDFD</color>
+    <color name ="quiz_button_shadow">#C7C7C7</color>
+    <color name= "quiz_button_border">#C7C7C7</color>
 </resources>
