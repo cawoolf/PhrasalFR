@@ -13,4 +13,13 @@
     <color name ="quiz_button_selected">#C1FDFD</color>
     <color name ="quiz_button_shadow">#C7C7C7</color>
     <color name= "quiz_button_border">#C7C7C7</color>
+
+    <color name="primary_color">#FF9800</color>
+    <color name="dark_primary_color">#F57C00</color>
+    <color name="light_primary_color">#FFE0B2</color>
+    <color name="text_icons">#212121</color>
+    <color name="accent_color">#FFC107</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#FFFFFFFF</color>
+    <color name="divider_color">#BDBDBD</color>
 </resources>

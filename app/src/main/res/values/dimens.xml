@@ -2,4 +2,10 @@
     <!-- Default screen margins, per the Android Design guidelines. -->
     <dimen name="activity_horizontal_margin">16dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="round_action_button_width">100dp</dimen>
+    <dimen name="round_action_button_height">100dp</dimen>
+    <dimen name="rounded_action_button_textSize">20dp</dimen>
+    <dimen name="button_star_width">75dp</dimen>
+    <dimen name="button_star_height">75dp</dimen>
 </resources>

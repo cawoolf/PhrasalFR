@@ -27,6 +27,7 @@
     <!-- UI Strings -->
     <string name="select_question_format">Select Question Format</string>
     <string name="select_answer_format">Select Answer Format</string>
+    <string name="start_quiz">Start Quiz</string>
 
     <!-- Categories -->
     <string name="all_phrases_category">All Phrases</string>

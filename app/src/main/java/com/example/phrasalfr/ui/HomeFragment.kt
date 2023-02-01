@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.RadioButton
+import android.widget.RelativeLayout
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.commit
@@ -41,7 +42,7 @@ class HomeFragment : Fragment() {
     private lateinit var mAnswerFrenchText: RadioButton
     private lateinit var mAnswerFrenchAudio: RadioButton
 
-    private lateinit var mStartQuizButton: Button
+    private lateinit var mStartQuizButton: RelativeLayout
 
     private val mMainViewModel: MainViewModel by activityViewModels<MainViewModel>()
 
