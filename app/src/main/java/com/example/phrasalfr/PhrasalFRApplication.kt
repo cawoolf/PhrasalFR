@@ -35,6 +35,8 @@ class PhrasalFRApplication : Application() {
      Without this you have to perform some kind of db function to get things moving. Otherwise when you make
      a request to build a quiz, you get a index out of bounds error. And the quiz just loads with defaults text values.
      Just the first time only, and after the db will work correctly.
+
+     Looks like this isn't needed anymore?
      */
     private fun testDB() {
 
