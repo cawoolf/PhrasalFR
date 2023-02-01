@@ -38,7 +38,7 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerLinearLayoutC: LinearLayout
     private lateinit var mAnswerLinearLayoutD: LinearLayout
 
-    private lateinit var mSubmitButton: Button
+    private lateinit var mSubmitButton: RelativeLayout
 
     private var mEnoughWordsInDB: Boolean = true;
     private lateinit var mQuestionPhrase: Phrase
@@ -124,7 +124,7 @@ class QuizFragment : Fragment() {
         mQuestionImageButton = binding.quizQuestionImageButton
         mQuestionCountTextView = binding.quizQuestionCountTextView
 
-        mSubmitButton = binding.quizSubmitButton
+        mSubmitButton = binding.submitQuizButton
 
         mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
         mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView

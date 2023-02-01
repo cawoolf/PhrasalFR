@@ -143,17 +143,47 @@
 
     </GridLayout>
 
-    <Button
-        android:id="@+id/quiz_submit_button"
+    <RelativeLayout
+        android:id="@+id/submit_quiz_button"
+        android:layout_width="@dimen/round_action_button_width"
+        android:layout_height="@dimen/round_action_button_height"
+        style="@style/RoundActionButton"
+        android:layout_margin="16dp"
+
+        android:gravity="center"
+
+        android:stateListAnimator="@animator/star_button_press"
+
+        app:layout_constraintBottom_toTopOf="@id/quiz_submit_textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+
+        android:layout_marginBottom="50dp">
+
+        <TextView
+            android:layout_width="@dimen/button_star_width"
+            android:layout_height="@dimen/button_star_height"
+            android:background="@drawable/white_star_vector"
+
+            android:layout_marginBottom="10dp"
+
+            android:gravity="center"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/quiz_submit_textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Submit!"
+        android:text="@string/submit_answer"
 
-        android:layout_marginBottom="40dp"
+        style="@style/ActionButtonText"
 
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="50dp"
+
+
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
