@@ -6,6 +6,8 @@
     <dimen name="round_action_button_width">100dp</dimen>
     <dimen name="round_action_button_height">100dp</dimen>
     <dimen name="rounded_action_button_textSize">20dp</dimen>
-    <dimen name="button_star_width">75dp</dimen>
-    <dimen name="button_star_height">75dp</dimen>
+
+    <dimen name="button_star_width">65dp</dimen>
+    <dimen name="button_star_height">65dp</dimen>
+
 </resources>

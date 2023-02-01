@@ -73,13 +73,14 @@
             android:layout_margin="16dp"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <TextView
                 android:id="@+id/quiz_answer_A_linearLayout_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="5dp"
-                android:text="Answer Choice A"/>
+                android:text="Answer Choice A" />
         </LinearLayout>
 
         <LinearLayout
