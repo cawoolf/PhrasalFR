@@ -46,7 +46,7 @@ Disable landscape mode
 
 
 > Update TextToSpeech
-
+> Fix the DB query. Just select everything under "phrases". Don't use the "vocabulary" category
 
 ****************************************************************************************************
 Feature Ideas:
