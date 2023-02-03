@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -35,8 +36,8 @@ class PhrasesFragment : Fragment() {
     private lateinit var mFrenchEditText: EditText
 
     private lateinit var mTranslateButton: Button
-    private lateinit var mAddButton: Button
-    private lateinit var mEditButton: Button
+    private lateinit var mAddButton: RelativeLayout
+    private lateinit var mEditButton: RelativeLayout
 
     private var mTranslateSuccess by Delegates.notNull<Boolean>()
 
@@ -97,8 +98,8 @@ class PhrasesFragment : Fragment() {
         mFrenchEditText = binding.phrasesFrenchEditText
 
 //        mTranslateButton= binding.phrasesTranslateButton
-        mAddButton = binding.phrasesAddButton
-        mEditButton = binding.phrasesEditButton
+        mAddButton = binding.addPhraseToQuizButton
+        mEditButton = binding.viewAllPhrasesButton
 
     }
 

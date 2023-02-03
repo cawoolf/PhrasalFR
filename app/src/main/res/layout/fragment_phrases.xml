@@ -24,13 +24,15 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="English"
-            android:textSize="20sp"/>
+            android:text="English Phrase"
+            android:textSize="20sp"
+
+            style="@style/ActionButtonText"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="100dp"
             app:boxCornerRadiusBottomEnd="5dp"
             app:boxCornerRadiusBottomStart="5dp"
             app:boxCornerRadiusTopEnd="5dp"
@@ -47,21 +49,24 @@
                 android:maxLines="1"
                 tools:ignore="KeyboardInaccessibleWidget"
                 android:focusable="true"
-                android:focusableInTouchMode="true"/>
+                android:focusableInTouchMode="true" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="French"
-            android:textSize="20sp" />
+            android:text="French Phrase"
+            android:textSize="20sp"
+
+            android:layout_marginTop="16dp"
+            style="@style/ActionButtonText"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phrases_french_textInputLayout"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="175dp"
+            android:layout_height="100dp"
             app:boxCornerRadiusBottomEnd="5dp"
             app:boxCornerRadiusBottomStart="5dp"
             app:boxCornerRadiusTopEnd="5dp"
@@ -87,16 +92,18 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
 
         android:layout_marginBottom="16dp"
 
-        android:gravity="center"
 
+
+        app:layout_constraintTop_toBottomOf="@id/translator_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        android:orientation="vertical">
 <!--    <Button-->
 <!--        android:id="@+id/phrases_translate_button"-->
 <!--        android:layout_width="wrap_content"-->
@@ -107,21 +114,101 @@
 
 <!--        />-->
 
-    <Button
-        android:id="@+id/phrases_add_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to DB"
-
-        android:layout_margin="8dp"/>
-
-        <Button
-            android:id="@+id/phrases_edit_button"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Edit DB"
 
-            android:layout_margin="8dp"/>
+            android:visibility="visible"
+
+            android:gravity="left"
+
+            android:layout_marginTop="50dp"
+
+            android:padding="16dp"
+
+            >
+
+            <RelativeLayout
+                android:id="@+id/add_phrase_to_quiz_Button"
+                android:layout_width="@dimen/round_action_button_width"
+                android:layout_height="@dimen/round_action_button_height"
+                style="@style/RoundActionButton"
+                app:layout_constraintTop_toBottomOf="@+id/settings_answer_options_cardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:gravity="center"
+
+                android:layout_marginRight="8dp"
+
+                android:stateListAnimator="@animator/star_button_press">
+
+                <TextView
+                    android:layout_width="@dimen/button_star_width"
+                    android:layout_height="@dimen/button_star_height"
+                    android:background="@drawable/white_star_vector"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/phrases_add_button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Add Phrase to Quiz"
+
+                style="@style/ActionButtonText"
+
+                android:layout_margin="8dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:gravity="right"
+
+            android:padding="16dp">
+
+            <TextView
+                android:id="@+id/phrases_edit_button_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="View all Phrases"
+
+                style="@style/ActionButtonText"
+
+                android:layout_margin="8dp"/>
+            <RelativeLayout
+                android:id="@+id/view_all_phrases_button"
+                android:layout_width="@dimen/round_action_button_width"
+                android:layout_height="@dimen/round_action_button_height"
+                style="@style/RoundActionButton"
+
+                app:layout_constraintTop_toBottomOf="@+id/settings_answer_options_cardView"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:gravity="center"
+
+                android:layout_marginLeft="8dp"
+
+                android:stateListAnimator="@animator/star_button_press">
+
+                <TextView
+                    android:layout_width="@dimen/button_star_width"
+                    android:layout_height="@dimen/button_star_height"
+                    android:background="@drawable/white_star_vector"
+
+                    android:layout_marginBottom="10dp"
+
+                    android:gravity="center"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
 
     </LinearLayout>
 
