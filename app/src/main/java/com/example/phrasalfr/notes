@@ -48,8 +48,10 @@ Disable landscape mode
 > Update TextToSpeech
 > Fix the DB query. Just select everything under "phrases". Don't use the "vocabulary" category
 
+
 ****************************************************************************************************
 Feature Ideas:
+Add a "Your quiz wasn't finished! Resume or start new quiz?" Alert
 
 > Take the coding in flow course, then take a firebase course as prep for Meditation app
 

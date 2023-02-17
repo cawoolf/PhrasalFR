@@ -43,7 +43,8 @@
                     android:id="@+id/settings_question_english_text_radioButton"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/question_format_value_english_text" />
+                    android:text="@string/question_format_value_english_text"
+                    style=""/>
                 <RadioButton
                     android:id="@+id/settings_question_french_text_radioButton"
                     android:layout_width="wrap_content"
