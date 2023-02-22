@@ -256,7 +256,7 @@ class PhrasesFragment : Fragment() {
 
 //        buildPhraseAlertDialog()
 
-        val category = "Vocabulary"
+        val category = getString(R.string.phrases_category)
 
         if (mTranslateSuccess) {
             val englishText = mEnglishEditText.text.toString()

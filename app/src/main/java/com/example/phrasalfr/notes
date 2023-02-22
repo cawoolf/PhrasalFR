@@ -31,7 +31,10 @@ Real Tasks:
 > Fix DB initialization and clean up DB
 QuizFragment.setUpQuiz()
 Also the Db initializes with fr_phrases.db inside assets, so clean that up.
-Only one category, Vocabulary
+Only one category, Phrases
+Clean up QuizFragment.dataCheck()
+> Or well I guess this makes sense, what if they just want to completly start over?
+I guess just leave it as it is.
 
 > How many right or wrong.
     > Screen for when you finished the quiz. Gives a score.

@@ -109,7 +109,7 @@ class QuizFragment : Fragment() {
 
     private fun dataCheck(): Boolean {
 
-        mMainViewModel.buildQuestion("Vocabulary")
+        mMainViewModel.buildQuestion(getString(R.string.phrases_category));
         if(mMainViewModel.getTotalPhraseCount() < 4) {
             // Then don't run the quiz. It will crash without atleast 4 entries in the database
             return false;
