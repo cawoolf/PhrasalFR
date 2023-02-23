@@ -144,7 +144,7 @@ class QuizFragment : Fragment() {
         // Or break into an infinite loop..
 
         // Vocabulary is the default Phrase category!!
-            mMainViewModel.buildQuestion(getString(R.string.vocabulary_category))
+            mMainViewModel.buildQuestion(getString(R.string.phrases_category))
 
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
