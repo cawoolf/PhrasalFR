@@ -101,8 +101,8 @@ class QuizFragment : Fragment() {
             setupQuiz()
         }
         else {
-            mQuestionTextView.text = "Not enough words in the database! \n" +
-                    "Add more to create the Quiz!"
+            mQuestionTextView.text = "Not enough Phrases in the database! \n" +
+                    "Add more from the Phrases Tab to create the Quiz!"
             mQuestionCountTextView.text="0 / 0"
         }
     }
@@ -143,8 +143,8 @@ class QuizFragment : Fragment() {
         // Will crash if there are not enough words in the database. Needs to be words >= 4
         // Or break into an infinite loop..
 
-        // Vocabulary is the default Phrase category!!
-            mMainViewModel.buildQuestion(getString(R.string.phrases_category))
+        // Phrases is the default Phrase category!
+        mMainViewModel.buildQuestion(getString(R.string.phrases_category))
 
             mMainViewModel.generateAnswerPhrases()
             mQuestionPhrase = mMainViewModel.getQuestionPhrase()
@@ -169,7 +169,7 @@ class QuizFragment : Fragment() {
             else{
                 Log.i("quizTag", "inside else")
 
-                // If the total asked questions equal or exceed the phrase list size the quiz resets
+                // If the total asked questions are equal or exceed the phrase list size the quiz resets
                 if(mMainViewModel.getAskedQuestionCount() >= mMainViewModel.getTotalPhraseCount())
                 {
                     Toast.makeText(context, "Quiz Finished!... Resetting", Toast.LENGTH_LONG).show()

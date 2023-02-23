@@ -9,32 +9,11 @@ Add the option for Spanish!
     > Publish twice on the app store, one for each language
         > Ads? Free?
 
-MLKit Testing.
-    >Can you ship MLkit with the app?
-    > Looks like you can. Hopefully I'm not downloading two copies of the model.. That would be a
-    big no no..
-    > No way to know if MLKit has finished
-downloading or not. Quiz will not work with out it.
-
-> Research API pricing for ML kit. Limits and so on
-    > It should be free with MLKit?
-    > Have an tutorial orientation screen that allows you to choice a language on fresh install
-      the downloads MLKit and shows a progress bar.
-    > Allow option for user to switch languages
-    > Categories option for sure..
 
 > Publish
 
 Real Tasks:
 > On Fresh install, no default quiz settings
-
-> Fix DB initialization and clean up DB
-QuizFragment.setUpQuiz()
-Also the Db initializes with fr_phrases.db inside assets, so clean that up.
-Only one category, Phrases
-Clean up QuizFragment.dataCheck()
-> Or well I guess this makes sense, what if they just want to completly start over?
-I guess just leave it as it is.
 
 > How many right or wrong.
     > Screen for when you finished the quiz. Gives a score.
@@ -46,9 +25,7 @@ Make all other UI Buttons circles like Duo**
 Create a progress bar for the quiz
 Disable landscape mode
 
-
 > Update TextToSpeech
-> Fix the DB query. Just select everything under "phrases". Don't use the "vocabulary" category
 
 
 ****************************************************************************************************
