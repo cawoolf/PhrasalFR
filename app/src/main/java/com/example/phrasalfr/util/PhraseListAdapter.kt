@@ -20,7 +20,7 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapter
 
     // The ViewHolder handles all the events on the Cards
     class PhraseViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
-        var category = view.findViewById<TextView>(R.id.list_item_category)
+//        var category = view.findViewById<TextView>(R.id.list_item_category)
         val english = view.findViewById<TextView>(R.id.list_item_english)
         val french = view.findViewById<TextView>(R.id.list_item_french)
         val delete = view.findViewById<ImageView>(R.id.list_item_delete)
@@ -39,7 +39,7 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapter
     override fun onBindViewHolder(holder: PhraseViewHolder, position: Int) {
         val item = phrases[position]
 
-        holder.category.text = item.category
+//        holder.category.text = item.category
         holder.english.text = item.phraseEnglish
         holder.french.text = item.phraseFrench
         holder.delete.setOnClickListener {

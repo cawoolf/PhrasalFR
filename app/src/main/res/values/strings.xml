@@ -5,7 +5,8 @@
     <string name="title_phrases">Phrases</string>
     <string name="quiz_settings_sharedPrefs">Quiz Settings SharedPreferences</string>
 
-    <string name="home_header_phrase">Salut! \n Ready to practice French?</string>
+    <string name="home_header_phrase">Bonjour! \n Ready to practice French?</string>
+    <string name="edit_db_header_phrase">Here are all your Phrases! </string>
 
     <!-- Keys for Quiz Settings HashMap -->
     <string name="verb_tense_key">Verb Tense</string>

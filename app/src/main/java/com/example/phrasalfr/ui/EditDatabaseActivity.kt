@@ -2,6 +2,7 @@ package com.example.phrasalfr.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,7 +15,7 @@ import kotlinx.coroutines.runBlocking
 
 class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDeletePhrase {
 
-   private lateinit var recyclerView : RecyclerView
+    private lateinit var recyclerView: RecyclerView
 
     private lateinit var mMainViewModel: MainViewModel
 
@@ -39,10 +40,10 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
 
     }
 
-    private fun getAllPhrases() : List<Phrase> {
+    private fun getAllPhrases(): List<Phrase> {
 
         // get all Phrases here!
-        val phraseList : List<Phrase> = runBlocking {  mMainViewModel.getAllPhrases() }
+        val phraseList: List<Phrase> = runBlocking { mMainViewModel.getAllPhrases() }
 
         return phraseList
     }
@@ -50,15 +51,20 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
     // Because this a new activity the view model must be reinitialized?
     private fun setUpViewModel() {
 
-        mMainViewModel = ViewModelProvider(this,
-            MainViewModel.MainViewModelFactory((application as PhrasalFRApplication).phraseRepository,
-                "default"))
+        mMainViewModel = ViewModelProvider(
+            this,
+            MainViewModel.MainViewModelFactory(
+                (application as PhrasalFRApplication).phraseRepository,
+                "default"
+            )
+        )
             .get(MainViewModel::class.java)
     }
 
     override fun deletePhrase(englishPhrase: String) {
-       mMainViewModel.delete(englishPhrase)
+        mMainViewModel.delete(englishPhrase)
 
-       loadDataIntoRecyclerView()
+        Toast.makeText(this, "Phrase deleted!", Toast.LENGTH_SHORT).show()
+        loadDataIntoRecyclerView()
     }
 }
