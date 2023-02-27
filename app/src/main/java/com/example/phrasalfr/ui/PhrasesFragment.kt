@@ -14,6 +14,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -35,7 +36,7 @@ class PhrasesFragment : Fragment() {
     private lateinit var mEnglishEditText: EditText
     private lateinit var mFrenchEditText: EditText
 
-    private lateinit var mTranslateButton: Button
+    private lateinit var mSpeakButton: ImageView
     private lateinit var mAddButton: RelativeLayout
     private lateinit var mEditButton: RelativeLayout
 
@@ -97,7 +98,7 @@ class PhrasesFragment : Fragment() {
         mEnglishEditText = binding.phrasesEnglishEditText
         mFrenchEditText = binding.phrasesFrenchEditText
 
-//        mTranslateButton= binding.phrasesTranslateButton
+        mSpeakButton = binding.phrasesSpeakButton
         mAddButton = binding.addPhraseToQuizButton
         mEditButton = binding.viewAllPhrasesButton
 
@@ -121,6 +122,12 @@ class PhrasesFragment : Fragment() {
         mEditButton.setOnClickListener {
             val intent = Intent (activity, EditDatabaseActivity::class.java)
             activity?.startActivity(intent)
+        }
+
+        mSpeakButton.setOnClickListener {
+            mTextToSpeech.speak(mFrenchEditText.text.toString(),
+                TextToSpeech.QUEUE_ADD,
+                null)
         }
 
     }
@@ -211,9 +218,9 @@ class PhrasesFragment : Fragment() {
 
                 mFrenchEditText.setText(it.toString())
 
-                mTextToSpeech.speak(mFrenchEditText.text.toString(),
-                TextToSpeech.QUEUE_ADD,
-                null)
+//                mTextToSpeech.speak(mFrenchEditText.text.toString(),
+//                TextToSpeech.QUEUE_ADD,
+//                null)
 
                 mTranslateSuccess = true
             }
@@ -237,9 +244,9 @@ class PhrasesFragment : Fragment() {
 
                 mEnglishEditText.setText(it.toString())
 
-                mTextToSpeech.speak(mFrenchEditText.text.toString(),
-                    TextToSpeech.QUEUE_ADD,
-                    null)
+//                mTextToSpeech.speak(mFrenchEditText.text.toString(),
+//                    TextToSpeech.QUEUE_ADD,
+//                    null)
 
                 mTranslateSuccess = true
             }

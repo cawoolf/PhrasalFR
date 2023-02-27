@@ -96,8 +96,7 @@
         android:layout_height="0dp"
 
         android:layout_marginBottom="16dp"
-
-
+        android:layout_marginTop="8dp"
 
         app:layout_constraintTop_toBottomOf="@id/translator_linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
@@ -113,6 +112,14 @@
 <!--        android:layout_margin="8dp"-->
 
 <!--        />-->
+        <ImageView
+            android:id="@+id/phrases_speak_button"
+            android:layout_width="75dp"
+            android:layout_height="75dp"
+            android:src="@drawable/ic_baseline_volume_up_24"
+
+            android:layout_marginTop="25dp"
+            android:layout_gravity="center"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -122,7 +129,7 @@
 
             android:gravity="left"
 
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="25dp"
 
             android:padding="16dp"
 
