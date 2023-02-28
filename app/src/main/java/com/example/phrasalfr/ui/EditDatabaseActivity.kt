@@ -21,7 +21,7 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_database)
+//        setContentView(R.layout.activity_edit_database)
 
         val binding = ActivityEditDatabaseBinding.inflate(layoutInflater)
         setContentView(binding.root)

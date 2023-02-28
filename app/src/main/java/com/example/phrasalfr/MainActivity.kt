@@ -48,7 +48,6 @@ class MainActivity : AppCompatActivity() {
         setUpQuizButtonObserver()
         Log.i("mMA", "started")
 
-
     }
 
     private fun setUpQuizButtonObserver() {
