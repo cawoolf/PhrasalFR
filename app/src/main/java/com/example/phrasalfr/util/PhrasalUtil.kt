@@ -115,10 +115,13 @@ class PhrasalUtil(val context: Context?) {
     }
 
     fun useTextToSpeech(frenchText: String) {
+        if (!mTextToSpeech.isSpeaking) {
+
         mTextToSpeech.setSpeechRate(1.0F)
         mTextToSpeech.speak(frenchText,
             TextToSpeech.QUEUE_ADD,
             null)
+        }
     }
 
     fun getTextToSpeech(): TextToSpeech {

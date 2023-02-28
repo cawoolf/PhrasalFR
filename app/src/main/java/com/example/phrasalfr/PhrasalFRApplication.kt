@@ -1,6 +1,7 @@
 package com.example.phrasalfr
 
 import android.app.Application
+import android.media.AudioManager
 import android.util.Log
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseDatabase
@@ -9,6 +10,7 @@ import com.example.phrasalfr.util.PhrasalUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
+
 
 class PhrasalFRApplication : Application() {
 
@@ -28,6 +30,7 @@ class PhrasalFRApplication : Application() {
         phrasalUtil.startTranslatorDownload()
         Log.i("mTAG", "Database started in PhrasalFRApplication: $database")
 //        testDB()
+        setDeviceVolume()
 
     }
 
@@ -44,6 +47,13 @@ class PhrasalFRApplication : Application() {
             val testPhrase =  Phrase("Greeting", "Hello", "Bonjour")
            phraseRepository.insert(testPhrase)
         }
+    }
+
+    private fun setDeviceVolume() {
+        val audioManager = getSystemService(AUDIO_SERVICE) as AudioManager
+        val desiredVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC) / 2
+        val currentVolume = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC)
+        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, desiredVolume, 0);
     }
 
 }
