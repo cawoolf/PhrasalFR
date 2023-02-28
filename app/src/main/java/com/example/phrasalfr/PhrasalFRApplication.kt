@@ -27,7 +27,7 @@ class PhrasalFRApplication : Application() {
         phrasalUtil = PhrasalUtil(this)
 //        phrasalUtil.getFRENTranslator()
 //        phrasalUtil.getENFRTranslator()
-        phrasalUtil.startTranslatorDownload()
+//        phrasalUtil.startTranslatorDownload()
         Log.i("mTAG", "Database started in PhrasalFRApplication: $database")
 //        testDB()
         setDeviceVolume()

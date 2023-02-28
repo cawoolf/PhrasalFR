@@ -60,10 +60,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun downloadFrenchMLKitModel(){
-        mPhrasalUtil = PhrasalUtil(this)
-        mPhrasalUtil.startTranslatorDownload()
-    }
 
     private fun setUpViewModel() {
 
