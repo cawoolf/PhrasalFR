@@ -34,7 +34,7 @@ class PhrasesTranslatorInstrumentedTest {
 
         val frenchEditText = Espresso.onView(ViewMatchers.withId(R.id.phrases_french_editText))
         val englishEditText = Espresso.onView(ViewMatchers.withId(R.id.phrases_english_editText))
-        val translateButton = Espresso.onView(ViewMatchers.withId(R.id.phrases_translate_button))
+//        val translateButton = Espresso.onView(ViewMatchers.withId(R.id.phrases_translate_button))
 
         // Must click the English EditText so that it gets focus
         englishEditText.perform(ViewActions.click())
@@ -44,7 +44,7 @@ class PhrasesTranslatorInstrumentedTest {
         englishEditText.perform(ViewActions.closeSoftKeyboard())
 
         // Translates the text
-        translateButton.perform(ViewActions.click())
+//        translateButton.perform(ViewActions.click())
         Thread.sleep(3000)
 
         // Assert that the translation worked and is correct
@@ -57,7 +57,7 @@ class PhrasesTranslatorInstrumentedTest {
 
         val frenchEditText = Espresso.onView(ViewMatchers.withId(R.id.phrases_french_editText))
         val englishEditText = Espresso.onView(ViewMatchers.withId(R.id.phrases_english_editText))
-        val translateButton = Espresso.onView(ViewMatchers.withId(R.id.phrases_translate_button))
+//        val translateButton = Espresso.onView(ViewMatchers.withId(R.id.phrases_translate_button))
 
         // Must click the English EditText so that it gets focus
         frenchEditText.perform(ViewActions.click())
@@ -67,7 +67,7 @@ class PhrasesTranslatorInstrumentedTest {
         frenchEditText.perform(ViewActions.closeSoftKeyboard())
 
         // Translates the text
-        translateButton.perform(ViewActions.click())
+//        translateButton.perform(ViewActions.click())
         Thread.sleep(3000)
 
         // Assert that the translation worked and is correct

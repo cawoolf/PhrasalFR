@@ -38,13 +38,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
+        style="@style/TextContent"
+
         android:layout_margin="8dp"/>
     <TextView
         android:id="@+id/list_item_french"
-        android:text="French"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="French"
+        style="@style/TextContent"
         android:layout_margin="8dp"/>
+
+
     </LinearLayout>
 
         <ImageView

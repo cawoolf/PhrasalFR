@@ -25,9 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="English Phrase"
-            android:textSize="20sp"
 
-            style="@style/ActionButtonText"/>
+            style="@style/TextViewHeaders"/>
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -60,7 +59,7 @@
             android:textSize="20sp"
 
             android:layout_marginTop="16dp"
-            style="@style/ActionButtonText"/>
+            style="@style/TextViewHeaders"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/phrases_french_textInputLayout"

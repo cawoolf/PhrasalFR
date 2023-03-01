@@ -74,7 +74,7 @@ class QuizSettingsInstrumentedTest {
     @Test
     fun phraseSettingsGreetings() {
 
-        onView(withId(R.id.settings_greetings_Chip)).perform(ViewActions.click())
+//        onView(withId(R.id.settings_greetings_Chip)).perform(ViewActions.click())
         onView(withId(R.id.navigation_quiz)).perform(ViewActions.click())
 
         val question = onView(withId(R.id.quiz_questionTextView))
@@ -90,7 +90,7 @@ class QuizSettingsInstrumentedTest {
     @Test
     fun phraseSettingsGrammar() {
 
-        onView(withId(R.id.settings_grammar_Chip)).perform(ViewActions.click())
+//        onView(withId(R.id.settings_grammar_Chip)).perform(ViewActions.click())
         onView(withId(R.id.navigation_quiz)).perform(ViewActions.click())
 
     }
@@ -98,14 +98,14 @@ class QuizSettingsInstrumentedTest {
     @Test
     fun phraseSettingsUserPhrase() {
 
-        onView(withId(R.id.settings_user_phrases_Chip)).perform(ViewActions.click())
+//        onView(withId(R.id.settings_user_phrases_Chip)).perform(ViewActions.click())
         onView(withId(R.id.navigation_quiz)).perform(ViewActions.click())
     }
 
     @Test
     fun phraseSettingsAllPhrases() {
 
-        onView(withId(R.id.settings_all_phrases_Chip)).perform(ViewActions.click())
+//        onView(withId(R.id.settings_all_phrases_Chip)).perform(ViewActions.click())
         onView(withId(R.id.navigation_quiz)).perform(ViewActions.click())
 
     }

@@ -27,4 +27,18 @@
         <item name="android:textSize">@dimen/rounded_action_button_textSize</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ActivityHeaders" parent="Theme.PhrasalFR">
+        <item name="android:textSize">@dimen/activity_headers_textSize</item>
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+    </style>
+
+    <style name= "TextViewHeaders" parent="Theme.PhrasalFR">
+        <item name="android:textAppearance">@style/TextAppearance.MaterialComponents.Headline6</item>
+    </style>
+
+    <style name= "TextContent" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textSize">@dimen/text_view_content_textSize</item>
+    </style>
+
 </resources>

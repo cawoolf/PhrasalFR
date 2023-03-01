@@ -12,6 +12,8 @@
         android:layout_height="wrap_content"
         android:text="Downloading Model"
 
+       style="@style/TextViewHeaders"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

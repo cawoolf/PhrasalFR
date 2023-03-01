@@ -15,8 +15,8 @@
         android:layout_height="wrap_content"
 
         android:gravity="center"
-        android:textSize="24sp"
-        style="@style/TextAppearance.MaterialComponents.Headline6"
+        style="@style/ActivityHeaders"
+
         android:text="@string/home_header_phrase"
 
         android:layout_marginTop="24dp"
@@ -90,7 +90,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/select_question_format"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+                style="@style/TextViewHeaders"/>
 
             <RadioGroup
                 android:layout_width="wrap_content"
@@ -129,7 +129,7 @@
         app:layout_constraintStart_toStartOf="parent"
 
         android:layout_marginTop="16dp"
-        android:layout_margin="8dp">
+       >
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -137,11 +137,12 @@
             android:orientation="vertical"
             android:gravity="center"
             android:padding="8dp">
+
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/select_answer_format"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"/>
+                style="@style/TextViewHeaders"/>
 
             <RadioGroup
                 android:layout_width="wrap_content"
