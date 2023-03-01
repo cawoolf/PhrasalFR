@@ -117,14 +117,14 @@ class DownloadModelActivity : AppCompatActivity() {
                 if (counter > 2) {
                     counter = 0
                     flagArray.forEach { it.visibility = View.INVISIBLE }
-                    delay(1000) // Wait for 1 second before starting again
+                    delay(650) // Wait for 1 second before starting again
                 }
 
                 flagArray[counter].visibility = View.VISIBLE
 
                 counter += 1
 
-                delay(1000) // Wait for 1 second before displaying the next flag
+                delay(650) // Wait for 1 second before displaying the next flag
             }
         }
     }
