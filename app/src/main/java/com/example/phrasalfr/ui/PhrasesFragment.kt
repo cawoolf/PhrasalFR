@@ -114,7 +114,7 @@ class PhrasesFragment : Fragment() {
                 addPhraseToDB()
             }
             else {
-                Toast.makeText(context, "Translation Text is Empty! \n Or Has an Invalid Character!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "Phrase not added to Quiz", Toast.LENGTH_SHORT).show()
             }
 
         }
@@ -196,12 +196,32 @@ class PhrasesFragment : Fragment() {
         val symbols = "0123456789}]/:%&^*()+$><+=-#@]"
         val punctuation = ".!?"
 
-        return !(mEnglishEditText.text.toString().any { it in symbols}
-                || mFrenchEditText.text.toString().any {it in symbols}
-                || mEnglishEditText.text.toString().isEmpty()
-                || mFrenchEditText.text.toString().isEmpty())
-//                ||mEnglishEditText.text.toString().none {it !in 'A'..'Z' && it !in 'a'..'z' && it !in punctuation}
-//                || mFrenchEditText.text.toString().none {it !in 'A'..'Z' && it !in 'a'..'z'&& it !in punctuation})
+
+        if(mEnglishEditText.text.toString().any { it in symbols}
+            || mFrenchEditText.text.toString().any {it in symbols})
+        {
+            Toast.makeText(context, "Translation text has invalid characters!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (mEnglishEditText.text.toString().isEmpty()
+            || mFrenchEditText.text.toString().isEmpty()) {
+
+            Toast.makeText(context, "Translation text is empty!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        if (mEnglishEditText.text.length > 75
+            || mFrenchEditText.text.length > 80)
+        {
+            Toast.makeText(context, "Translation text exceeds the character limit!", Toast.LENGTH_SHORT).show()
+            return false
+        }
+
+        else {
+            return true
+        }
+
     }
 
 
