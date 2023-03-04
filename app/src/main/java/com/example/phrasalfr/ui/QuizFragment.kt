@@ -50,7 +50,6 @@ class QuizFragment : Fragment() {
     private val mMainViewModel: MainViewModel by activityViewModels<MainViewModel>()
     private lateinit var mPhrasalUtil: PhrasalUtil
     private lateinit var mTranslator: Translator
-    private lateinit var mTextToSpeech: TextToSpeech
 
     private lateinit var mQuestionSetting: String
     private lateinit var mAnswerSetting: String
@@ -401,7 +400,7 @@ class QuizFragment : Fragment() {
     private fun setUpUtils() {
         mPhrasalUtil = PhrasalUtil(context)
         mTranslator = mPhrasalUtil.getFRENTranslator()
-        mTextToSpeech = mPhrasalUtil.getTextToSpeech()
+        mPhrasalUtil.setUpTTS()
     }
 
 

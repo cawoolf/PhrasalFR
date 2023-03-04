@@ -60,7 +60,7 @@ class PhrasesFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         mPhrasalUtil = PhrasalUtil(context)
-        mTextToSpeech = mPhrasalUtil.getTextToSpeech()
+        mPhrasalUtil.setUpTTS()
 
         mENFRTranslator = mPhrasalUtil.getENFRTranslator()
         mFRENTranslator = mPhrasalUtil.getFRENTranslator()
@@ -123,11 +123,9 @@ class PhrasesFragment : Fragment() {
             val intent = Intent (activity, EditDatabaseActivity::class.java)
             activity?.startActivity(intent)
         }
-
+        mFrenchEditText.text.toString()
         mSpeakButton.setOnClickListener {
-            mTextToSpeech.speak(mFrenchEditText.text.toString(),
-                TextToSpeech.QUEUE_ADD,
-                null)
+           mPhrasalUtil.useTextToSpeech( mFrenchEditText.text.toString())
         }
 
     }

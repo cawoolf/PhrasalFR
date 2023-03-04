@@ -10,6 +10,7 @@ import com.example.phrasalfr.PhrasalFRApplication
 import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.ActivityEditDatabaseBinding
+import com.example.phrasalfr.util.PhrasalUtil
 import com.example.phrasalfr.util.PhraseListAdapter
 import kotlinx.coroutines.runBlocking
 
@@ -18,6 +19,8 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
     private lateinit var recyclerView: RecyclerView
 
     private lateinit var mMainViewModel: MainViewModel
+
+    private lateinit var mPhrasalUtil: PhrasalUtil
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,11 +31,16 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
 
         recyclerView = binding.editDbRecyclerView
 
-
+        setUpUtils()
         setUpViewModel()
         loadDataIntoRecyclerView()
     }
 
+    private fun setUpUtils() {
+        mPhrasalUtil = PhrasalUtil(this)
+        mPhrasalUtil.setUpTTS()
+
+    }
     private fun loadDataIntoRecyclerView() {
 
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
@@ -66,5 +74,9 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
 
         Toast.makeText(this, "Phrase deleted!", Toast.LENGTH_SHORT).show()
         loadDataIntoRecyclerView()
+    }
+
+    override fun speakFrenchPhrase(frenchPhrase: String) {
+        mPhrasalUtil.useTextToSpeech(frenchPhrase)
     }
 }

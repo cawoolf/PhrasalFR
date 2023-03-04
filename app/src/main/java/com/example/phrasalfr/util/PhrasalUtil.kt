@@ -1,13 +1,12 @@
 package com.example.phrasalfr.util
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.speech.tts.TextToSpeech
 import android.util.Log
-import com.example.phrasalfr.R
-import com.google.mlkit.common.model.DownloadConditions
-import com.google.mlkit.common.model.RemoteModelManager
-import com.google.mlkit.nl.translate.*
+import com.google.mlkit.nl.translate.TranslateLanguage
+import com.google.mlkit.nl.translate.Translation
+import com.google.mlkit.nl.translate.Translator
+import com.google.mlkit.nl.translate.TranslatorOptions
 import java.util.*
 
 
@@ -40,7 +39,7 @@ class PhrasalUtil(val context: Context?) {
 
 
     // Sets up the TextToSpeech function for use in the Fragment
-    private fun setUpTTS() {
+     fun setUpTTS() {
         mTextToSpeech = TextToSpeech(context, TextToSpeech.OnInitListener {
             if(it== TextToSpeech.SUCCESS){
                 mTextToSpeech.language = Locale.FRENCH
@@ -62,11 +61,6 @@ class PhrasalUtil(val context: Context?) {
             TextToSpeech.QUEUE_ADD,
             null)
         }
-    }
-
-    fun getTextToSpeech(): TextToSpeech {
-        setUpTTS()
-        return mTextToSpeech
     }
 
     fun getENFRTranslator() : Translator {

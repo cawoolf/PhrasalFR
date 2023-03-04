@@ -49,6 +49,8 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapter
 
         }
 
+        holder.view.setOnClickListener { mListener.speakFrenchPhrase(item.phraseFrench) }
+
     }
 
     override fun getItemCount(): Int {
@@ -61,5 +63,6 @@ class PhraseListAdapter(private val allPhrases: List<Phrase>, listener: IAdapter
      */
     interface IAdapterDeletePhrase {
         fun deletePhrase(englishPhrase : String)
+        fun speakFrenchPhrase(frenchPhrase : String)
     }
 }
