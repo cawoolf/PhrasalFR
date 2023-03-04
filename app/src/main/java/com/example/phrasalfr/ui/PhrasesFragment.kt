@@ -191,9 +191,9 @@ class PhrasesFragment : Fragment() {
 
     private fun checkTranslationData() : Boolean {
 
-        Log.i("dataTAG", mEnglishEditText.text.toString())
-        Log.i("dataTAG", mFrenchEditText.text.toString())
-        val symbols = "0123456789}]/:%&^*()+$><+=-#@]"
+        Log.i("dataTAG", mEnglishEditText.text.length.toString())
+        Log.i("dataTAG", mFrenchEditText.text.length.toString())
+        val symbols = "0123456789}]/:%&^*()+$><+=#@_]"
         val punctuation = ".!?"
 
         return !(mEnglishEditText.text.toString().any { it in symbols}

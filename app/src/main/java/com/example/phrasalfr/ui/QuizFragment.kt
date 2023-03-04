@@ -74,16 +74,7 @@ class QuizFragment : Fragment() {
         val root: View = binding.root
 
         linkViews()
-//
-//        mEnoughWordsInDB = dataCheck();
-//
-//        if(mEnoughWordsInDB) {
-//            setupQuiz()
-//        }
-//        else {
-//            mQuestionTextView.text = "Not enough words in the database! \n" +
-//                    "Add more to create the Quiz!"
-//        }
+        createQuizLayout()
 
         return root
     }
@@ -91,6 +82,9 @@ class QuizFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // Restarts the quiz is you navigate away from the quiz screen, and then return.
+    }
+
+    private fun createQuizLayout() {
         mMainViewModel.resetAskedQuestionSet()
         mMainViewModel.resetTotalPhraseCount()
 
@@ -104,6 +98,7 @@ class QuizFragment : Fragment() {
                     "Add more from the Phrases Tab to create the Quiz!"
             mQuestionCountTextView.text="0 / 0"
         }
+
     }
 
     private fun dataCheck(): Boolean {
@@ -387,12 +382,13 @@ class QuizFragment : Fragment() {
         )
 
         mQuestionSetting =
-            sharedPref?.getString(getString(R.string.question_format_key), "default").toString()
+            sharedPref?.getString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_text)).toString()
         mAnswerSetting =
-            sharedPref?.getString(getString(R.string.answer_format_key), "default").toString()
+            sharedPref?.getString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_english_text)).toString()
         mCategorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),getString(R.string.all_phrases_category)).toString()
 
-        Log.i("quizTAG", mCategorySetting.toString())
+        Log.i("prefsTAG", mQuestionSetting.toString())
+        Log.i("prefsTAG", mAnswerSetting.toString())
     }
 
 

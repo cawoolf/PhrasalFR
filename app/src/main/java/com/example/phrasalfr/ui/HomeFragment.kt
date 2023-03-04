@@ -97,7 +97,7 @@ class HomeFragment : Fragment() {
 
         val questionSetting = sharedPref?.getString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_text))
         val answerSetting = sharedPref?.getString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_english_text))
-        val categorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),"Vocabulary")
+        val categorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),getString(R.string.all_phrases_category))
 
         when (questionSetting){
             getString(R.string.question_format_value_english_text) -> mQuestionEnglishText.isChecked = true
