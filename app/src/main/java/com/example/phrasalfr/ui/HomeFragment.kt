@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
     private lateinit var mAnswerFrenchAudio: RadioButton
 
     private lateinit var mStartQuizButton: RelativeLayout
+    private lateinit var mAddPhrasesButton: RelativeLayout
 
     private val mMainViewModel: MainViewModel by activityViewModels<MainViewModel>()
 
@@ -85,7 +86,8 @@ class HomeFragment : Fragment() {
         mAnswerFrenchText = binding.settingsAnswerFrenchTextRadioButton
         mAnswerFrenchAudio = binding.settingsAnswerFrenchAudioRadioButton
 
-        mStartQuizButton = binding.settingStartQuizButton
+        mStartQuizButton = binding.settingsStartQuizButton
+        mAddPhrasesButton = binding.settingsAddPhrasesButton
 
     }
 
@@ -154,6 +156,11 @@ class HomeFragment : Fragment() {
                 mMainViewModel.userClicksStartQuiz(true)
 
         }
+
+        mAddPhrasesButton.setOnClickListener {
+            mMainViewModel.userClicksAddPhrases(true)
+        }
+
 
 
     }

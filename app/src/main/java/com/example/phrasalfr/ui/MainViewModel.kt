@@ -19,6 +19,7 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
     private lateinit var mAnswerPhrasesIndexArray: IntArray
 
     val navigateToQuiz = MutableLiveData<Boolean>()
+    val navigateToPhrases = MutableLiveData<Boolean>()
 
 
     // Quiz Logic
@@ -106,6 +107,11 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         navigateToQuiz.value = buttonClicked
         Log.i("mVM", navigateToQuiz.value.toString())
 
+    }
+
+    fun userClicksAddPhrases(buttonClicked: Boolean) {
+        navigateToPhrases.value = buttonClicked
+        Log.i("mVM", navigateToPhrases.value.toString())
     }
 
     // Getters

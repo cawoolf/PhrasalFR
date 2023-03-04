@@ -1,13 +1,14 @@
 package com.example.phrasalfr.ui
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.phrasalfr.PhrasalFRApplication
-import com.example.phrasalfr.R
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.databinding.ActivityEditDatabaseBinding
 import com.example.phrasalfr.util.PhrasalUtil
@@ -32,6 +33,7 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
         recyclerView = binding.editDbRecyclerView
 
         setUpUtils()
+        setUpActionBar()
         setUpViewModel()
         loadDataIntoRecyclerView()
     }
@@ -41,6 +43,8 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
         mPhrasalUtil.setUpTTS()
 
     }
+
+
     private fun loadDataIntoRecyclerView() {
 
         recyclerView.layoutManager = LinearLayoutManager(applicationContext)
@@ -78,5 +82,36 @@ class EditDatabaseActivity : AppCompatActivity(), PhraseListAdapter.IAdapterDele
 
     override fun speakFrenchPhrase(frenchPhrase: String) {
         mPhrasalUtil.useTextToSpeech(frenchPhrase)
+    }
+
+    // Navigation logic for the back Arrow at the top of the Activity
+    private fun setUpActionBar() {
+        val actionbar = supportActionBar
+        //set actionbar title
+        actionbar!!.title = "Edit Phrases"
+        //set back button
+        actionbar.setDisplayHomeAsUpEnabled(true)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    override fun onBackPressed() {
+        val fm: FragmentManager = supportFragmentManager
+        val backStackCount: Int = fm.backStackEntryCount
+        if (backStackCount > 0) {
+            // If there are Fragments on the back stack, pop the topmost Fragment
+            fm.popBackStackImmediate()
+        } else {
+            // If there are no Fragments on the back stack, call super to exit the app
+            super.onBackPressed()
+        }
     }
 }

@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
 
         setUpViewModel()
         setUpQuizButtonObserver()
+        setUpPhrasesButtonObserver()
         Log.i("mMA", "started")
 
     }
@@ -54,6 +55,15 @@ class MainActivity : AppCompatActivity() {
         mMainViewModel.navigateToQuiz.observe(this, Observer {
 
             binding.navView.selectedItemId = R.id.navigation_quiz
+            Log.i("mMA", it.toString())
+
+        })
+    }
+
+    private fun setUpPhrasesButtonObserver() {
+        mMainViewModel.navigateToPhrases.observe(this, Observer {
+
+            binding.navView.selectedItemId = R.id.navigation_phrases
             Log.i("mMA", it.toString())
 
         })
