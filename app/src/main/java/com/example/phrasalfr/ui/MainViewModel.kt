@@ -1,6 +1,7 @@
 package com.example.phrasalfr.ui
 
 import android.util.Log
+import android.widget.ProgressBar
 import androidx.lifecycle.*
 import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
@@ -99,6 +100,15 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
         Log.i("qTAG", "C: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2]).phraseEnglish)
         Log.i("qTAG", "D: " + mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3]).phraseEnglish)
 
+
+    }
+
+    fun updateProgressBar(progressBar: ProgressBar) {
+
+        progressBar.max = this.getTotalPhraseCount()
+        progressBar.progress = this.getAskedQuestionCount()
+        val percentage = progressBar.progress * 100 / progressBar.max
+        progressBar.progress = 50
 
     }
 

@@ -39,6 +39,7 @@ class QuizFragment : Fragment() {
     private lateinit var mAnswerLinearLayoutD: LinearLayout
 
     private lateinit var mSubmitButton: RelativeLayout
+    private lateinit var mProgressBar: ProgressBar
 
     private var mEnoughWordsInDB: Boolean = true;
     private lateinit var mQuestionPhrase: Phrase
@@ -90,13 +91,12 @@ class QuizFragment : Fragment() {
 
         mEnoughWordsInDB = dataCheck();
 
-        if(mEnoughWordsInDB) {
+        if (mEnoughWordsInDB) {
             setupQuiz()
-        }
-        else {
+        } else {
             mQuestionTextView.text = "Not enough Phrases in the database! \n" +
                     "Add more from the Phrases Tab to create the Quiz!"
-            mQuestionCountTextView.text="0 / 0"
+            mQuestionCountTextView.text = "0 / 0"
         }
 
     }
@@ -104,7 +104,7 @@ class QuizFragment : Fragment() {
     private fun dataCheck(): Boolean {
 
         mMainViewModel.buildQuestion(getString(R.string.phrases_category));
-        if(mMainViewModel.getTotalPhraseCount() < 4) {
+        if (mMainViewModel.getTotalPhraseCount() < 4) {
             // Then don't run the quiz. It will crash without atleast 4 entries in the database
             return false;
         }
@@ -119,6 +119,9 @@ class QuizFragment : Fragment() {
         mQuestionCountTextView = binding.quizQuestionCountTextView
 
         mSubmitButton = binding.submitQuizButton
+        mProgressBar = binding.quizProgressBar
+
+        mProgressBar.progress = 20
 
         mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
         mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
@@ -137,51 +140,59 @@ class QuizFragment : Fragment() {
         // Will crash if there are not enough words in the database. Needs to be words >= 4
         // Or break into an infinite loop..
 
+        // Setup the Progress Bar
+
         // Phrases is the default Phrase category!
         mMainViewModel.buildQuestion(getString(R.string.phrases_category))
 
-            mMainViewModel.generateAnswerPhrases()
-            mQuestionPhrase = mMainViewModel.getQuestionPhrase()
-            Log.i("quizTag", "setUpQuiz")
+        mMainViewModel.generateAnswerPhrases()
+        mQuestionPhrase = mMainViewModel.getQuestionPhrase()
+        Log.i("quizTag", "setUpQuiz")
 
-            // Checks to see if the question is unique
-            if(mMainViewModel.uniqueQuestion(mQuestionPhrase)) {
-                Log.i("quizTag", "inside If" )
-                mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
-                mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
-                formatQuizUI()
-                setOnClicks()
+        // Checks to see if the question is unique
+        if (mMainViewModel.uniqueQuestion(mQuestionPhrase)) {
+            Log.i("quizTag", "inside If")
+            mAnswerPhrasesSet = mMainViewModel.getAnswerPhraseSet()
+            mAnswerPhrasesIndexArray = mMainViewModel.getAnswerPhrasesIndexArray()
+            formatQuizUI()
+            setOnClicks()
 
-                Log.i("quizTag", "Question Count: " + mMainViewModel.getAskedQuestionCount().toString() + "\n" +
-                        "Total Phrase Count: " + mMainViewModel.getTotalPhraseCount().toString())
+            Log.i(
+                "quizTag",
+                "Question Count: " + mMainViewModel.getAskedQuestionCount().toString() + "\n" +
+                        "Total Phrase Count: " + mMainViewModel.getTotalPhraseCount().toString()
+            )
 
-                mQuestionCountTextView.text =
-                    "${mMainViewModel.getAskedQuestionCount().toString()} / ${mMainViewModel.getTotalPhraseCount().toString()}"
+            mQuestionCountTextView.text =
+                "${
+                    mMainViewModel.getAskedQuestionCount().toString()
+                } / ${mMainViewModel.getTotalPhraseCount().toString()}"
+
+//            mMainViewModel.updateProgressBar(mProgressBar)
+
+        }
+
+        // Re runs setUpQuiz if the Question was not unique for this session
+        else {
+            Log.i("quizTag", "inside else")
+
+            // If the total asked questions are equal or exceed the phrase list size the quiz resets
+            if (mMainViewModel.getAskedQuestionCount() >= mMainViewModel.getTotalPhraseCount()) {
+                Toast.makeText(context, "Quiz Finished!... Resetting", Toast.LENGTH_LONG).show()
+                mMainViewModel.resetAskedQuestionSet()
+                mMainViewModel.resetTotalPhraseCount()
+                setupQuiz()
+
             }
 
-            // Re runs setUpQuiz if the Question was not unique for this session
-            else{
-                Log.i("quizTag", "inside else")
-
-                // If the total asked questions are equal or exceed the phrase list size the quiz resets
-                if(mMainViewModel.getAskedQuestionCount() >= mMainViewModel.getTotalPhraseCount())
-                {
-                    Toast.makeText(context, "Quiz Finished!... Resetting", Toast.LENGTH_LONG).show()
-                    mMainViewModel.resetAskedQuestionSet()
-                    mMainViewModel.resetTotalPhraseCount()
-                    setupQuiz()
-
-                }
-
-                // Else the recursively tries to generate another question until it's unique.
-                // Not the most efficient for sure..
-                else {
-                    setupQuiz()
-                }
+            // Else the recursively tries to generate another question until it's unique.
+            // Not the most efficient for sure..
+            else {
+                setupQuiz()
+            }
         }
 
     }
-
 
 
     private fun setOnClicks() {
@@ -222,7 +233,8 @@ class QuizFragment : Fragment() {
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[0])
 
             if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio) ||
-                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)
+            ) {
                 val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
@@ -243,7 +255,8 @@ class QuizFragment : Fragment() {
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[1])
 
             if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio) ||
-                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)
+            ) {
                 val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
@@ -263,7 +276,8 @@ class QuizFragment : Fragment() {
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[2])
 
             if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio) ||
-                    mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)
+            ) {
                 val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
@@ -283,7 +297,8 @@ class QuizFragment : Fragment() {
             answerPhrase = mAnswerPhrasesSet.elementAt(mAnswerPhrasesIndexArray[3])
 
             if (mAnswerSetting.toString() == getString(R.string.answer_format_value_french_audio) ||
-                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)) {
+                mAnswerSetting.toString() == getString(R.string.answer_format_value_french_text)
+            ) {
                 val frenchText = answerPhrase.phraseFrench
                 mPhrasalUtil.useTextToSpeech(frenchText)
             }
@@ -382,10 +397,19 @@ class QuizFragment : Fragment() {
         )
 
         mQuestionSetting =
-            sharedPref?.getString(getString(R.string.question_format_key), getString(R.string.question_format_value_french_text)).toString()
+            sharedPref?.getString(
+                getString(R.string.question_format_key),
+                getString(R.string.question_format_value_french_text)
+            ).toString()
         mAnswerSetting =
-            sharedPref?.getString(getString(R.string.answer_format_key), getString(R.string.answer_format_value_english_text)).toString()
-        mCategorySetting = sharedPref?.getString(getString(R.string.phrase_category_key),getString(R.string.all_phrases_category)).toString()
+            sharedPref?.getString(
+                getString(R.string.answer_format_key),
+                getString(R.string.answer_format_value_english_text)
+            ).toString()
+        mCategorySetting = sharedPref?.getString(
+            getString(R.string.phrase_category_key),
+            getString(R.string.all_phrases_category)
+        ).toString()
 
         Log.i("prefsTAG", mQuestionSetting.toString())
         Log.i("prefsTAG", mAnswerSetting.toString())
