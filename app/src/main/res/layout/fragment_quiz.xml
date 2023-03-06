@@ -14,16 +14,17 @@
         android:id="@+id/quiz_progress_bar"
         android:layout_width="match_parent"
         android:layout_height="30dp"
-
+        android:indeterminate="false"
+        android:max="100"
+        android:progress="0"
         style="?android:attr/progressBarStyleHorizontal"
-
+        android:secondaryProgress="0"
         android:visibility="visible"
-
-        android:scaleType="fitXY"
-
         android:layout_margin="8dp"
 
-        android:progressDrawable="@drawable/french_flag_progress_bar"
+        android:background="@drawable/progress_bar_background"
+
+        android:progressDrawable="@drawable/progress_bar_french_flag_gradient"
 
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

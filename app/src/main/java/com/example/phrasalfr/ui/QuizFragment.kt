@@ -121,7 +121,7 @@ class QuizFragment : Fragment() {
         mSubmitButton = binding.submitQuizButton
         mProgressBar = binding.quizProgressBar
 
-        mProgressBar.progress = 20
+        mProgressBar.progress = 45
 
         mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
         mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
