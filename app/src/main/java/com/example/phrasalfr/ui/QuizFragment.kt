@@ -76,12 +76,8 @@ class QuizFragment : Fragment() {
         linkViews()
         createQuizLayout()
 
-        return root
-    }
 
-    override fun onResume() {
-        super.onResume()
-        // Restarts the quiz is you navigate away from the quiz screen, and then return.
+        return root
     }
 
     private fun createQuizLayout() {
