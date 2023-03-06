@@ -80,6 +80,11 @@ class QuizFragment : Fragment() {
         return root
     }
 
+    override fun onResume() {
+        super.onResume()
+        updateProgressBar()
+    }
+
     private fun createQuizLayout() {
         mMainViewModel.resetAskedQuestionSet()
         mMainViewModel.resetTotalPhraseCount()
