@@ -113,9 +113,6 @@ class PhrasesFragment : Fragment() {
             if(translationDataValid) {
                 addPhraseToDB()
             }
-            else {
-                Toast.makeText(context, "Phrase not added to Quiz", Toast.LENGTH_SHORT).show()
-            }
 
         }
 
@@ -236,10 +233,6 @@ class PhrasesFragment : Fragment() {
 
                 mFrenchEditText.setText(it.toString())
 
-//                mTextToSpeech.speak(mFrenchEditText.text.toString(),
-//                TextToSpeech.QUEUE_ADD,
-//                null)
-
                 mTranslateSuccess = true
             }
             .addOnFailureListener {
@@ -262,10 +255,6 @@ class PhrasesFragment : Fragment() {
 
                 mEnglishEditText.setText(it.toString())
 
-//                mTextToSpeech.speak(mFrenchEditText.text.toString(),
-//                    TextToSpeech.QUEUE_ADD,
-//                    null)
-
                 mTranslateSuccess = true
             }
             .addOnFailureListener {
@@ -278,8 +267,6 @@ class PhrasesFragment : Fragment() {
     }
 
     private fun addPhraseToDB() {
-
-//        buildPhraseAlertDialog()
 
         val category = getString(R.string.phrases_category)
 
@@ -294,63 +281,6 @@ class PhrasesFragment : Fragment() {
             Toast.makeText(context, "Phrase Added!", Toast.LENGTH_SHORT).show()
 
         }
-    }
-
-    private fun buildPhraseAlertDialog() {
-        val builder = AlertDialog.Builder(context, R.style.CustomAlertDialog)
-            .create()
-        val view = layoutInflater.inflate(R.layout.alert_dialog_add_phrase,null)
-
-        var category = ""
-
-        val vocabularyCategory = view.findViewById<Chip>(R.id.alert_vocabulary_Chip)
-        val phrasesCategory = view.findViewById<Chip>(R.id.alert_phrases_Chip)
-
-        val  dismissButton = view.findViewById<Button>(R.id.dismiss_button)
-        val  approveButton = view.findViewById<Button>(R.id.approve_button)
-
-        builder.setView(view)
-
-        vocabularyCategory.setOnClickListener {
-            category = "Vocabulary"
-        }
-
-        phrasesCategory.setOnClickListener {
-            category = "Phrases"
-        }
-
-        dismissButton.setOnClickListener {
-            builder.dismiss()
-        }
-
-        approveButton.setOnClickListener {
-
-            if (category.equals("") ){
-                Toast.makeText(context,"Select a Category!", Toast.LENGTH_SHORT).show()
-            }
-
-            else {
-
-                if (mTranslateSuccess) {
-                    val englishText = mEnglishEditText.text.toString()
-                    val frenchText = mFrenchEditText.text.toString()
-
-                    val phrase = Phrase(category, englishText, frenchText)
-
-                    mMainViewModel.insert(phrase)
-
-                    Toast.makeText(context, "Phrase Added!", Toast.LENGTH_SHORT).show()
-
-                    builder.dismiss()
-
-                }
-            }
-
-        }
-
-
-        builder.setCanceledOnTouchOutside(false)
-        builder.show()
     }
     override fun onDestroyView() {
         super.onDestroyView()
