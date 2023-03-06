@@ -17,6 +17,7 @@
         android:indeterminate="false"
         android:max="100"
         android:progress="0"
+
         style="?android:attr/progressBarStyleHorizontal"
         android:secondaryProgress="0"
         android:visibility="visible"

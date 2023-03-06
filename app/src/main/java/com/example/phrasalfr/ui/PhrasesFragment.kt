@@ -268,6 +268,7 @@ class PhrasesFragment : Fragment() {
 
     private fun addPhraseToDB() {
 
+
         val category = getString(R.string.phrases_category)
 
         if (mTranslateSuccess) {

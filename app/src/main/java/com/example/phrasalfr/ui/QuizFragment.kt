@@ -121,8 +121,6 @@ class QuizFragment : Fragment() {
         mSubmitButton = binding.submitQuizButton
         mProgressBar = binding.quizProgressBar
 
-        mProgressBar.progress = 45
-
         mAnswerTextViewA = binding.quizAnswerALinearLayoutTextView
         mAnswerTextViewB = binding.quizAnswerBLinearLayoutTextView
         mAnswerTextViewC = binding.quizAnswerCLinearLayoutTextView
@@ -196,6 +194,11 @@ class QuizFragment : Fragment() {
             } / ${mMainViewModel.getTotalPhraseCount().toString()}"
 
         mMainViewModel.updateProgressBar(mProgressBar)
+    }
+
+    private fun resetProgressBar() {
+        mMainViewModel.resetProgressBar(mProgressBar)
+
     }
 
 

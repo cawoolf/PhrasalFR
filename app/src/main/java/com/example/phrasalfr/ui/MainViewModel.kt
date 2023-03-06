@@ -110,13 +110,16 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
         progressBar.progress = percentage.roundToInt()
 
-        Log.i("pTAG", "Max:" + progressBar.max.toString())
+        Log.i("pTAG", "Asked Questions:" + getAskedQuestionCount().toString())
         Log.i("pTAG", "Progress" +  progressBar.progress.toString())
         Log.i("pTAG", "Percentage:$percentage")
 
 
+    }
 
-//        progressBar.progress = percentage
+    fun resetProgressBar(progressBar: ProgressBar) {
+
+          progressBar.progress = 0
 
     }
 
