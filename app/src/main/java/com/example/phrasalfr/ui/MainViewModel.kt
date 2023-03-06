@@ -7,6 +7,7 @@ import com.example.phrasalfr.database.Phrase
 import com.example.phrasalfr.database.PhraseRepository
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
+import kotlin.math.roundToInt
 
 class MainViewModel(private val phraseRepository: PhraseRepository,
                     private val categorySetting: String): ViewModel() {
@@ -105,10 +106,17 @@ class MainViewModel(private val phraseRepository: PhraseRepository,
 
     fun updateProgressBar(progressBar: ProgressBar) {
 
-        progressBar.max = this.getTotalPhraseCount()
-        progressBar.progress = this.getAskedQuestionCount()
-        val percentage = progressBar.progress * 100 / progressBar.max
-        progressBar.progress = 50
+        val percentage = (getAskedQuestionCount().toDouble() / getTotalPhraseCount().toDouble()) * 100
+
+        progressBar.progress = percentage.roundToInt()
+
+        Log.i("pTAG", "Max:" + progressBar.max.toString())
+        Log.i("pTAG", "Progress" +  progressBar.progress.toString())
+        Log.i("pTAG", "Percentage:$percentage")
+
+
+
+//        progressBar.progress = percentage
 
     }
 

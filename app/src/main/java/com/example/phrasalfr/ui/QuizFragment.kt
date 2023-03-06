@@ -2,7 +2,6 @@ package com.example.phrasalfr.ui
 
 import android.content.Context
 import android.os.Bundle
-import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -163,12 +162,7 @@ class QuizFragment : Fragment() {
                         "Total Phrase Count: " + mMainViewModel.getTotalPhraseCount().toString()
             )
 
-            mQuestionCountTextView.text =
-                "${
-                    mMainViewModel.getAskedQuestionCount().toString()
-                } / ${mMainViewModel.getTotalPhraseCount().toString()}"
-
-//            mMainViewModel.updateProgressBar(mProgressBar)
+            updateProgressBar()
 
         }
 
@@ -192,6 +186,15 @@ class QuizFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun updateProgressBar() {
+        mQuestionCountTextView.text =
+            "${
+                mMainViewModel.getAskedQuestionCount().toString()
+            } / ${mMainViewModel.getTotalPhraseCount().toString()}"
+
+        mMainViewModel.updateProgressBar(mProgressBar)
     }
 
 
